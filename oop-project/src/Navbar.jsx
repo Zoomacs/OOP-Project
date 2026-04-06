@@ -2,8 +2,6 @@ import { useState } from "react";
 import Home from "./Home";
 import Contact from "./Contact";
 import "./main.css";
-import { ThemeContext } from "./App";
-import { useContext } from "react";
 import Restaurant from "./Restaurant";
 import { House, Moon, Sun, Utensils, Headset } from "lucide-react";
 
@@ -13,7 +11,8 @@ function Navbar() {
   const [restaurant, setrestaurant] = useState("nav-icon");
   const [contact, setcontact] = useState("nav-icon");
 
-  const { theme, settheme } = useContext(ThemeContext);
+  const [theme, settheme] = useState("light");
+
   function ToggleTheme() {
     theme === "light" ? settheme("dark") : settheme("light");
     document.body.classList.toggle("dark");

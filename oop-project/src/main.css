@@ -14,6 +14,9 @@
   --nav-icon-hover: rgb(49, 49, 49);
   --border-color: rgb(55, 55, 55);
 }
+* {
+  -webkit-tap-highlight-color: transparent;
+}
 body {
   margin: 0px;
   background-color: var(--background-color);
@@ -28,6 +31,8 @@ p {
   cursor: pointer;
   position: absolute;
   left: 0;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .logo tspan {
@@ -36,8 +41,8 @@ p {
 }
 
 .logo text {
-  fill:var(--text-color);
-  font-family: 'Playpen Sans', cursive;
+  fill: var(--text-color);
+  font-family: "Playpen Sans", cursive;
   font-weight: 800;
   font-size: 110px;
 }
@@ -46,11 +51,11 @@ p {
   justify-content: center;
   border-bottom: 1px solid var(--border-color);
   position: relative;
+  font-size: 24px;
 }
 .nav-icon {
   padding: 8px 10px;
   margin: 5px 5px;
-  font-size: 18px;
   color: var(--text-muted);
   cursor: pointer;
   transition: all 0.2s ease-in-out;
@@ -135,8 +140,6 @@ p {
   color: #f5c903;
 }
 
-
-
 @media (max-width: 480px) {
   .navbar {
     position: fixed;
@@ -153,9 +156,9 @@ p {
     display: none;
   }
   .nav-icon:hover {
-    background-color: none;
+    background-color: transparent;
   }
-   .nav-icon.curr {
+  .nav-icon.curr {
     color: var(--text-color);
     border: none;
   }
