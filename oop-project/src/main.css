@@ -22,6 +22,25 @@ body {
 p {
   margin: 0px;
 }
+.logo {
+  width: 100px;
+  height: 50px;
+  cursor: pointer;
+  position: absolute;
+  left: 0;
+}
+
+.logo tspan {
+  fill: var(--primary-color);
+  font-size: 110px;
+}
+
+.logo text {
+  fill:var(--text-color);
+  font-family: 'Playpen Sans', cursive;
+  font-weight: 800;
+  font-size: 110px;
+}
 .navbar {
   display: flex;
   justify-content: center;
@@ -74,8 +93,10 @@ p {
 .nav-icon svg {
   display: none;
 }
-.curr {
+.nav-icon.curr {
+  color: var(--text-color);
   border-bottom: 2px solid var(--primary-color);
+  transition: all 0.2s ease-in-out;
 }
 .curr:hover::after {
   width: 0;
@@ -114,9 +135,7 @@ p {
   color: #f5c903;
 }
 
-.logo svg{
-  color: blue;
-}
+
 
 @media (max-width: 480px) {
   .navbar {
@@ -136,7 +155,7 @@ p {
   .nav-icon:hover {
     background-color: none;
   }
-  .curr {
+   .nav-icon.curr {
     color: var(--text-color);
     border: none;
   }

@@ -6,8 +6,6 @@ import { ThemeContext } from "./App";
 import { useContext } from "react";
 import Restaurant from "./Restaurant";
 import { House, Moon, Sun, Utensils, Headset } from "lucide-react";
-import { ReactComponent as Icon } from "./assets/icon.svg";
-
 
 function Navbar() {
   const [curPage, setpage] = useState("home");
@@ -46,7 +44,25 @@ function Navbar() {
       <header>
         <nav>
           <div className="navbar">
-<Icon/>
+            <svg
+              className="logo"
+              onClick={() => {
+                navigate("home");
+              }}
+              viewBox="0 0 500 200"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect rx="40" />
+
+              <text
+                x="50%"
+                y="50%"
+                dominantBaseline="middle"
+                textAnchor="middle"
+              >
+                <tspan>Q</tspan>-Less
+              </text>
+            </svg>
             <div
               className={home}
               onClick={() => {

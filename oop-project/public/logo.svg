@@ -3,7 +3,7 @@
 
   </defs>
   
-  <rect width="200" height="200" rx="40" fill="#D21F3C" />
+  <rect width="200" height="200" rx="40" fill="#b12c16" />
   
   <text 
     x="50%" 
@@ -14,6 +14,6 @@
     font-family="'Playpen Sans', cursive" 
     font-weight="800"
     font-size="110">
-    Q<tspan font-size="90" dy="50">L</tspan>
+    Q<tspan font-size="90" dy="50" fill="#570d00">L</tspan>
   </text>
 </svg>
