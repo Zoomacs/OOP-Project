@@ -3,13 +3,22 @@ import Home from "./Home";
 import Contact from "./Contact";
 import "./main.css";
 import Restaurant from "./Restaurant";
-import { House, Moon, Sun, Utensils, Headset } from "lucide-react";
+import {
+  House,
+  Moon,
+  Sun,
+  Utensils,
+  Headset,
+  ShoppingCart,
+} from "lucide-react";
+import Cart from "./Cart";
 
 function Navbar() {
   const [curPage, setpage] = useState("home");
   const [home, sethome] = useState("curr nav-icon");
   const [restaurant, setrestaurant] = useState("nav-icon");
   const [contact, setcontact] = useState("nav-icon");
+  const [cart, setcart] = useState("cart-icon");
 
   const [theme, settheme] = useState("light");
 
@@ -23,18 +32,28 @@ function Navbar() {
       sethome("curr nav-icon");
       setrestaurant("nav-icon");
       setcontact("nav-icon");
+      setcart("cart-icon");
     } else if (page === "contact") {
       sethome("nav-icon");
       setrestaurant("nav-icon");
       setcontact("curr nav-icon");
+      setcart("cart-icon");
     } else if (page === "test") {
       sethome("nav-icon");
       setrestaurant("nav-icon");
       setcontact("nav-icon");
+      setcart("cart-icon");
     } else if (page === "restaurant") {
       sethome("nav-icon");
       setrestaurant("curr nav-icon");
       setcontact("nav-icon");
+      setcart("cart-icon");
+    }
+     else if (page === "cart") {
+      sethome("nav-icon");
+      setrestaurant("nav-icon");
+      setcontact("nav-icon");
+      setcart("curr cart-icon");
     }
   }
 
@@ -88,6 +107,15 @@ function Navbar() {
             >
               <Headset /> <p>Contact</p>
             </div>
+            <div
+              className={cart}
+              onClick={() => {
+                navigate("cart");
+              }}
+            >
+              <ShoppingCart />
+            </div>
+
             <button
               className={`theme-button ${theme == "light" ? "light" : ""}`}
               onClick={ToggleTheme}
@@ -99,6 +127,7 @@ function Navbar() {
           {curPage == "home" && <Home />}
           {curPage == "contact" && <Contact />}
           {curPage == "restaurant" && <Restaurant />}
+          {curPage == "cart" && <Cart />}
         </nav>
       </header>
     </>

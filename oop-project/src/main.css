@@ -103,6 +103,9 @@ p {
   border-bottom: 2px solid var(--primary-color);
   transition: all 0.2s ease-in-out;
 }
+.cart-icon.curr{
+    color: var(--text-color);
+}
 .curr:hover::after {
   width: 0;
 }
@@ -130,14 +133,29 @@ p {
   transform: translateY(-50%);
 }
 .theme-button svg {
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
 }
 .theme-button.light:hover {
   color: var(--primary-color);
 }
 .theme-button:hover {
   color: #f5c903;
+}
+.cart-icon {
+  border: none;
+  border-radius: 100%;
+  cursor: pointer;
+  background-color: transparent;
+  color: var(--text-muted);
+  transition: all 0.2s ease-in-out;
+  position: absolute;
+  right: 50px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.cart-icon:hover {
+  color: var(--primary-color);
 }
 
 @media (max-width: 480px) {
