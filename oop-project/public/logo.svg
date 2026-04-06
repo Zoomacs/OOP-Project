@@ -1,0 +1,19 @@
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+
+  </defs>
+  
+  <rect width="200" height="200" rx="40" fill="#D21F3C" />
+  
+  <text 
+    x="50%" 
+    y="50%" 
+    dominant-baseline="middle" 
+    text-anchor="middle" 
+    fill="#FFFFFF" 
+    font-family="'Playpen Sans', cursive" 
+    font-weight="800"
+    font-size="110">
+    Q<tspan font-size="90" dy="50">L</tspan>
+  </text>
+</svg>

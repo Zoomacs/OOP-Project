@@ -9,7 +9,7 @@ function App() {
   const [theme, settheme] = useState("light");
 
   return (
-    <>
+    <>  
       <div className={theme}>
         <ThemeContext value={{ theme, settheme }}>
           <Navbar />
