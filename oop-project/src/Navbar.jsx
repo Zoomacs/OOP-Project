@@ -5,7 +5,7 @@ import "./main.css";
 import { ThemeContext } from "./App";
 import { useContext } from "react";
 import Restaurant from "./Restaurant";
-import { SunMoon } from 'lucide-react';
+import { House, Moon, Sun, Utensils,Headset } from 'lucide-react';
 
 function Navbar() {
   const [curPage, setpage] = useState("home");
@@ -50,7 +50,7 @@ function Navbar() {
                 navigate("home");
               }}
             >
-              <p>Home</p>
+              <House /><p>Home</p>
             </div>
             <div
               className={restaurant}
@@ -58,7 +58,7 @@ function Navbar() {
                 navigate("restaurant");
               }}
             >
-              <p>Restaurants</p>
+              <Utensils /><p>Restaurants</p>
             </div>
             <div
               className={contact}
@@ -66,10 +66,10 @@ function Navbar() {
                 navigate("contact");
               }}
             >
-              <p>Contact</p>
+             <Headset /> <p>Contact</p>
             </div>
-            <button className="nav-icon" onClick={ToggleTheme}>
-              Theme
+            <button className={`theme-button ${theme=="light"?"light":""}`} onClick={ToggleTheme}>
+              {theme=="light"?<Moon/>:<Sun/>}
             </button>
           </div>
 

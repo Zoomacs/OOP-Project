@@ -4,15 +4,15 @@
   --text-color: black;
   --text-muted: rgb(106, 105, 105);
   --nav-icon-hover: rgb(215, 214, 213);
-  --primary-color: #B12C16;
-  --border-color:rgb(213, 213, 213);
+  --primary-color: #b12c16;
+  --border-color: rgb(213, 213, 213);
 }
 .dark {
   --background-color: rgb(7, 6, 21);
   --text-color: white;
   --text-muted: rgb(168, 166, 166);
   --nav-icon-hover: rgb(49, 49, 49);
-  --border-color:rgb(55, 55, 55);
+  --border-color: rgb(55, 55, 55);
 }
 body {
   margin: 0px;
@@ -25,32 +25,117 @@ p {
 .navbar {
   display: flex;
   justify-content: center;
-  background-color: var(--background-color);
   border-bottom: 1px solid var(--border-color);
+  position: relative;
 }
 .nav-icon {
   padding: 8px 10px;
   margin: 5px 5px;
   color: var(--text-muted);
-  /* border-radius: 12px; */
   cursor: pointer;
   transition: all 0.2s ease-in-out;
   border: none;
+  position: relative;
+}
+.nav-icon::after {
+  content: "";
+  position: absolute;
+  width: 0px;
+  left: 50%;
+  bottom: 0px;
+  height: 1px;
+  background-color: var(--primary-color);
+  transition: width 0.2s ease-in-out;
+}
+.nav-icon::before {
+  content: "";
+  position: absolute;
+  width: 0px;
+  left: 50%;
+  bottom: 0px;
+  height: 1px;
+  background-color: var(--primary-color);
+  transition:
+    width 0.2s ease-in-out,
+    left 0.2s ease-in-out;
 }
 .nav-icon:hover {
-  transform: translateY(-3px);
-  transition: all 0.2s ease-in-out;
+  transition: all 0.4s ease-in-out;
   background-color: var(--nav-icon-hover);
+}
+.nav-icon:hover::after {
+  width: 50%;
+}
+.nav-icon:hover::before {
+  width: 50%;
+  left: 0px;
+}
+.nav-icon svg {
+  display: none;
 }
 .curr {
   border-bottom: 2px solid var(--primary-color);
-  /*  background-color: rgb(132, 53, 0); */
+}
+.curr:hover::after {
+  width: 0;
 }
 
-button {
+.curr::after {
+  transition: width 0s ease-in-out;
+}
+.curr:hover::before {
+  width: 0;
+}
+
+.curr::before {
+  transition: width 0s ease-in-out;
+}
+.theme-button {
   border: none;
   border-radius: 100%;
   cursor: pointer;
-  background-color: var(--nav-icon-hover);
+  background-color: transparent;
   color: var(--text-color);
+  transition: all 0.2s ease-in-out;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.theme-button svg {
+  width: 20px;
+  height: 20px;
+}
+.theme-button.light:hover {
+  color: var(--primary-color);
+}
+.theme-button:hover {
+  color: #f5c903;
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border-top: 1px solid var(--border-color);
+    border-bottom: none;
+  }
+  .nav-icon svg {
+    opacity: 0.5;
+    display: block;
+  }
+  .nav-icon p {
+    display: none;
+  }
+  .nav-icon:hover {
+    background-color: none;
+  }
+  .curr {
+    color: var(--text-color);
+    border: none;
+  }
+  .curr.nav-icon svg {
+    opacity: 1;
+  }
 }
