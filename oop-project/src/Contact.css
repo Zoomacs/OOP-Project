@@ -35,3 +35,21 @@
   outline: none;
   border-color: var(--primary-color);
 }
+
+@media (max-width: 480px) {
+  .card {
+    left: 0;
+    top: 100%;
+    height: max-content;
+    width: 100%;
+    background-color: var(--background-color);
+    padding: 0;
+    margin: 0;
+  }
+  #title {
+    background-color: var(--background-color);
+  }
+  #message {
+    background-color: var(--background-color);
+  }
+}
