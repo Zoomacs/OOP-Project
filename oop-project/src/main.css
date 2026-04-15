@@ -1,11 +1,12 @@
 :root {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
-  --background-color: white;
+  --background-color: #f9f6f5;
   --text-color: black;
   --text-muted: rgb(106, 105, 105);
   --nav-icon-hover: rgb(215, 214, 213);
   --primary-color: #b12c16;
   --border-color: rgb(213, 213, 213);
+  --box-color: white;
 }
 .dark {
   --background-color: rgb(7, 6, 21);
@@ -13,6 +14,7 @@
   --text-muted: rgb(168, 166, 166);
   --nav-icon-hover: rgb(49, 49, 49);
   --border-color: rgb(55, 55, 55);
+  --box-color: rgb(11, 9, 33);
 }
 * {
   -webkit-tap-highlight-color: transparent;
@@ -21,9 +23,26 @@ body {
   margin: 0px;
   background-color: var(--background-color);
   color: var(--text-color);
+  transition: all 0.2s ease-in-out;
 }
 p {
   margin: 0px;
+}
+input {
+  outline: none;
+  background-color: var(--box-color);
+   border: none;
+  border-bottom: solid 1px var(--border-color);
+/*   border-radius: 6px; */
+  transition: all 0.2s ease-in-out;
+}
+textarea {
+  outline: none;
+  background-color: var(--box-color);
+ border: none;
+  border-bottom: solid 1px var(--border-color);
+  /* border-radius: 6px; */
+  transition: all 0.2s ease-in-out;
 }
 .logo {
   width: 100px;
@@ -103,8 +122,8 @@ p {
   border-bottom: 2px solid var(--primary-color);
   transition: all 0.2s ease-in-out;
 }
-.cart-icon.curr{
-    color: var(--text-color);
+.cart-icon.curr {
+  color: var(--text-color);
 }
 .curr:hover::after {
   width: 0;

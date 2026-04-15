@@ -3,6 +3,7 @@ import Home from "./Home";
 import Contact from "./Contact";
 import "./main.css";
 import Restaurant from "./Restaurant";
+import Notification from "./Notification";
 import {
   House,
   Moon,
@@ -10,6 +11,7 @@ import {
   Utensils,
   Headset,
   ShoppingCart,
+  Bell,
 } from "lucide-react";
 import Cart from "./Cart";
 
@@ -19,7 +21,7 @@ function Navbar() {
   const [restaurant, setrestaurant] = useState("nav-icon");
   const [contact, setcontact] = useState("nav-icon");
   const [cart, setcart] = useState("cart-icon");
-
+  const [notification, setnotification] = useState("nav-icon");
   const [theme, settheme] = useState("light");
 
   function ToggleTheme() {
@@ -33,27 +35,37 @@ function Navbar() {
       setrestaurant("nav-icon");
       setcontact("nav-icon");
       setcart("cart-icon");
+      setnotification("nav-icon");
     } else if (page === "contact") {
       sethome("nav-icon");
       setrestaurant("nav-icon");
       setcontact("curr nav-icon");
       setcart("cart-icon");
+      setnotification("nav-icon");
     } else if (page === "test") {
       sethome("nav-icon");
       setrestaurant("nav-icon");
       setcontact("nav-icon");
       setcart("cart-icon");
+      setnotification("nav-icon");
     } else if (page === "restaurant") {
       sethome("nav-icon");
       setrestaurant("curr nav-icon");
       setcontact("nav-icon");
       setcart("cart-icon");
-    }
-     else if (page === "cart") {
+      setnotification("nav-icon");
+    } else if (page === "cart") {
       sethome("nav-icon");
       setrestaurant("nav-icon");
       setcontact("nav-icon");
       setcart("curr cart-icon");
+      setnotification("nav-icon");
+    } else if (page === "notification") {
+      sethome("nav-icon");
+      setrestaurant("nav-icon");
+      setcontact("nav-icon");
+      setcart("cart-icon");
+      setnotification("curr nav-icon");
     }
   }
 
@@ -108,6 +120,14 @@ function Navbar() {
               <Headset /> <p>Contact</p>
             </div>
             <div
+              className={notification}
+              onClick={() => {
+                navigate("notification");
+              }}
+            >
+              <Bell /> <p>Notification</p>
+            </div>
+            <div
               className={cart}
               onClick={() => {
                 navigate("cart");
@@ -128,6 +148,7 @@ function Navbar() {
           {curPage == "contact" && <Contact />}
           {curPage == "restaurant" && <Restaurant />}
           {curPage == "cart" && <Cart />}
+          {curPage == "notification" && <Notification />}
         </nav>
       </header>
     </>
