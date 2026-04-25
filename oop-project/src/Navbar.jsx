@@ -2,6 +2,7 @@ import { useState } from "react";
 import Home from "./Home";
 import Contact from "./Contact";
 import "./main.css";
+import "./Navbar.css";
 import Restaurant from "./Restaurant";
 import Notification from "./Notification";
 import {

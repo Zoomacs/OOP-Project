@@ -1,11 +1,10 @@
-.card {
+.contact-card {
   position: relative;
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease-in-out;
-  left: 20%;
+  left: 30%;
   top: 100%;
-  background-color: var(--box-color);
   width: 600px;
   height: 500px;
   border-radius: 12px;
@@ -19,7 +18,8 @@
   width: 80%;
   height: 40px;
   margin-bottom: 40px;
-  font-size: 24px;
+  border: none;
+  border-bottom: solid 1px var(--border-color);
 }
 #title:focus {
   border-color: var(--primary-color);
@@ -29,15 +29,32 @@
   height: 150px;
   resize: none;
   margin-left: 20px;
-  font-size: 18px;
+  border: none;
+  border-bottom: solid 1px var(--border-color);
 }
 #message:focus {
   outline: none;
   border-color: var(--primary-color);
 }
 
+.submit {
+  right: 50%;
+  border-radius: 12px;
+  margin-left: 20px;
+  margin-top: 50px;
+  padding: 10px;
+  color: var(--button-text);
+  background-color: var(--primary-color);
+  width: max-content;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+.submit:hover {
+  background-color: var(--primary-hover);
+}
+
 @media (max-width: 480px) {
-  .card {
+  .contact-card {
     left: 0;
     top: 100%;
     height: max-content;
@@ -51,5 +68,8 @@
   }
   #message {
     background-color: var(--background-color);
+  }
+  #contact {
+    padding: 20%;
   }
 }

@@ -5,8 +5,10 @@
   --text-muted: rgb(106, 105, 105);
   --nav-icon-hover: rgb(215, 214, 213);
   --primary-color: #b12c16;
+  --primary-hover: #7e2211;
   --border-color: rgb(213, 213, 213);
   --box-color: white;
+  --button-text: white;
 }
 .dark {
   --background-color: rgb(7, 6, 21);
@@ -15,6 +17,7 @@
   --nav-icon-hover: rgb(49, 49, 49);
   --border-color: rgb(55, 55, 55);
   --box-color: rgb(11, 9, 33);
+  --button-text: black;
 }
 * {
   -webkit-tap-highlight-color: transparent;
@@ -30,18 +33,15 @@ p {
 }
 input {
   outline: none;
-  background-color: var(--box-color);
-   border: none;
-  border-bottom: solid 1px var(--border-color);
-/*   border-radius: 6px; */
+  background-color: var(--background-color);
+  font-size: 24px;
   transition: all 0.2s ease-in-out;
 }
 textarea {
+  font-family: inherit;
+  font-size: 24px;
   outline: none;
-  background-color: var(--box-color);
- border: none;
-  border-bottom: solid 1px var(--border-color);
-  /* border-radius: 6px; */
+  background-color: var(--background-color);
   transition: all 0.2s ease-in-out;
 }
 .logo {
@@ -64,142 +64,4 @@ textarea {
   font-family: "Playpen Sans", cursive;
   font-weight: 800;
   font-size: 110px;
-}
-.navbar {
-  display: flex;
-  justify-content: center;
-  border-bottom: 1px solid var(--border-color);
-  position: relative;
-  font-size: 24px;
-}
-.nav-icon {
-  padding: 8px 10px;
-  margin: 5px 5px;
-  color: var(--text-muted);
-  cursor: pointer;
-  transition: all 0.2s ease-in-out;
-  border: none;
-  position: relative;
-}
-.nav-icon::after {
-  content: "";
-  position: absolute;
-  width: 0px;
-  left: 50%;
-  bottom: 0px;
-  height: 1px;
-  background-color: var(--primary-color);
-  transition: width 0.2s ease-in-out;
-}
-.nav-icon::before {
-  content: "";
-  position: absolute;
-  width: 0px;
-  left: 50%;
-  bottom: 0px;
-  height: 1px;
-  background-color: var(--primary-color);
-  transition:
-    width 0.2s ease-in-out,
-    left 0.2s ease-in-out;
-}
-.nav-icon:hover {
-  transition: all 0.4s ease-in-out;
-  background-color: var(--nav-icon-hover);
-}
-.nav-icon:hover::after {
-  width: 50%;
-}
-.nav-icon:hover::before {
-  width: 50%;
-  left: 0px;
-}
-.nav-icon svg {
-  display: none;
-}
-.nav-icon.curr {
-  color: var(--text-color);
-  border-bottom: 2px solid var(--primary-color);
-  transition: all 0.2s ease-in-out;
-}
-.cart-icon.curr {
-  color: var(--text-color);
-}
-.curr:hover::after {
-  width: 0;
-}
-
-.curr::after {
-  transition: width 0s ease-in-out;
-}
-.curr:hover::before {
-  width: 0;
-}
-
-.curr::before {
-  transition: width 0s ease-in-out;
-}
-.theme-button {
-  border: none;
-  border-radius: 100%;
-  cursor: pointer;
-  background-color: transparent;
-  color: var(--text-color);
-  transition: all 0.2s ease-in-out;
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-.theme-button svg {
-  width: 24px;
-  height: 24px;
-}
-.theme-button.light:hover {
-  color: var(--primary-color);
-}
-.theme-button:hover {
-  color: #f5c903;
-}
-.cart-icon {
-  border: none;
-  border-radius: 100%;
-  cursor: pointer;
-  background-color: transparent;
-  color: var(--text-muted);
-  transition: all 0.2s ease-in-out;
-  position: absolute;
-  right: 50px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-.cart-icon:hover {
-  color: var(--primary-color);
-}
-
-@media (max-width: 480px) {
-  .navbar {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    border-top: 1px solid var(--border-color);
-    border-bottom: none;
-  }
-  .nav-icon svg {
-    opacity: 0.5;
-    display: block;
-  }
-  .nav-icon p {
-    display: none;
-  }
-  .nav-icon:hover {
-    background-color: transparent;
-  }
-  .nav-icon.curr {
-    color: var(--text-color);
-    border: none;
-  }
-  .curr.nav-icon svg {
-    opacity: 1;
-  }
 }
