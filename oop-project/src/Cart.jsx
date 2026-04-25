@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./Cart.css";
 import foulimg from "./assets/foul.jpg";
+import ta3meya from "./assets/ta3meya.jpg";
 function Cart() {
   const [quantity, setquantity] = useState(0);
   const items = [
@@ -12,7 +13,7 @@ function Cart() {
       quantity: 0,
       price: 12,
     },
-    { title: "Second item", details: "@", quantity: 0, price: 10 },
+    { image: ta3meya,title: "Second item", details: "@", quantity: 0, price: 10 },
     { title: "Third item", details: "#", quantity: 0, price: 15 },
     { title: "Fourth item", details: "$", quantity: 0, price: 13 },
   ];
