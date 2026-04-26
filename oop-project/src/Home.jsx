@@ -1,4 +1,5 @@
-function Home() {
+function Home({ page }) {
+  page("home");
   return (
     <>
       <title>Home</title>

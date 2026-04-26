@@ -1,6 +1,7 @@
 import "./Contact.css";
 import "./main.css";
-function Contact() {
+function Contact({ page }) {
+  page("contact");
   return (
     <>
       <title>Contact</title>
