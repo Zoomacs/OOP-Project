@@ -1,0 +1,101 @@
+.qless-wrapper {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  font-family: "Segoe UI", sans-serif;
+  background: #f5f5f5;
+}
+
+.qless-left {
+  width: 38%;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background: #ffffff;
+  padding: 40px 44px;
+}
+
+.qless-logo {
+  margin-top: 8px;
+}
+
+.qless-logo {
+  font-size: 26px;
+  font-weight: 700;
+  color: #c0392b;
+  font-style: italic;
+  letter-spacing: -0.5px;
+}
+
+.qless-welcome {
+  font-size: 14px;
+  color: #444;
+  margin: 6px 0 0;
+  line-height: 1.4;
+}
+
+.qless-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  flex: 1;
+  justify-content: center;
+}
+
+.qless-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.qless-label {
+  font-size: 13px;
+  color: #333;
+  font-weight: 500;
+}
+
+.qless-password-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.qless-forgot-password {
+  font-size: 12px;
+  color: #c0392b;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.qless-forgot-password:hover {
+  text-decoration: underline;
+}
+
+.qless-input-wrapper {
+  display: flex;
+  align-items: center;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 10px 14px;
+  background: #fafafa;
+  gap: 10px;
+  transition: border-color 0.2s;
+}
+.qless-input-wrapper:focus-within {
+  border-color: #c0392b;
+}
+.qless-input-icon {
+  font-size: 15px;
+  color: #aaa;
+  flex-shrink: 0;
+}
+
+.qless-input {
+  border: none;
+  background: transparent;
+  outline: none;
+  font-size: 14px;
+  color: #333;
+  width: 100%;
+}
