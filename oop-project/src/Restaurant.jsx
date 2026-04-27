@@ -1,12 +1,18 @@
+import { useEffect } from "react";
 import RestaurantList from "./Restaurant_card";
+
 function Restaurant({ page }) {
-  page("restaurant");
+  useEffect(() => {
+    page("restaurant");
+  }, [page]);
+
   return (
-    <>
-      <title>Restaurant</title>
-      <h1>Restaurant</h1>
+    <div className="restaurant-page">
+      <h1>Choose a Restaurant</h1>
+      <p>Order from the university food court</p>
+
       <RestaurantList />
-    </>
+    </div>
   );
 }
 
