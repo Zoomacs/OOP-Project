@@ -1,0 +1,83 @@
+.page-container {
+    display: flex;
+    justify-content: center;
+    background-color: var(--background-color);
+    min-height: 100vh;
+    padding-top: 40px;
+    transition: background 0.2s ease-in-out;
+}
+
+.notifiaction-place {
+    width: 100%;
+    max-width: 500px;
+    padding: 0 20px;
+}
+
+.notfication-head h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: var(--text-color);
+}
+
+.notfication-head {
+    border-bottom: 2px solid var(--text-color);
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+}
+
+.cards-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.notification-card {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--border-color);
+    transition: background 0.2s ease;
+}
+
+.notification-card:hover {
+    background-color: var(--nav-icon-hover);
+}
+
+.card-img {
+    margin-right: 15px;
+    margin-left: 7px;
+}
+
+.card-img img {
+    width: 50px;
+    height: 50px;
+    border-radius: 8px;
+    object-fit: cover;
+    background-color: var(--border-color);
+}
+
+.card-componants {
+    flex: 1;
+}
+
+.card-text {
+    font-size: 16px;
+    color: var(--text-color);
+    line-height: 1.4;
+    margin-bottom: 4px;
+}
+
+.card-title {
+    font-weight: 800;
+    margin-right: 6px;
+    color: var(--primary-color);
+}
+
+.card-discreption {
+    color: var(--text-color);
+}
+
+.card-time {
+    display: block;
+    font-size: 13px;
+    color: var(--text-muted);
+}
