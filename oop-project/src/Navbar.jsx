@@ -86,10 +86,9 @@ function Navbar({ page }) {
 
             <Link
               to="/cart"
-              className={`${page == "cart" ? "curr nav-icon" : "nav-icon"} cart`}
+              className={`${page == "cart" ? "curr cart-icon" : "cart-icon"} cart`}
             >
               <ShoppingCart />
-              <p>Cart</p>
             </Link>
 
             <button
