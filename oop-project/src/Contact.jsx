@@ -1,7 +1,10 @@
 import "./Contact.css";
 import "./main.css";
+import {  useEffect } from "react";
 function Contact({ page }) {
-  page("contact");
+   useEffect(() => {
+    page("contact"); 
+  }, [page]);
   return (
     <>
       <title>Contact</title>

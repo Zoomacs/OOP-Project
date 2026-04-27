@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./main.css";
 import "./Navbar.css";
@@ -19,14 +19,19 @@ import {
 } from "lucide-react";
 import Cart from "./Cart";
 
-function Navbar({ page }) {
-  const [cart, setcart] = useState("cart-icon");
+function Navbar({ page, cart, setCart }) {
   const [notification, setnotification] = useState("nav-icon");
   const [theme, settheme] = useState("light");
 
   function ToggleTheme() {
     theme === "light" ? settheme("dark") : settheme("light");
     document.body.classList.toggle("dark");
+  }
+
+  function toggleCart() {
+    cart == "hidden cart-bar"
+      ? setCart("cart-bar")
+      : setCart("hidden cart-bar");
   }
 
   return (
@@ -55,6 +60,9 @@ function Navbar({ page }) {
             <Link
               to="/home"
               className={`${page == "home" ? "curr nav-icon" : "nav-icon"} home`}
+              onClick={() => {
+                setCart("hidden cart-bar");
+              }}
             >
               <House />
               <p>Home</p>
@@ -63,6 +71,9 @@ function Navbar({ page }) {
             <Link
               to="/restaurant"
               className={`${page == "restaurant" ? "curr nav-icon" : "nav-icon"} restaurant`}
+              onClick={() => {
+                setCart("hidden cart-bar");
+              }}
             >
               <UtensilsIcon />
               <p>Restaurants</p>
@@ -71,22 +82,28 @@ function Navbar({ page }) {
             <Link
               to="/contact"
               className={`${page == "contact" ? "curr nav-icon" : "nav-icon"} contact`}
+              onClick={() => {
+                setCart("hidden cart-bar");
+              }}
             >
-              <ContactIcon />
+              <Headset />
               <p>Contact</p>
             </Link>
 
             <Link
               to="/notification"
               className={`${page == "notification" ? "curr nav-icon" : "nav-icon"} notification`}
+              onClick={() => {
+                setCart("hidden cart-bar");
+              }}
             >
               <BellIcon />
               <p>Notifications</p>
             </Link>
 
             <Link
-              to="/cart"
-              className={`${page == "cart" ? "curr cart-icon" : "cart-icon"} cart`}
+              className={`${cart == "cart-bar" ? "curr cart-icon" : "cart-icon"} cart`}
+              onClick={toggleCart}
             >
               <ShoppingCart />
             </Link>

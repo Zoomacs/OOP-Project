@@ -5,10 +5,11 @@
   --text-muted: rgb(106, 105, 105);
   --nav-icon-hover: rgb(215, 214, 213);
   --primary-color: #cc0600;
-  --primary-hover: #971612;
+  --primary-hover: #930500;
   --border-color: rgb(213, 213, 213);
   --box-color: white;
   --button-text: white;
+  --box-shadow: rgb(203, 199, 199);
 }
 .dark {
   --background-color: rgb(7, 6, 21);

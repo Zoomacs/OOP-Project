@@ -73,10 +73,10 @@ a {
   transform: translateY(-50%);
 }
 .cart-icon:hover {
-  color: var(--primary-color);
+  color: var(--text-color);
 }
 .cart-icon.curr {
-  color: var(--text-color);
+  color: var(--primary-color);
 }
 .curr:hover::after {
   width: 0;
@@ -122,6 +122,9 @@ a {
     width: 100%;
     border-top: 1px solid var(--border-color);
     border-bottom: none;
+  }
+  .nav-icon {
+    margin: 0;
   }
   .nav-icon svg {
     opacity: 0.5;

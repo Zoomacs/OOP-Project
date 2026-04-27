@@ -1,5 +1,8 @@
+import { useEffect } from "react";
 function Home({ page }) {
-  page("home");
+  useEffect(() => {
+    page("home");
+  }, [page]);
   return (
     <>
       <title>Home</title>

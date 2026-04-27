@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Notification.css";
 import kfclogo from "./assets/kfc-logo.png";
 
@@ -19,7 +19,9 @@ const  NotificationCard =({image,title,discreption,time})=>(
 
 
 function Notification({ page }) {
-  page("notification");
+   useEffect(() => {
+    page("notification"); 
+  }, [page]);
   const data = [
     { id: 1, title: "test", discreption: "test test testtest teeafnwjenfjenfe", time: "test", image: "" },
     { id: 2, title: "KFC", discreption: "Your meal is ready for pickup!", time: "Just now", image: kfclogo },

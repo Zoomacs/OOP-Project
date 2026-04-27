@@ -7,30 +7,33 @@ import Notification from "./Notification";
 import Navbar from "./Navbar";
 import "./main.css";
 import Cart from "./Cart";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
   const [currentpage, setcurrentpage] = useState("login");
-
+  const [cart, setCart] = useState("hidden cart-bar");
   return (
-    <BrowserRouter>
-      <Navbar page={currentpage} />
+    <>
+      <BrowserRouter>
+        <Navbar page={currentpage} cart={cart} setCart={setCart} />
 
-      <Routes>
-        <Route path="/" element={<Login page={setcurrentpage} />} />
-        <Route path="/home" element={<Home page={setcurrentpage} />} />
-        <Route
-          path="/restaurant"
-          element={<Restaurant page={setcurrentpage} />}
-        />
-        <Route path="/contact" element={<Contact page={setcurrentpage} />} />
-        <Route path="/cart" element={<Cart page={setcurrentpage} />} />
-        <Route
-          path="/notification"
-          element={<Notification page={setcurrentpage} />}
-        />
-      </Routes>
-    </BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Login page={setcurrentpage} />} />
+          <Route path="/home" element={<Home page={setcurrentpage} />} />
+          <Route
+            path="/restaurant"
+            element={<Restaurant page={setcurrentpage} />}
+          />
+          <Route path="/contact" element={<Contact page={setcurrentpage} />} />
+
+          <Route
+            path="/notification"
+            element={<Notification page={setcurrentpage} />}
+          />
+        </Routes>
+      </BrowserRouter>
+      <Cart page={setcurrentpage} display={cart} />
+    </>
   );
 }
 
