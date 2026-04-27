@@ -81,7 +81,7 @@ function Navbar({ page }) {
               className={`${page == "notification" ? "curr nav-icon" : "nav-icon"} notification`}
             >
               <BellIcon />
-              <p>notifications</p>
+              <p>Notifications</p>
             </Link>
 
             <Link
