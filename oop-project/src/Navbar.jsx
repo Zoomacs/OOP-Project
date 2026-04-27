@@ -81,15 +81,14 @@ function Navbar({ page }) {
               className={`${page == "notification" ? "curr nav-icon" : "nav-icon"} notification`}
             >
               <BellIcon />
-              <p>notifications</p>
+              <p>Notifications</p>
             </Link>
 
             <Link
               to="/cart"
-              className={`${page == "cart" ? "curr nav-icon" : "nav-icon"} cart`}
+              className={`${page == "cart" ? "curr cart-icon" : "cart-icon"} cart`}
             >
               <ShoppingCart />
-              <p>Cart</p>
             </Link>
 
             <button

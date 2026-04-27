@@ -60,6 +60,21 @@ a {
   border-bottom: 2px solid var(--primary-color);
   transition: all 0.2s ease-in-out;
 }
+.cart-icon {
+  border: none;
+  border-radius: 100%;
+  cursor: pointer;
+  background-color: transparent;
+  color: var(--text-muted);
+  transition: all 0.2s ease-in-out;
+  position: absolute;
+  right: 50px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.cart-icon:hover {
+  color: var(--primary-color);
+}
 .cart-icon.curr {
   color: var(--text-color);
 }
@@ -98,21 +113,6 @@ a {
 }
 .theme-button:hover {
   color: #f5c903;
-}
-.cart-icon {
-  border: none;
-  border-radius: 100%;
-  cursor: pointer;
-  background-color: transparent;
-  color: var(--text-muted);
-  transition: all 0.2s ease-in-out;
-  position: absolute;
-  right: 50px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-.cart-icon:hover {
-  color: var(--primary-color);
 }
 
 @media (max-width: 480px) {
