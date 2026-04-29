@@ -11,6 +11,8 @@
     width: 100%;
     max-width: 500px;
     padding: 0 20px;
+    background-color:var(--box-color);
+    border-radius: 20PX;
 }
 
 .notfication-head h1 {
@@ -57,6 +59,7 @@
 
 .card-componants {
     flex: 1;
+    padding-bottom: 15px;
 }
 
 .card-text {
