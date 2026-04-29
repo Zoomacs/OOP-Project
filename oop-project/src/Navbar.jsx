@@ -33,6 +33,9 @@ function Navbar({ page, cart, setCart }) {
       ? setCart("cart-bar")
       : setCart("hidden cart-bar");
   }
+  if (page == "login") {
+    return null;
+  }
 
   return (
     <>

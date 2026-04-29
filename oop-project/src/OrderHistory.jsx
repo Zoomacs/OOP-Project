@@ -1,11 +1,12 @@
-import {  useEffect } from "react";
-function Notification({ page }) {
-   useEffect(() => {page("orderhistory"); }, [page]);
+import { useEffect } from "react";
+function OrderHistory({ page }) {
+  useEffect(() => {
+    page("orderhistory");
+  }, [page]);
 
   return (
     <>
-     <p>order</p>
-
+      <p>order</p>
     </>
   );
 }
