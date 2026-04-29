@@ -1,14 +1,6 @@
-<<<<<<< HEAD
 import {  useEffect } from "react";
 import "./OrderHistory.css";
 import kfclogo from "./assets/kfc-logo.png";
-=======
-import { useEffect } from "react";
-function OrderHistory({ page }) {
-  useEffect(() => {
-    page("orderhistory");
-  }, [page]);
->>>>>>> 6beae33e903194a87fbf00bb8be1bd0a011688b8
 
 
 const  OrderCard =({image,title,description,time})=>(
@@ -37,7 +29,6 @@ function OrderHistory({ page }) {
   ];
   return (
     <>
-     
      <div className="page-container">
         <div className="order-place">
           <div className="order-head">
