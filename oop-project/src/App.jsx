@@ -3,6 +3,7 @@ import Login from "./login";
 import Home from "./Home";
 import Contact from "./Contact";
 import Restaurant from "./Restaurant";
+import OrderHistory from "./OrderHistory";
 import Notification from "./Notification";
 import Navbar from "./Navbar";
 import "./main.css";
@@ -25,6 +26,8 @@ function App() {
             element={<Restaurant page={setcurrentpage} />}
           />
           <Route path="/contact" element={<Contact page={setcurrentpage} />} />
+
+          <Route path="/orderhistory" element={<OrderHistory page={setcurrentpage} />} />
 
           <Route
             path="/notification"

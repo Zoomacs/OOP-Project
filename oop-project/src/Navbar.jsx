@@ -91,6 +91,17 @@ function Navbar({ page, cart, setCart }) {
             </Link>
 
             <Link
+              to="/orderhistory"
+              className={`${page == "orderhistory" ? "curr nav-icon" : "nav-icon"} orderhistory`}
+              onClick={() => {
+                setCart("hidden cart-bar");
+              }}
+            >
+              <Headset />
+              <p>Orders</p>
+            </Link>
+
+            <Link
               to="/notification"
               className={`${page == "notification" ? "curr nav-icon" : "nav-icon"} notification`}
               onClick={() => {
