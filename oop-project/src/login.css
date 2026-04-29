@@ -342,3 +342,73 @@
 .qless-terms-of-service:hover {
   color: #999;
 }
+
+.qless-logo-text {
+  font-size: 42px;
+}
+
+.qless-welcome {
+  font-size: 20px;
+}
+
+.qless-label {
+  font-size: 18px;
+}
+
+.qless-input {
+  font-size: 18px;
+}
+
+.qless-input-icon {
+  font-size: 20px;
+}
+
+.qless-sign-in-button {
+  font-size: 18px;
+  padding: 16px;
+}
+
+.qless-forgot-password {
+  font-size: 16px;
+}
+
+.qless-sign-up-text {
+  font-size: 16px;
+}
+
+.qless-sign-up-button {
+  font-size: 17px;
+  padding: 15px;
+}
+
+.qless-footer {
+  font-size: 13px;
+}
+
+.qless-badge {
+  font-size: 14px;
+}
+
+.qless-tagline {
+  font-size: 34px;
+}
+
+.qless-big-word {
+  font-size: 110px;
+}
+
+.qless-big-word-alt {
+  font-size: 110px;
+}
+
+.qless-big-word-cursive {
+  font-size: 110px;
+}
+
+.qless-social-bold {
+  font-size: 16px;
+}
+
+.qless-social-sub {
+  font-size: 15px;
+}
