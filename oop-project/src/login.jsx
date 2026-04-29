@@ -30,7 +30,7 @@ function Login({ page }) {
         <div className="qless-field-group">
           <label classname="ID">ID:</label>
           <div className="qless-input-wrapper">
-            <span className="qless-input-icon">@</span>
+            <span className="qless-input-icon"></span>
             <input
               type="id"
               placeholder="24587"
@@ -46,7 +46,7 @@ function Login({ page }) {
             <label classname="password">Password</label>
           </div>
           <div className="qless-input-wrapper">
-            <span className="qless-input-icon">🔒</span>
+            <span className="qless-input-icon"></span>
             <input
               type="password"
               placeholder="********"
