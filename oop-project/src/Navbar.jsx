@@ -34,6 +34,10 @@ function Navbar({ page, cart, setCart }) {
       : setCart("hidden cart-bar");
   }
 
+  if (page == "login") {
+    return null;
+  }
+
   return (
     <>
       <header>
