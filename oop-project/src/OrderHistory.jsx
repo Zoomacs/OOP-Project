@@ -25,14 +25,22 @@ function OrderHistory({ page }) {
    useEffect(() => {page("orderhistory"); }, [page]);
    const data = [
     { id: 1, title: "KFC", description: "2X  Mighty Zinger", time: "April 29, 2026, at 4:15 PM", image: kfclogo },
-    { id: 2, title: "KFC", description: "3X Rizo (Spicy)", time: "April 27, 2026, at 6:07 PM", image: kfclogo }
+    { id: 2, title: "KFC", description: "3X Rizo (Spicy)", time: "April 27, 2026, at 6:07 PM", image: kfclogo },
+    { id: 3, title: "KFC", description: "3X Rizo (Spicy)", time: "April 27, 2026, at 6:07 PM", image: kfclogo },
+    { id: 4, title: "KFC", description: "3X Rizo (Spicy)", time: "April 27, 2026, at 6:07 PM", image: kfclogo },
+    { id: 5, title: "KFC", description: "3X Rizo (Spicy)", time: "April 27, 2026, at 6:07 PM", image: kfclogo },
+    { id: 6, title: "KFC", description: "3X Rizo (Spicy)", time: "April 27, 2026, at 6:07 PM", image: kfclogo },
+    { id: 7, title: "KFC", description: "3X Rizo (Spicy)", time: "April 27, 2026, at 6:07 PM", image: kfclogo },
+    { id: 8, title: "KFC", description: "3X Rizo (Spicy)", time: "April 27, 2026, at 6:07 PM", image: kfclogo },
+    { id: 9, title: "KFC", description: "3X Rizo (Spicy)", time: "April 27, 2026, at 6:07 PM", image: kfclogo }
+    
   ];
   return (
     <>
      <div className="page-container">
         <div className="order-place">
           <div className="order-head">
-            <h1>Your Orders</h1>
+            <h1>Your Past Orders</h1>
           </div>
           <div className="cards-list">
             {data.map((item) => (

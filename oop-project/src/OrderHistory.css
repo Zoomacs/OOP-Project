@@ -1,9 +1,30 @@
+.page-container{
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+}
 .order-place {
-  background-color: white;
+  background-color: var(--box-color);
   border-radius: 15px;
   width: 100%;
   max-width: 750px;
+  max-height: 750px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
 }
+
+.order-head {
+  padding: 25px 20px 15px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.order-head h1 {
+  margin: 0;
+  color: var(--text-color);
+  font-size: 2.5rem;
+}
+
 .cards-list {
   display: flex;
   flex-direction: column;
@@ -11,59 +32,67 @@
   padding: 20px;
   width: 100%;
   max-width: 750px;
-  align-items: center;
+  box-sizing: border-box;
+  overflow: scroll;
 }
 
 .Order-card {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   background: var(--box-color);
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--primary-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   width:100%;
-  height: 100px;
-  max-height: 200px;
-  max-width: 600px;
+  min-height: 120px;
+  padding: 20px;
+  box-sizing: border-box;
+  gap: 15px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.Order-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
 }
 
 .card-img {
-  width: 80px;
-  height: 80px;
+  width: 70px;
+  height: 70px;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 15px;
   flex-shrink: 0;
+  background-color: var(--background-color);
+  border-radius: 50%;
+  padding: 10px;
 }
 
 .card-img img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-}
-
-.placeholder-icon {
-  width: 30px;
-  height: 25px;
-  border: 2px solid var(--text-muted);
-  position: relative;
+  object-fit: contain;
 }
 
 .card-content {
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 6px;
 }
 
 .card-title {
-  color: var(--primar-color);
-  font-size: 1.3rem;
-  font-weight: 600;
+  color: var(--primary-color);
+  font-size: 1.25rem;
+  font-weight: 700;
   margin: 0;
 }
 
@@ -74,8 +103,9 @@
 }
 
 .card-description {
-  color: var(--text-color);;
-  font-size: 0.9rem;
+  color: var(--text-color);
+  font-size: 0.95rem;
+  font-weight: 500;
   margin: 0;
 }
 .card-time {
