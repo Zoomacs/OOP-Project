@@ -1,6 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import "/.Register.css";
+import "./Register.css";
 
 function Register({ page }) {
   if (page) {
@@ -42,7 +41,7 @@ function Register({ page }) {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = () => {
     if (tab === "Student") {
       if (studentform.password !== studentform.confirmPassword) {
         alert("Passwords do not match!");
@@ -57,7 +56,6 @@ function Register({ page }) {
       alert("Staff registered successfully!");
     }
   };
-  const navigate = useNavigate();
 
   return (
     <div className="reg-wrapper">
@@ -94,11 +92,6 @@ function Register({ page }) {
         </div>
 
         <div className="reg-social-proof">
-          <div className="reg-avatars">
-            <img src={avatar1} alt="user" className="reg-avatar" />
-            <img src={avatar2} alt="user" className="reg-avatar" />
-            <img src={avatar3} alt="user" className="reg-avatar" />
-          </div>
           <p className="reg-social-text">
             Joined by 12,000+ students and staff members.
           </p>
@@ -122,9 +115,9 @@ function Register({ page }) {
                 key={t}
                 className={`reg-tab ${tab === t ? "reg-tab-active" : ""}`}
                 onClick={() => {
-                  setTab(t);
-                  setShowPassword(false);
-                  setShowConfirm(false);
+                  settab(t);
+                  setshowPassword(false);
+                  setshowConfirmPassword(false);
                 }}
               >
                 {t}
@@ -144,7 +137,7 @@ function Register({ page }) {
                       type="text"
                       name="fullName"
                       placeholder="Alex Johnson"
-                      value={studentForm.fullName}
+                      value={studentform.fullName}
                       onChange={handleStudentChange}
                     />
                   </div>
@@ -159,7 +152,7 @@ function Register({ page }) {
                       type="text"
                       name="universityID"
                       placeholder="U-12345678"
-                      value={studentForm.universityID}
+                      value={studentform.universityID}
                       onChange={handleStudentChange}
                     />
                   </div>
@@ -174,7 +167,7 @@ function Register({ page }) {
                       type="email"
                       name="email"
                       placeholder="alex@email.com"
-                      value={studentForm.email}
+                      value={studentform.email}
                       onChange={handleStudentChange}
                     />
                   </div>
@@ -186,17 +179,17 @@ function Register({ page }) {
                     <span className="reg-input-icon">🔒</span>
                     <input
                       className="reg-input"
-                      type={showPassword ? "text" : "password"}
+                      type={showpassword ? "text" : "password"}
                       name="password"
                       placeholder="••••••••••••"
-                      value={studentForm.password}
+                      value={studentform.password}
                       onChange={handleStudentChange}
                     />
                     <button
                       className="reg-eye"
-                      onClick={() => setShowPassword(!showPassword)}
+                      onClick={() => setshowPassword(!showpassword)}
                     >
-                      {showPassword ? "🙈" : "👁️"}
+                      {showpassword ? "🙈" : "👁️"}
                     </button>
                   </div>
                 </div>
@@ -207,17 +200,19 @@ function Register({ page }) {
                     <span className="reg-input-icon">🔒</span>
                     <input
                       className="reg-input"
-                      type={showConfirm ? "text" : "password"}
+                      type={showconfirmPassword ? "text" : "password"}
                       name="confirmPassword"
                       placeholder="••••••••••••"
-                      value={studentForm.confirmPassword}
+                      value={studentform.confirmPassword}
                       onChange={handleStudentChange}
                     />
                     <button
                       className="reg-eye"
-                      onClick={() => setShowConfirm(!showConfirm)}
+                      onClick={() =>
+                        setshowConfirmPassword(!showconfirmPassword)
+                      }
                     >
-                      {showConfirm ? "🙈" : "👁️"}
+                      {showconfirmPassword ? "🙈" : "👁️"}
                     </button>
                   </div>
                 </div>
@@ -233,7 +228,7 @@ function Register({ page }) {
                       type="text"
                       name="fullName"
                       placeholder="Dr. Smith"
-                      value={staffForm.fullName}
+                      value={staffform.fullName}
                       onChange={handleStaffChange}
                     />
                   </div>
@@ -248,7 +243,7 @@ function Register({ page }) {
                       type="text"
                       name="staffID"
                       placeholder="S-98765432"
-                      value={staffForm.staffID}
+                      value={staffform.staffID}
                       onChange={handleStaffChange}
                     />
                   </div>
@@ -263,7 +258,7 @@ function Register({ page }) {
                       type="email"
                       name="universityEmail"
                       placeholder="smith@university.edu"
-                      value={staffForm.universityEmail}
+                      value={staffform.universityEmail}
                       onChange={handleStaffChange}
                     />
                   </div>
@@ -278,7 +273,7 @@ function Register({ page }) {
                       type="text"
                       name="department"
                       placeholder="Computer Science"
-                      value={staffForm.department}
+                      value={staffform.department}
                       onChange={handleStaffChange}
                     />
                   </div>
@@ -290,17 +285,17 @@ function Register({ page }) {
                     <span className="reg-input-icon">🔒</span>
                     <input
                       className="reg-input"
-                      type={showPassword ? "text" : "password"}
+                      type={showpassword ? "text" : "password"}
                       name="password"
                       placeholder="••••••••••••"
-                      value={staffForm.password}
+                      value={staffform.password}
                       onChange={handleStaffChange}
                     />
                     <button
                       className="reg-eye"
-                      onClick={() => setShowPassword(!showPassword)}
+                      onClick={() => setshowPassword(!showpassword)}
                     >
-                      {showPassword ? "🙈" : "👁️"}
+                      {showpassword ? "🙈" : "👁️"}
                     </button>
                   </div>
                 </div>
@@ -311,17 +306,17 @@ function Register({ page }) {
                     <span className="reg-input-icon">🔒</span>
                     <input
                       className="reg-input"
-                      type={showConfirm ? "text" : "password"}
+                      type={showpassword ? "text" : "password"}
                       name="confirmPassword"
                       placeholder="••••••••••••"
-                      value={staffForm.confirmPassword}
+                      value={staffform.confirmPassword}
                       onChange={handleStaffChange}
                     />
                     <button
                       className="reg-eye"
-                      onClick={() => setShowConfirm(!showConfirm)}
+                      onClick={() => setshowPassword(!showconfirmPassword)}
                     >
-                      {showConfirm ? "🙈" : "👁️"}
+                      {showconfirmPassword ? "🙈" : "👁️"}
                     </button>
                   </div>
                 </div>
@@ -346,3 +341,5 @@ function Register({ page }) {
     </div>
   );
 }
+
+export default Register;

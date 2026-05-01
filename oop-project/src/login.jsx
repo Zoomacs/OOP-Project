@@ -74,7 +74,7 @@ function Login({ page }) {
             <p className="qless-sign-up-text">New to campus dining?</p>
             <button
               className="qless-sign-up-button"
-              onClick={() => navigate("/.Register")}
+              onClick={() => navigate("/register")}
             >
               Register Account
             </button>
