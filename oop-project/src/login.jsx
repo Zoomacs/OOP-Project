@@ -1,10 +1,12 @@
 import { useState } from "react";
 import "./login.css";
+import { useNavigate } from "react-router-dom";
 function Login({ page }) {
   page("login");
 
   const [ID, setID] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleIDChange = (event) => {
     setID(event.target.value);
@@ -16,7 +18,9 @@ function Login({ page }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    alert(`ID: ${ID}, Password: ${password}`);
+    if (ID === "123" && password === "123") {
+      navigate("/Home");
+    }
   };
 
   return (
@@ -68,7 +72,12 @@ function Login({ page }) {
 
           <div className="qless-sign-up">
             <p className="qless-sign-up-text">New to campus dining?</p>
-            <button className="qless-sign-up-button">Register Account</button>
+            <button
+              className="qless-sign-up-button"
+              onClick={() => navigate("/.Register")}
+            >
+              Register Account
+            </button>
           </div>
         </div>
 
