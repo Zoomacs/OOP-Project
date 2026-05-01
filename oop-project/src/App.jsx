@@ -37,6 +37,10 @@ function App() {
             path="/notification"
             element={<Notification page={setcurrentpage} />}
           />
+          <Route
+            path="/register"
+            element={<Register page={setcurrentpage} />}
+          />
         </Routes>
       </BrowserRouter>
       <Cart page={setcurrentpage} display={cart} />

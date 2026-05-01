@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 import "./Register.css";
 
 function Register({ page }) {
@@ -60,7 +61,7 @@ function Register({ page }) {
   return (
     <div className="reg-wrapper">
       <div className="reg-left">
-        <div className="reg-brand">Q-LESS UNIVERSITY</div>
+        <div className="reg-brand">Q-LESS</div>
         <div className="reg-hero">
           <h2 className="reg-hero-title">
             Join the <span className="reg-hero-accent">Campus</span> Dining
@@ -93,7 +94,7 @@ function Register({ page }) {
 
         <div className="reg-social-proof">
           <p className="reg-social-text">
-            Joined by 12,000+ students and staff members.
+            Joined by 1,000+ students and staff members.
           </p>
         </div>
       </div>
@@ -131,12 +132,12 @@ function Register({ page }) {
                 <div className="reg-field">
                   <label className="reg-field-label">FULL NAME</label>
                   <div className="reg-input-wrap">
-                    <span className="reg-input-icon">👤</span>
+                    <span className="reg-input-icon"></span>
                     <input
                       className="reg-input"
                       type="text"
                       name="fullName"
-                      placeholder="Alex Johnson"
+                      placeholder="Mostafa Ahmed Mostafa"
                       value={studentform.fullName}
                       onChange={handleStudentChange}
                     />
@@ -146,12 +147,12 @@ function Register({ page }) {
                 <div className="reg-field">
                   <label className="reg-field-label">UNIVERSITY ID</label>
                   <div className="reg-input-wrap">
-                    <span className="reg-input-icon">🪪</span>
+                    <span className="reg-input-icon"></span>
                     <input
                       className="reg-input"
                       type="text"
                       name="universityID"
-                      placeholder="U-12345678"
+                      placeholder="298670"
                       value={studentform.universityID}
                       onChange={handleStudentChange}
                     />
@@ -161,12 +162,12 @@ function Register({ page }) {
                 <div className="reg-field">
                   <label className="reg-field-label">EMAIL</label>
                   <div className="reg-input-wrap">
-                    <span className="reg-input-icon">✉️</span>
+                    <span className="reg-input-icon"></span>
                     <input
                       className="reg-input"
                       type="email"
                       name="email"
-                      placeholder="alex@email.com"
+                      placeholder="mostafa@msa.edu.eg"
                       value={studentform.email}
                       onChange={handleStudentChange}
                     />
@@ -176,7 +177,7 @@ function Register({ page }) {
                 <div className="reg-field">
                   <label className="reg-field-label">PASSWORD</label>
                   <div className="reg-input-wrap">
-                    <span className="reg-input-icon">🔒</span>
+                    <span className="reg-input-icon"></span>
                     <input
                       className="reg-input"
                       type={showpassword ? "text" : "password"}
@@ -189,7 +190,7 @@ function Register({ page }) {
                       className="reg-eye"
                       onClick={() => setshowPassword(!showpassword)}
                     >
-                      {showpassword ? "🙈" : "👁️"}
+                      {showconfirmPassword ? <EyeOff /> : <Eye />}
                     </button>
                   </div>
                 </div>
@@ -197,7 +198,7 @@ function Register({ page }) {
                 <div className="reg-field">
                   <label className="reg-field-label">CONFIRM PASSWORD</label>
                   <div className="reg-input-wrap">
-                    <span className="reg-input-icon">🔒</span>
+                    <span className="reg-input-icon"></span>
                     <input
                       className="reg-input"
                       type={showconfirmPassword ? "text" : "password"}
@@ -212,7 +213,7 @@ function Register({ page }) {
                         setshowConfirmPassword(!showconfirmPassword)
                       }
                     >
-                      {showconfirmPassword ? "🙈" : "👁️"}
+                      {showconfirmPassword ? <EyeOff /> : <Eye />}
                     </button>
                   </div>
                 </div>
@@ -222,12 +223,12 @@ function Register({ page }) {
                 <div className="reg-field">
                   <label className="reg-field-label">FULL NAME</label>
                   <div className="reg-input-wrap">
-                    <span className="reg-input-icon">👤</span>
+                    <span className="reg-input-icon"></span>
                     <input
                       className="reg-input"
                       type="text"
                       name="fullName"
-                      placeholder="Dr. Smith"
+                      placeholder="Mostafa Mohamed Emad"
                       value={staffform.fullName}
                       onChange={handleStaffChange}
                     />
@@ -237,12 +238,12 @@ function Register({ page }) {
                 <div className="reg-field">
                   <label className="reg-field-label">STAFF ID</label>
                   <div className="reg-input-wrap">
-                    <span className="reg-input-icon">🪪</span>
+                    <span className="reg-input-icon"></span>
                     <input
                       className="reg-input"
                       type="text"
                       name="staffID"
-                      placeholder="S-98765432"
+                      placeholder="23456"
                       value={staffform.staffID}
                       onChange={handleStaffChange}
                     />
@@ -252,12 +253,12 @@ function Register({ page }) {
                 <div className="reg-field">
                   <label className="reg-field-label">UNIVERSITY EMAIL</label>
                   <div className="reg-input-wrap">
-                    <span className="reg-input-icon">✉️</span>
+                    <span className="reg-input-icon"></span>
                     <input
                       className="reg-input"
                       type="email"
                       name="universityEmail"
-                      placeholder="smith@university.edu"
+                      placeholder="mohanad@university.edu"
                       value={staffform.universityEmail}
                       onChange={handleStaffChange}
                     />
@@ -267,7 +268,7 @@ function Register({ page }) {
                 <div className="reg-field">
                   <label className="reg-field-label">DEPARTMENT</label>
                   <div className="reg-input-wrap">
-                    <span className="reg-input-icon">🏛️</span>
+                    <span className="reg-input-icon"></span>
                     <input
                       className="reg-input"
                       type="text"
@@ -282,7 +283,7 @@ function Register({ page }) {
                 <div className="reg-field">
                   <label className="reg-field-label">PASSWORD</label>
                   <div className="reg-input-wrap">
-                    <span className="reg-input-icon">🔒</span>
+                    <span className="reg-input-icon"></span>
                     <input
                       className="reg-input"
                       type={showpassword ? "text" : "password"}
@@ -295,7 +296,7 @@ function Register({ page }) {
                       className="reg-eye"
                       onClick={() => setshowPassword(!showpassword)}
                     >
-                      {showpassword ? "🙈" : "👁️"}
+                      {showconfirmPassword ? <EyeOff /> : <Eye />}
                     </button>
                   </div>
                 </div>
@@ -303,7 +304,7 @@ function Register({ page }) {
                 <div className="reg-field">
                   <label className="reg-field-label">CONFIRM PASSWORD</label>
                   <div className="reg-input-wrap">
-                    <span className="reg-input-icon">🔒</span>
+                    <span className="reg-input-icon"></span>
                     <input
                       className="reg-input"
                       type={showpassword ? "text" : "password"}
@@ -316,7 +317,7 @@ function Register({ page }) {
                       className="reg-eye"
                       onClick={() => setshowPassword(!showconfirmPassword)}
                     >
-                      {showconfirmPassword ? "🙈" : "👁️"}
+                      {showconfirmPassword ? <EyeOff /> : <Eye />}
                     </button>
                   </div>
                 </div>
@@ -335,7 +336,7 @@ function Register({ page }) {
             </a>
           </p>
 
-          <p className="reg-secure">🔒 SECURE UNIVERSITY AUTHENTICATION</p>
+          <p className="reg-secure"></p>
         </div>
       </div>
     </div>

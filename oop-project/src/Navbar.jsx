@@ -38,6 +38,10 @@ function Navbar({ page, cart, setCart }) {
     return null;
   }
 
+  if (page == "register") {
+    return null;
+  }
+
   return (
     <>
       <header>
