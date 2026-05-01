@@ -53,6 +53,10 @@
   background-color: var(--primary-hover);
 }
 
+.submit:active {
+  transform: scale(0.98);
+}
+
 @media (max-width: 480px) {
   .contact-card {
     left: 0;

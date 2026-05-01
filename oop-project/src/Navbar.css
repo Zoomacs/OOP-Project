@@ -1,6 +1,22 @@
 a {
   text-decoration: none;
 }
+
+.side-btn {
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: all 0.2s ease-in-out;
+  position: absolute;
+  left: 0px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.side-btn:hover {
+  color: var(--text-color);
+}
+.side-btn.active {
+  color: var(--primary-color);
+}
 .navbar {
   display: flex;
   justify-content: center;
@@ -68,14 +84,14 @@ a {
   color: var(--text-muted);
   transition: all 0.2s ease-in-out;
   position: absolute;
-  right: 50px;
+  right: 20px;
   top: 50%;
   transform: translateY(-50%);
 }
 .cart-icon:hover {
   color: var(--text-color);
 }
-.cart-icon.curr {
+.cart-icon.active {
   color: var(--primary-color);
 }
 .curr:hover::after {
@@ -91,28 +107,6 @@ a {
 
 .curr::before {
   transition: width 0s ease-in-out;
-}
-.theme-button {
-  border: none;
-  border-radius: 100%;
-  cursor: pointer;
-  background-color: transparent;
-  color: var(--text-color);
-  transition: all 0.2s ease-in-out;
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-.theme-button svg {
-  width: 24px;
-  height: 24px;
-}
-.theme-button.light:hover {
-  color: var(--primary-color);
-}
-.theme-button:hover {
-  color: #f5c903;
 }
 
 @media (max-width: 480px) {

@@ -2,7 +2,7 @@
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   --background-color: #f9f6f5;
   --text-color: black;
-  --text-muted: rgb(106, 105, 105);
+  --text-muted: rgb(144, 144, 144);
   --nav-icon-hover: rgb(215, 214, 213);
   --primary-color: #cc0600;
   --primary-hover: #930500;
@@ -19,6 +19,7 @@
   --border-color: rgb(55, 55, 55);
   --box-color: rgb(11, 9, 33);
   --button-text: black;
+  --box-shadow: rgb(20, 20, 20);
 }
 * {
   -webkit-tap-highlight-color: transparent;
@@ -50,7 +51,7 @@ textarea {
   height: 50px;
   cursor: pointer;
   position: absolute;
-  left: 0;
+  left: 30px;
   top: 50%;
   transform: translateY(-50%);
 }
@@ -65,4 +66,10 @@ textarea {
   font-family: "Playpen Sans", cursive;
   font-weight: 800;
   font-size: 110px;
+}
+
+@media (max-width: 480px) {
+  .logo {
+    left: 10px;
+  }
 }
