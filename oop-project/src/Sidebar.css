@@ -1,0 +1,80 @@
+.side-bar {
+  position: fixed;
+  top: 50px;
+  height: 100%;
+  padding-top: 10px;
+  box-shadow: 2px 0px 10px var(--box-shadow);
+  z-index: 1;
+  background-color: var(--background-color);
+  border-right: 1px solid var(--border-color);
+  left: 0;
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 0.2s linear;
+  visibility: visible;
+}
+
+.hidden {
+  opacity: 0;
+  transform: translateX(-20px);
+  visibility: hidden;
+}
+.side-icon {
+  width: 200px;
+  display: flex;
+  position: relative;
+  cursor: pointer;
+  color: var(--text-muted);
+  transition: all 0.2s ease-in-out;
+  font-size: 24px;
+  padding: 10px;
+  gap: 5px;
+  top: 10px;
+}
+.side-icon:hover {
+  color: var(--text-color);
+  background-color: var(--text-muted);
+}
+
+.side-icon.curr {
+  color: var(--text-color);
+  transition: all 0.2s ease-in-out;
+}
+
+.theme-button {
+  border: none;
+  background-color: transparent;
+}
+.theme-button svg {
+  width: 24px;
+  height: 24px;
+}
+.theme-button.light:hover {
+  color: var(--primary-color);
+}
+.theme-button:hover {
+  color: #f5c903;
+}
+
+@media (max-width: 480px) {
+  .side-title {
+    position: relative;
+    top: 5%;
+    left: 5%;
+    font-size: 50px;
+  }
+  .side-bar {
+    top: 0;
+    right: 0;
+    z-index: 0;
+    width: 100%;
+    padding: 0;
+    transform: none;
+    overflow: scroll;
+  }
+  .side-icon {
+    width: 100%;
+    top: 10%;
+    left: 0%;
+  }
+}

@@ -87,6 +87,9 @@
 .quantity-btn:hover {
   background-color: var(--primary-hover);
 }
+.quantity-btn:active {
+  transform: scale(0.98);
+}
 .checkout {
   font-size: 18px;
   width: 100%;
@@ -100,6 +103,9 @@
 }
 .checkout:hover {
   background-color: var(--primary-hover);
+}
+.checkout:active {
+  transform: scale(0.98);
 }
 
 @media (max-width: 480px) {

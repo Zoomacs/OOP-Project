@@ -10,17 +10,28 @@ import Navbar from "./Navbar";
 import "./main.css";
 import Cart from "./Cart";
 import { useState, useEffect } from "react";
+import Sidebar from "./Sidebar";
 
 function App() {
   const [currentpage, setcurrentpage] = useState("login");
   const [cart, setCart] = useState("hidden cart-bar");
+  const [sideBar, setSideBar] = useState("hidden side-bar");
   return (
     <>
       <BrowserRouter>
-        <Navbar page={currentpage} cart={cart} setCart={setCart} />
-
+        <Navbar
+          page={currentpage}
+          cart={cart}
+          setCart={setCart}
+          sideBar={sideBar}
+          setSideBar={setSideBar}
+        />
         <Routes>
           <Route path="/" element={<Login page={setcurrentpage} />} />
+          <Route
+            path="/register"
+            element={<Register page={setcurrentpage} />}
+          />
           <Route path="/home" element={<Home page={setcurrentpage} />} />
           <Route
             path="/restaurant"
@@ -42,6 +53,7 @@ function App() {
             element={<Register page={setcurrentpage} />}
           />
         </Routes>
+        <Sidebar page={currentpage} display={sideBar} />
       </BrowserRouter>
       <Cart page={setcurrentpage} display={cart} />
     </>

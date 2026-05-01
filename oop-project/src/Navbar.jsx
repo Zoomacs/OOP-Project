@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./main.css";
 import "./Navbar.css";
-import Notification from "./Notification";
 import {
   House,
   Moon,
@@ -16,22 +15,24 @@ import {
   ContactIcon,
   NotebookIcon,
   BellIcon,
+  Menu,
 } from "lucide-react";
-import Cart from "./Cart";
 
-function Navbar({ page, cart, setCart }) {
+function Navbar({ page, cart, setCart, sideBar, setSideBar }) {
   const [notification, setnotification] = useState("nav-icon");
-  const [theme, settheme] = useState("light");
-
-  function ToggleTheme() {
-    theme === "light" ? settheme("dark") : settheme("light");
-    document.body.classList.toggle("dark");
-  }
 
   function toggleCart() {
     cart == "hidden cart-bar"
       ? setCart("cart-bar")
       : setCart("hidden cart-bar");
+    setSideBar("hidden side-bar");
+  }
+
+  function toggleSideBar() {
+    sideBar == "hidden side-bar"
+      ? setSideBar("side-bar")
+      : setSideBar("hidden side-bar");
+    setCart("hidden cart-bar");
   }
 
   if (page == "login") {
@@ -47,7 +48,19 @@ function Navbar({ page, cart, setCart }) {
       <header>
         <nav>
           <div className="navbar">
-            <Link to="./home">
+            <Link
+              className={`${sideBar == "side-bar" ? "active side-btn" : "side-btn"}`}
+              onClick={toggleSideBar}
+            >
+              <Menu />
+            </Link>
+            <Link
+              to="./home"
+              onClick={() => {
+                setCart("hidden cart-bar");
+                setSideBar("hidden side-bar");
+              }}
+            >
               <svg
                 className="logo"
                 viewBox="0 0 500 200"
@@ -70,6 +83,7 @@ function Navbar({ page, cart, setCart }) {
               className={`${page == "home" ? "curr nav-icon" : "nav-icon"} home`}
               onClick={() => {
                 setCart("hidden cart-bar");
+                setSideBar("hidden side-bar");
               }}
             >
               <House />
@@ -81,6 +95,7 @@ function Navbar({ page, cart, setCart }) {
               className={`${page == "restaurant" ? "curr nav-icon" : "nav-icon"} restaurant`}
               onClick={() => {
                 setCart("hidden cart-bar");
+                setSideBar("hidden side-bar");
               }}
             >
               <UtensilsIcon />
@@ -89,9 +104,10 @@ function Navbar({ page, cart, setCart }) {
 
             <Link
               to="/contact"
-              className={`${page == "contact" ? "curr nav-icon" : "nav-icon"} contact`}
+              className={`${page == "contact" ? "curr nav-icon" : "nav-icon"}`}
               onClick={() => {
                 setCart("hidden cart-bar");
+                setSideBar("hidden side-bar");
               }}
             >
               <Headset />
@@ -99,21 +115,11 @@ function Navbar({ page, cart, setCart }) {
             </Link>
 
             <Link
-              to="/orderhistory"
-              className={`${page == "orderhistory" ? "curr nav-icon" : "nav-icon"} orderhistory`}
-              onClick={() => {
-                setCart("hidden cart-bar");
-              }}
-            >
-              <Headset />
-              <p>Orders</p>
-            </Link>
-
-            <Link
               to="/notification"
               className={`${page == "notification" ? "curr nav-icon" : "nav-icon"} notification`}
               onClick={() => {
                 setCart("hidden cart-bar");
+                setSideBar("hidden side-bar");
               }}
             >
               <BellIcon />
@@ -121,18 +127,11 @@ function Navbar({ page, cart, setCart }) {
             </Link>
 
             <Link
-              className={`${cart == "cart-bar" ? "curr cart-icon" : "cart-icon"} cart`}
+              className={`${cart == "cart-bar" ? "active cart-icon" : "cart-icon"}`}
               onClick={toggleCart}
             >
               <ShoppingCart />
             </Link>
-
-            <button
-              className={`theme-button ${theme == "light" ? "light" : ""}`}
-              onClick={ToggleTheme}
-            >
-              {theme == "light" ? <Moon /> : <Sun />}
-            </button>
           </div>
         </nav>
       </header>
