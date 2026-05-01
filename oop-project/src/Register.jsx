@@ -326,7 +326,7 @@ function Register({ page }) {
           </div>
 
           <button className="reg-submit" onClick={handleSubmit}>
-            Create My Account →
+            Sign Up
           </button>
 
           <p className="reg-login-link">
