@@ -8,15 +8,21 @@
   border-radius: 15px;
   width: 100%;
   max-width: 750px;
-  max-height: 750px;
+  max-height: clamp(400px , 80vh , 800px);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  overflow: hidden;
+  overflow: auto;
+  position: relative;
+}
+
+.order-place::-webkit-scrollbar{
+  display: none;
 }
 
 .order-head {
   padding: 25px 20px 15px;
   text-align: left;
   border-bottom: 1px solid var(--border-color);
+
 }
 
 .order-head h1 {
@@ -30,17 +36,18 @@
   flex-direction: column;
   gap: 15px;
   padding: 20px;
+  padding-bottom: 50px;
   width: 100%;
   max-width: 750px;
   box-sizing: border-box;
-  overflow: scroll;
+  overflow-y: auto;
 }
 
 .Order-card {
   display: flex;
   align-items: center;
   background: var(--box-color);
-  border-radius: 12px;
+  border-radius: 0px 12px 12px 0px;
   border: 1px solid var(--border-color);
   border-left: 4px solid var(--primary-color);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
