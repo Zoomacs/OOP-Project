@@ -1,16 +1,11 @@
 .page-container{
   display: flex;
   justify-content: center;
-  padding: 40px 20px;
 }
 .order-place {
-  background-color: var(--box-color);
-  border-radius: 15px;
+  background-color: transparent;
   width: 100%;
   max-width: 750px;
-  max-height: clamp(400px , 80vh , 800px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  overflow: auto;
   position: relative;
 }
 
@@ -18,69 +13,128 @@
   display: none;
 }
 
-.order-head {
-  padding: 25px 20px 15px;
-  text-align: left;
-  border-bottom: 1px solid var(--border-color);
+.order-head-title {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
 
+.order-head {
+  padding: 5px 20px 15px;
+  text-align: left;
 }
 
 .order-head h1 {
   margin: 0;
-  color: var(--text-color);
-  font-size: 2.5rem;
+  color: var(--primary-color);
+  font-size: 4rem;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.total-badge {
+  background-color: var(--box-color);
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.order-head-desc {
+  color: var(--text-muted);
+  margin-top: 10px;
+  font-size: 1rem;
+  max-width: 600px;
+  line-height: 1.4;
+}
+
+.order-filters {
+  display: flex;
+  gap: 20px;
+  padding: 0 20px;
+  margin-bottom: 10px;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.order-filters button {
+  background: none;
+  border: none;
+  padding: 10px 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease-in-out;
+}
+
+.order-filters button.active,
+.order-filters button:hover {
+  color: var(--primary-color);
+}
+
+.order-filters button.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: var(--primary-color);
+  border-radius: 3px 3px 0 0;
 }
 
 .cards-list {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
   padding: 20px;
-  padding-bottom: 50px;
   width: 100%;
-  max-width: 750px;
   box-sizing: border-box;
-  overflow-y: auto;
 }
 
 .Order-card {
   display: flex;
   align-items: center;
   background: var(--box-color);
-  border-radius: 0px 12px 12px 0px;
+  border-radius: 16px;
   border: 1px solid var(--border-color);
-  border-left: 4px solid var(--primary-color);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  border-left: 6px solid var(--primary-color);
+  box-shadow: 0 4px 15px var(--box-shadow);
   width:100%;
-  min-height: 120px;
   padding: 20px;
+  margin: 5px 0 5px 0;
+  gap: 20px;
   box-sizing: border-box;
-  gap: 15px;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  cursor: pointer;
 }
 
 .Order-card:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 15px var(--box-shadow);
 }
 
 .card-img {
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   background-color: var(--background-color);
-  border-radius: 50%;
-  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  background-color: var(--box-color);
+  overflow: hidden;
 }
 
 .card-img img {
   width: 100%;
   height: 100%;
   object-fit: contain;
+  padding: 8px;
 }
 
 .card-content {
@@ -92,13 +146,12 @@
 
 .card-header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 
 .card-title {
-  color: var(--primary-color);
-  font-size: 1.25rem;
+  color: var(--text-color);
+  font-size: 1.15rem;
   font-weight: 700;
   margin: 0;
 }
@@ -106,16 +159,57 @@
 .card-details {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
 }
 
 .card-description {
   color: var(--text-color);
   font-size: 0.95rem;
-  font-weight: 500;
   margin: 0;
+  line-height: 1.3;
 }
 .card-time {
   color: var(--text-muted);
   font-size: 0.85rem;
+  font-weight: 500;
+  margin: 0;
+}
+.card-actions {
+  margin-top: 4px;
+}
+
+.details-btn {
+  background: none;
+  border: none;
+  color: var(--primary-color);
+  font-weight: 700;
+  font-size: 0.85rem;
+  cursor: pointer;
+  padding: 0;
+  transition: color 0.2s ease-in-out;
+}
+
+.details-btn:hover {
+  color: var(--primary-hover);
+  text-decoration: underline;
+}
+
+div.card-points {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--background-color); 
+  border: 1px solid var(--border-color);
+  padding: 10px 16px;
+  border-radius: 8px;
+  flex-shrink: 0;
+  transition: all 0.2s ease-in-out;
+}
+
+p.card-points {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--primary-color);
+  white-space: nowrap;
 }
