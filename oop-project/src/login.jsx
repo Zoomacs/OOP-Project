@@ -1,8 +1,10 @@
-import { useState } from "react";
 import "./login.css";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 function Login({ page }) {
-  page("login");
+  useEffect(() => {
+    page("login");
+  }, []);
 
   const [ID, setID] = useState("");
   const [password, setPassword] = useState("");

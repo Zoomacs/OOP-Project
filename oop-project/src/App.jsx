@@ -7,6 +7,7 @@ import OrderHistory from "./OrderHistory";
 import Notification from "./Notification";
 import Register from "./Register";
 import Navbar from "./Navbar";
+import Checkout from "./Checkout";
 import "./main.css";
 import Cart from "./Cart";
 import { useState, useEffect } from "react";
@@ -52,10 +53,15 @@ function App() {
             path="/register"
             element={<Register page={setcurrentpage} />}
           />
+          <Route
+            path="/checkout"
+            element={<Checkout page={setcurrentpage} />}
+          />
         </Routes>
+
+        <Cart page={setcurrentpage} display={cart} />
         <Sidebar page={currentpage} display={sideBar} />
       </BrowserRouter>
-      <Cart page={setcurrentpage} display={cart} />
     </>
   );
 }

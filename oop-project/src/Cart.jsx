@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import "./Cart.css";
+import { useNavigate } from "react-router-dom";
 import foulimg from "./assets/foul.jpg";
 import ta3meya from "./assets/ta3meya.jpg";
 import { X } from "lucide-react";
 function Cart({ page, display }) {
+  const navigate = useNavigate();
   const [quantity, setquantity] = useState(0);
   const [items, setItem] = useState([
     {
@@ -67,7 +69,9 @@ function Cart({ page, display }) {
           Discount 0%
         </p>
         <h2>Total: {total} EGP</h2>
-        <button className="checkout">Checkout</button>
+        <button className="checkout" onClick={() => navigate("/checkout")}>
+          Checkout
+        </button>
       </div>
     </>
   );

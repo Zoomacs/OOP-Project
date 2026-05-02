@@ -106,11 +106,7 @@ body {
   padding: 14px;
   border: none;
   border-radius: 30px;
-  background: linear-gradient(
-    135deg,
-    var(--primary-color),
-    var(--primary-hover)
-  );
+  background: #c0392b;
   color: var(--button-text);
   font-size: 16px;
   font-weight: 600;
