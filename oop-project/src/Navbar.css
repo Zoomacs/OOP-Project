@@ -20,11 +20,14 @@ a {
 .navbar {
   display: flex;
   justify-content: center;
+  align-items: center;
   border-bottom: 1px solid var(--border-color);
   background-color: var(--background-color);
-  position: relative;
+  position: fixed;
+  top: 0;
+  width: 100%;
   font-size: 24px;
-  z-index: 10;
+  z-index: 1000;
 }
 .nav-icon {
   padding: 8px 10px;
@@ -108,10 +111,40 @@ a {
 .curr::before {
   transition: width 0s ease-in-out;
 }
+.notification-btn svg {
+  display: block;
+}
+
+.notification-btn {
+  margin-top: 10px;
+  margin-left: 0;
+}
+.notification-btn:hover {
+  color: var(--text-color);
+  background-color: transparent;
+  border: none;
+}
+
+.notification-btn:hover::before {
+  background-color: transparent;
+}
+.notification-btn:hover::after {
+  background-color: transparent;
+}
+.notification-btn::before {
+  background-color: transparent;
+}
+.notification-btn::after {
+  background-color: transparent;
+}
+.notification-btn.active {
+  color: var(--primary-color);
+}
 
 @media (max-width: 480px) {
   .navbar {
     position: fixed;
+    top: 95%;
     bottom: 0;
     width: 100%;
     border-top: 1px solid var(--border-color);

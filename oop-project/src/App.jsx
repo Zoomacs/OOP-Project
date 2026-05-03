@@ -17,6 +17,7 @@ function App() {
   const [currentpage, setcurrentpage] = useState("login");
   const [cart, setCart] = useState("hidden cart-bar");
   const [sideBar, setSideBar] = useState("hidden side-bar");
+  const [notification, setNotification] = useState("hidden notification");
   return (
     <>
       <BrowserRouter>
@@ -26,6 +27,8 @@ function App() {
           setCart={setCart}
           sideBar={sideBar}
           setSideBar={setSideBar}
+          notification={notification}
+          setNotification={setNotification}
         />
         <Routes>
           <Route path="/" element={<Login page={setcurrentpage} />} />
@@ -44,21 +47,13 @@ function App() {
             path="/orderhistory"
             element={<OrderHistory page={setcurrentpage} />}
           />
-
-          <Route
-            path="/notification"
-            element={<Notification page={setcurrentpage} />}
-          />
-          <Route
-            path="/register"
-            element={<Register page={setcurrentpage} />}
-          />
           <Route
             path="/checkout"
             element={<Checkout page={setcurrentpage} />}
           />
         </Routes>
 
+        <Notification page={setcurrentpage} display={notification} />
         <Cart page={setcurrentpage} display={cart} />
         <Sidebar page={currentpage} display={sideBar} />
       </BrowserRouter>

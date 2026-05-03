@@ -61,14 +61,14 @@ function Cart({ page, display }) {
   return (
     <>
       <div className={display}>
-        <h1>Cart</h1>
+        <h1 className="cart-title">Cart</h1>
         {list}
-        <p>
+        <p className="total">
           Total: {total} EGP
           <br />
           Discount 0%
+          <h2>Total: {total} EGP</h2>
         </p>
-        <h2>Total: {total} EGP</h2>
         <button className="checkout" onClick={() => navigate("/checkout")}>
           Checkout
         </button>

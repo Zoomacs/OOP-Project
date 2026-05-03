@@ -18,9 +18,15 @@ import {
   Menu,
 } from "lucide-react";
 
-function Navbar({ page, cart, setCart, sideBar, setSideBar }) {
-  const [notification, setnotification] = useState("nav-icon");
-
+function Navbar({
+  page,
+  cart,
+  setCart,
+  sideBar,
+  setSideBar,
+  notification,
+  setNotification,
+}) {
   function toggleCart() {
     cart == "hidden cart-bar"
       ? setCart("cart-bar")
@@ -35,6 +41,15 @@ function Navbar({ page, cart, setCart, sideBar, setSideBar }) {
     setCart("hidden cart-bar");
   }
 
+  function toggleNotification() {
+    notification == "hidden notification"
+      ? setNotification("notification")
+      : setNotification("hidden notification");
+    setCart("hidden cart-bar");
+  }
+
+  console.log(notification);
+
   if (page == "login") {
     return null;
   }
@@ -45,96 +60,81 @@ function Navbar({ page, cart, setCart, sideBar, setSideBar }) {
 
   return (
     <>
-      <header>
-        <nav>
-          <div className="navbar">
-            <Link
-              className={`${sideBar == "side-bar" ? "active side-btn" : "side-btn"}`}
-              onClick={toggleSideBar}
-            >
-              <Menu />
-            </Link>
-            <Link
-              to="./home"
-              onClick={() => {
-                setCart("hidden cart-bar");
-                setSideBar("hidden side-bar");
-              }}
-            >
-              <svg
-                className="logo"
-                viewBox="0 0 500 200"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect rx="40" />
+      <div className="navbar">
+        <Link
+          className={`${sideBar == "side-bar" ? "active side-btn" : "side-btn"}`}
+          onClick={toggleSideBar}
+        >
+          <Menu />
+        </Link>
+        <Link
+          to="./home"
+          onClick={() => {
+            setCart("hidden cart-bar");
+            setSideBar("hidden side-bar");
+          }}
+        >
+          <svg
+            className="logo"
+            viewBox="0 0 500 200"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect rx="40" />
 
-                <text
-                  x="50%"
-                  y="50%"
-                  dominantBaseline="middle"
-                  textAnchor="middle"
-                >
-                  <tspan>Q</tspan>-Less
-                </text>
-              </svg>
-            </Link>
-            <Link
-              to="/home"
-              className={`${page == "home" ? "curr nav-icon" : "nav-icon"} home`}
-              onClick={() => {
-                setCart("hidden cart-bar");
-                setSideBar("hidden side-bar");
-              }}
-            >
-              <House />
-              <p>Home</p>
-            </Link>
+            <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle">
+              <tspan>Q</tspan>-Less
+            </text>
+          </svg>
+        </Link>
+        <Link
+          to="/home"
+          className={`${page == "home" ? "curr nav-icon" : "nav-icon"} home`}
+          onClick={() => {
+            setCart("hidden cart-bar");
+            setSideBar("hidden side-bar");
+          }}
+        >
+          <House />
+          <p>Home</p>
+        </Link>
 
-            <Link
-              to="/restaurant"
-              className={`${page == "restaurant" ? "curr nav-icon" : "nav-icon"} restaurant`}
-              onClick={() => {
-                setCart("hidden cart-bar");
-                setSideBar("hidden side-bar");
-              }}
-            >
-              <UtensilsIcon />
-              <p>Restaurants</p>
-            </Link>
+        <Link
+          to="/restaurant"
+          className={`${page == "restaurant" ? "curr nav-icon" : "nav-icon"} restaurant`}
+          onClick={() => {
+            setCart("hidden cart-bar");
+            setSideBar("hidden side-bar");
+          }}
+        >
+          <UtensilsIcon />
+          <p>Restaurants</p>
+        </Link>
 
-            <Link
-              to="/contact"
-              className={`${page == "contact" ? "curr nav-icon" : "nav-icon"}`}
-              onClick={() => {
-                setCart("hidden cart-bar");
-                setSideBar("hidden side-bar");
-              }}
-            >
-              <Headset />
-              <p>Contact</p>
-            </Link>
+        <Link
+          to="/contact"
+          className={`${page == "contact" ? "curr nav-icon" : "nav-icon"}`}
+          onClick={() => {
+            setCart("hidden cart-bar");
+            setSideBar("hidden side-bar");
+          }}
+        >
+          <Headset />
+          <p>Contact</p>
+        </Link>
 
-            <Link
-              to="/notification"
-              className={`${page == "notification" ? "curr nav-icon" : "nav-icon"} notification`}
-              onClick={() => {
-                setCart("hidden cart-bar");
-                setSideBar("hidden side-bar");
-              }}
-            >
-              <BellIcon />
-              <p>Notifications</p>
-            </Link>
-
-            <Link
-              className={`${cart == "cart-bar" ? "active cart-icon" : "cart-icon"}`}
-              onClick={toggleCart}
-            >
-              <ShoppingCart />
-            </Link>
-          </div>
-        </nav>
-      </header>
+        <Link
+          className={`${cart == "cart-bar" ? "active cart-icon" : "cart-icon"}`}
+          onClick={toggleCart}
+        >
+          <ShoppingCart />
+        </Link>
+        <Link
+          className={`${notification == "notification" ? "active" : ""} notification-btn nav-icon`}
+          onClick={toggleNotification}
+        >
+          <Bell />
+        </Link>
+      </div>
     </>
   );
 }

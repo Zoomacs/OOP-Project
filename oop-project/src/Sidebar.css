@@ -3,6 +3,7 @@
   top: 50px;
   height: 100%;
   padding-top: 10px;
+  width: 300px;
   box-shadow: 2px 0px 10px var(--box-shadow);
   z-index: 1;
   background-color: var(--background-color);
@@ -20,7 +21,7 @@
   visibility: hidden;
 }
 .side-icon {
-  width: 200px;
+  width: 100%;
   display: flex;
   position: relative;
   cursor: pointer;
