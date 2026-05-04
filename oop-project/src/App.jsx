@@ -13,6 +13,7 @@ import "./main.css";
 import Cart from "./Cart";
 import { useState, useEffect } from "react";
 import Sidebar from "./Sidebar";
+import RestaurantOrders from "./RestaurantOrders";
 
 function App() {
   const [currentpage, setcurrentpage] = useState("login");
@@ -55,6 +56,10 @@ function App() {
           <Route
             path="/PaymentPage"
             element={<PaymentPage page={setcurrentpage} />}
+          />
+          <Route
+            path="/restaurantorders"
+            element={<RestaurantOrders page={setcurrentpage} />}
           />
         </Routes>
 

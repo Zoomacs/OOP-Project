@@ -6,24 +6,39 @@ import ta3meya from "./assets/ta3meya.jpg";
 import { X } from "lucide-react";
 function Cart({ page, display }) {
   const navigate = useNavigate();
-  const [quantity, setquantity] = useState(0);
+  const [Quantity, setQuantity] = useState(0);
+
+  function setItemQuantity(targetId, sign) {
+    setItem((prvQ) =>
+      prvQ.map((item) => {
+        if (item.id == targetId) {
+          if (sign == "+") {
+            return { ...item, quantity: item.quantity + 1 };
+          } else if (sign == "-" && item.quantity > 1) {
+            return { ...item, quantity: item.quantity - 1 };
+          }
+        }
+        return item;
+      }),
+    );
+  }
   const [items, setItem] = useState([
     {
+      id: 0,
       image: foulimg,
       title: "Foul",
-
-      quantity: 0,
+      quantity: 1,
       price: 12,
     },
     {
+      id: 1,
       image: ta3meya,
       title: "Second item",
-
-      quantity: 0,
+      quantity: 1,
       price: 10,
     },
-    { title: "Third item", quantity: 0, price: 15 },
-    { title: "Fourth item", quantity: 0, price: 13 },
+    { id: 2, title: "Third item", quantity: 1, price: 15 },
+    { id: 3, title: "Fourth item", quantity: 1, price: 13 },
   ]);
 
   const list = items.map((item) => (
@@ -46,9 +61,19 @@ function Cart({ page, display }) {
           <div className="item-price">
             <p>{item.price} EGP</p>
             <div className="quantity">
-              <button className="quantity-btn">-</button>
+              <button
+                className="quantity-btn"
+                onClick={() => setItemQuantity(item.id, "-")}
+              >
+                -
+              </button>
               <p>{item.quantity}</p>
-              <button className="quantity-btn">+</button>
+              <button
+                className="quantity-btn"
+                onClick={() => setItemQuantity(item.id, "+")}
+              >
+                +
+              </button>
             </div>
           </div>
         </div>
@@ -57,18 +82,17 @@ function Cart({ page, display }) {
   ));
 
   let total = 0;
-  items.forEach((item) => (total += item.price));
+  items.forEach((item) => (total += item.price * item.quantity));
   return (
     <>
       <div className={display}>
         <h1 className="cart-title">Cart</h1>
         {list}
-        <p className="total">
-          Total: {total} EGP
-          <br />
-          Discount 0%
+        <div className="total">
+          <p> Total: {total} EGP</p>
+          <p>Discount 0%</p>
           <h2>Total: {total} EGP</h2>
-        </p>
+        </div>
         <button className="checkout" onClick={() => navigate("/checkout")}>
           Checkout
         </button>

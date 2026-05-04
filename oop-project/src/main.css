@@ -6,6 +6,8 @@
   --nav-icon-hover: rgb(215, 214, 213);
   --primary-color: #cc0600;
   --primary-hover: #930500;
+  --secondary-color:#E4E4E7;
+  --secondary-hover:#c3c3c3;
   --border-color: rgb(213, 213, 213);
   --box-color: white;
   --button-text: white;
@@ -16,6 +18,8 @@
   --text-color: white;
   --text-muted: rgb(168, 166, 166);
   --nav-icon-hover: rgb(49, 49, 49);
+    --secondary-color:#353535;
+  --secondary-hover:#4c4c4c;
   --border-color: rgb(55, 55, 55);
   --box-color: rgb(11, 9, 33);
   --button-text: black;

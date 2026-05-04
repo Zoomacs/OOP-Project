@@ -9,13 +9,14 @@
   justify-content: center;
   background-color: var(--background-color);
   min-height: max-content;
+  transform: translateY(0);
   transition: all 0.2s ease-in-out;
 }
 
-.hidden {
+.notification.hidden {
   opacity: 0;
   transition: all 0.1 ease-in-out;
-  transform: none !important;
+  transform: translateY(-20px);
   visibility: hidden;
 }
 

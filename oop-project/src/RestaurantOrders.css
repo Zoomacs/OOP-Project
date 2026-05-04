@@ -1,0 +1,141 @@
+.active-orders {
+  margin-top: 100px;
+}
+.page-title {
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  left: 40%;
+}
+.list-name {
+  padding: 10px;
+}
+.list {
+  margin-left: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  max-width: 1100px;
+}
+
+.orders-list {
+  position: relative;
+  transition: all 0.2s ease-in-out;
+  background-color: var(--box-color);
+  width: 350px;
+  height: max-content;
+  border-radius: 24px;
+  font-size: 18px;
+  margin-bottom: 20px;
+  padding: 20px 30px 20px 20px;
+  box-shadow: 2px 2px 6px var(--box-shadow);
+}
+.orders-list:hover {
+  transform: translateY(-3px);
+}
+.order-card {
+  display: flex;
+}
+.order-id {
+  position: absolute;
+  height: max-content;
+  color: var(--text-muted);
+  right: 10%;
+}
+.order-information {
+  padding-top: 15px;
+  padding-left: 10px;
+}
+.senderImg {
+  width: 90px;
+  border-radius: 50%;
+}
+.view-btn {
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+  border: none;
+  border-radius: 24px;
+  padding: 10px;
+  margin: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+.view-btn:hover {
+  background-color: var(--secondary-hover);
+}
+.view-btn:active {
+  scale: 0.98;
+}
+
+.ready-btn {
+  background-color: var(--primary-color);
+  color: var(--button-text);
+  border: none;
+  font-size: 16px;
+  border-radius: 24px;
+  width: 60%;
+  padding: 10px;
+  position: relative;
+  margin: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+.ready-btn:hover {
+  background-color: var(--primary-hover);
+}
+.ready-btn:active {
+  scale: 0.98;
+}
+
+.approval-btn svg {
+  width: 15px;
+  height: 15px;
+}
+
+.approval-btn {
+  position: relative;
+  right: 0;
+  background-color: var(--primary-color);
+  color: var(--button-text);
+  border: none;
+  border-radius: 24px;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  margin: 5px;
+  margin-top: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.approval-btn:hover {
+  background-color: var(--primary-hover);
+}
+
+.approval-btn:active {
+  scale: 0.91;
+}
+
+.order-details {
+  top: 5%;
+  right: 0%;
+  width: 20%;
+  height: 100%;
+  padding: 20px;
+  box-shadow: 2px 0px 10px var(--box-shadow);
+  background-color: var(--box-color);
+  position: fixed;
+  transition: all 0.1s linear;
+  border-radius: 24px;
+  transform: translateX(0px);
+  z-index: 100;
+  visibility: visible;
+  opacity: 1;
+}
+.order-details.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(20px);
+}

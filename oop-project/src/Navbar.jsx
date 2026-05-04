@@ -48,8 +48,6 @@ function Navbar({
     setCart("hidden cart-bar");
   }
 
-  console.log(notification);
-
   if (page == "login") {
     return null;
   }
