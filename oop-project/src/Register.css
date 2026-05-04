@@ -2,8 +2,8 @@
   display: flex;
   width: 100vw;
   min-height: 100vh;
-  font-family: "Segoe UI", sans-serif;
-  background: linear-gradient(135deg, #fdf0f0 0%, #fff5f5 50%, #fdeaea 100%);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  background: var(--background-color);
 }
 
 .reg-left {
@@ -20,25 +20,25 @@
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 2px;
-  color: #c0392b;
+  color: var(--primary-color);
 }
 
 .reg-hero-title {
   font-size: 30px;
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--text-color);
   margin: 0 0 12px;
   line-height: 1.3;
 }
 
 .reg-hero-accent {
-  color: #c0392b;
+  color: var(--primary-color);
   font-style: italic;
 }
 
 .reg-hero-sub {
   font-size: 15px;
-  color: #666;
+  color: var(--text-muted);
   line-height: 1.7;
   margin: 0;
 }
@@ -50,10 +50,10 @@
 }
 
 .reg-card {
-  background: #fff;
+  background: var(--box-color);
   border-radius: 16px;
   padding: 20px;
-  box-shadow: 0 2px 12px rgba(192, 57, 43, 0.07);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -66,13 +66,13 @@
 .reg-card-title {
   font-size: 15px;
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--text-color);
   margin: 0;
 }
 
 .reg-card-text {
   font-size: 13px;
-  color: #777;
+  color: var(--text-muted);
   line-height: 1.5;
   margin: 0;
 }
@@ -91,7 +91,7 @@
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  border: 2px solid #fff;
+  border: 2px solid var(--box-color);
   object-fit: cover;
 }
 
@@ -101,11 +101,9 @@
 
 .reg-social-text {
   font-size: 13px;
-  color: #666;
+  color: var(--text-muted);
   margin: 0;
 }
-
-/* ─── RIGHT ─── */
 
 .reg-right {
   flex: 1;
@@ -117,12 +115,12 @@
 }
 
 .reg-form-card {
-  background: #fff;
+  background: var(--box-color);
   border-radius: 24px;
   padding: 40px 36px;
   width: 100%;
   max-width: 420px;
-  box-shadow: 0 8px 40px rgba(192, 57, 43, 0.1);
+  box-shadow: 0 8px 40px var(--box-shadow);
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -137,7 +135,7 @@
 .reg-form-title {
   font-size: 26px;
   font-weight: 800;
-  color: #1a1a1a;
+  color: var(--text-color);
   margin: 0;
 }
 
@@ -150,16 +148,16 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #ddd;
+  background: var(--border-color);
 }
 
 .reg-dot-active {
-  background: #c0392b;
+  background: var(--primary-color);
 }
 
 .reg-tabs {
   display: flex;
-  background: #f5f5f5;
+  background: var(--background-color);
   border-radius: 30px;
   padding: 4px;
 }
@@ -173,13 +171,13 @@
   font-weight: 600;
   cursor: pointer;
   background: transparent;
-  color: #888;
+  color: var(--text-muted);
   transition: all 0.2s;
 }
 
 .reg-tab-active {
-  background: #fff;
-  color: #c0392b;
+  background: var(--box-color);
+  color: var(--primary-color);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
@@ -199,14 +197,14 @@
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 1.2px;
-  color: #999;
+  color: var(--text-muted);
 }
 
 .reg-input-wrap {
   display: flex;
   align-items: center;
-  background: #f8f8f8;
-  border: 1.5px solid #eee;
+  background: var(--background-color);
+  border: 1.5px solid var(--border-color);
   border-radius: 10px;
   padding: 11px 14px;
   gap: 10px;
@@ -214,7 +212,7 @@
 }
 
 .reg-input-wrap:focus-within {
-  border-color: #c0392b;
+  border-color: var(--primary-color);
 }
 
 .reg-input-icon {
@@ -227,12 +225,12 @@
   background: transparent;
   outline: none;
   font-size: 14px;
-  color: #333;
+  color: var(--text-color);
   width: 100%;
 }
 
 .reg-input::placeholder {
-  color: #bbb;
+  color: var(--text-muted);
 }
 
 .reg-eye {
@@ -245,8 +243,8 @@
 }
 
 .reg-submit {
-  background: #c0392b;
-  color: #fff;
+  background: var(--primary-color);
+  color: var(--button-text);
   border: none;
   border-radius: 30px;
   padding: 15px;
@@ -260,7 +258,7 @@
 }
 
 .reg-submit:hover {
-  opacity: 0.9;
+  background: var(--primary-hover);
   transform: translateY(-1px);
 }
 
@@ -271,12 +269,12 @@
 .reg-login-link {
   text-align: center;
   font-size: 14px;
-  color: #888;
+  color: var(--text-muted);
   margin: 0;
 }
 
 .reg-login-a {
-  color: #c0392b;
+  color: var(--primary-color);
   font-weight: 700;
   text-decoration: none;
 }
@@ -289,6 +287,6 @@
   text-align: center;
   font-size: 10px;
   letter-spacing: 1.5px;
-  color: #bbb;
+  color: var(--text-muted);
   margin: 0;
 }
