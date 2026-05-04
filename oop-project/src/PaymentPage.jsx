@@ -38,32 +38,6 @@ export default function PaymentPage() {
 
       <div className="payment-container">
         <div className="left">
-          <div className="box">
-            <h2>Manual Payment Information</h2>
-
-            <div className="info-grid">
-              <div>
-                <span>Account Holder</span>
-                <p>Q-Less Dining Services</p>
-              </div>
-
-              <div>
-                <span>Bank Name</span>
-                <p>Campus Central Bank</p>
-              </div>
-
-              <div>
-                <span>Account Number</span>
-                <p>002-8834-5561</p>
-              </div>
-
-              <div>
-                <span>Reference Code</span>
-                <p className="ref">QL-88920-PAY</p>
-              </div>
-            </div>
-          </div>
-
           <div className="upload-box">
             <div className="upload-content">
               <p className="upload-title">Upload Payment Screenshot</p>
