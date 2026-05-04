@@ -8,6 +8,7 @@ import Notification from "./Notification";
 import Register from "./Register";
 import Navbar from "./Navbar";
 import Checkout from "./Checkout";
+import PaymentPage from "./PaymentPage";
 import "./main.css";
 import Cart from "./Cart";
 import { useState, useEffect } from "react";
@@ -50,6 +51,10 @@ function App() {
           <Route
             path="/checkout"
             element={<Checkout page={setcurrentpage} />}
+          />
+          <Route
+            path="/PaymentPage"
+            element={<PaymentPage page={setcurrentpage} />}
           />
         </Routes>
 

@@ -1,5 +1,6 @@
 import { CreditCard, Smartphone, Banknote } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Checkout.css";
 
 function Checkout() {
@@ -9,6 +10,7 @@ function Checkout() {
   const [expiryDate, setExpiryDate] = useState("");
   const [cvv, setCvv] = useState("");
   const [showCvv, setShowCvv] = useState(false);
+  const navigate = useNavigate();
 
   const formatCard = (val) => {
     return val
@@ -188,7 +190,9 @@ function Checkout() {
           <span className="co-total-label">Total Amount</span>
           <span className="co-total-amount">${total}</span>
         </div>
-        <button className="co-pay-btn">Pay Now</button>
+        <button className="co-pay-btn" onClick={() => navigate("/PaymentPage")}>
+          Pay Now
+        </button>
       </div>
     </div>
   );
