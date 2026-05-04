@@ -4,6 +4,7 @@ import Home from "./Home";
 import Contact from "./Contact";
 import Restaurant from "./Restaurant";
 import OrderHistory from "./OrderHistory";
+import OrderTrack from "./OrderTrack";
 import Notification from "./Notification";
 import Register from "./Register";
 import Navbar from "./Navbar";
@@ -56,6 +57,10 @@ function App() {
           <Route
             path="/PaymentPage"
             element={<PaymentPage page={setcurrentpage} />}
+          />
+           <Route 
+            path="/ordertrack" 
+            element={<OrderTrack page={setcurrentpage} />} 
           />
           <Route
             path="/restaurantorders"
