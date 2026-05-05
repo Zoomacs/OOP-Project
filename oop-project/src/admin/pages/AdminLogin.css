@@ -1,0 +1,84 @@
+/* Styles are scoped by class names to keep the main website unchanged. */
+.admin-login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: linear-gradient(135deg, #151515, #2b1010 55%, #cc0600);
+}
+
+.admin-login-card {
+  width: min(420px, 100%);
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 26px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+  padding: 34px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.admin-login-logo {
+  width: 78px;
+  height: 78px;
+  object-fit: contain;
+  border-radius: 18px;
+  margin-bottom: 4px;
+}
+
+.admin-login-card h1 {
+  margin: 0;
+  font-size: 30px;
+}
+
+.admin-login-card p {
+  margin: 0 0 10px;
+  color: #666;
+}
+
+.admin-login-card label {
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+.admin-login-card input {
+  border: 1px solid #ddd;
+  border-radius: 14px;
+  padding: 13px 14px;
+  font-size: 15px;
+  outline: none;
+}
+
+.admin-login-card input:focus {
+  border-color: #cc0600;
+}
+
+.admin-login-card button {
+  border: none;
+  border-radius: 14px;
+  padding: 14px;
+  font-weight: 800;
+  color: white;
+  background: #cc0600;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.admin-login-card button:hover {
+  background: #930500;
+}
+
+.admin-login-error {
+  color: #cc0600;
+  font-weight: 700;
+}
+
+.admin-login-hint {
+  margin-top: 8px;
+  padding: 10px;
+  border-radius: 12px;
+  background: #f7f7f7;
+  color: #444;
+  font-size: 14px;
+}

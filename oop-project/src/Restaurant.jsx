@@ -1,5 +1,7 @@
 import { useEffect } from "react";
 import RestaurantList from "./Restaurant_card";
+import "./Restaurant.css";
+import AdminReturnButton from "./AdminReturnButton";
 
 function Restaurant({ page }) {
   useEffect(() => {
@@ -12,6 +14,7 @@ function Restaurant({ page }) {
       <p>Order from the university food court</p>
 
       <RestaurantList />
+      <AdminReturnButton />
     </div>
   );
 }

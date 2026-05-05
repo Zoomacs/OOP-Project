@@ -1,6 +1,7 @@
 import "./Contact.css";
 import "./main.css";
 import { useEffect } from "react";
+import AdminReturnButton from "./AdminReturnButton";
 function Contact({ page }) {
   useEffect(() => {
     page("contact");
@@ -38,6 +39,7 @@ function Contact({ page }) {
           </div>
         </div>
       </div>
+      <AdminReturnButton />
     </>
   );
 }

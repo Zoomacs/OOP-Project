@@ -20,8 +20,19 @@ function Login({ page }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (ID === "123" && password === "123") {
-      navigate("/Home");
+
+    const enteredID = ID.trim();
+    const enteredPassword = password.trim();
+
+    if (enteredID === "admin" && enteredPassword === "123") {
+      sessionStorage.setItem("adminLoggedIn", "true");
+      navigate("/admin", { replace: true });
+      return;
+    }
+
+    if (enteredID === "123" && enteredPassword === "123") {
+      sessionStorage.removeItem("adminLoggedIn");
+      navigate("/home", { replace: true });
     }
   };
 
@@ -39,7 +50,7 @@ function Login({ page }) {
             <div className="qless-input-wrapper">
               <input
                 type="text"
-                placeholder="248670"
+                placeholder="123 or admin"
                 value={ID}
                 onChange={(e) => setID(e.target.value)}
                 className="qless-input"

@@ -58,7 +58,7 @@ function RestaurantCard({ restaurant }) {
           className="restaurant-cover"
           />
 
-          <span className={`badge status-badge ${restaurant.isOpen ? "open" : "closed"}`}>
+          <span className={`restaurant-badge status-badge ${restaurant.isOpen ? "open" : "closed"}`}>
               {restaurant.isOpen ? "Open now" : "Closed"}
           </span>
         </div>

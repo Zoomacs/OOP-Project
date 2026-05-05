@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "./Notification.css";
 import kfclogo from "./assets/kfc-logo.png";
+import AdminReturnButton from "./AdminReturnButton";
 
 const NotificationCard = ({ image, title, discreption, time }) => (
   <div className="notification-card">
@@ -95,6 +96,7 @@ function Notification({ page, display }) {
           </div>
         </div>
       </div>
+      <AdminReturnButton />
     </>
   );
 }
