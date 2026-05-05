@@ -5,14 +5,14 @@
   align-items: center;
   justify-content: center;
   padding: 24px;
-  background: linear-gradient(135deg, #151515, #2b1010 55%, #cc0600);
+  background: var(--background-color);
 }
 
 .admin-login-card {
   width: min(420px, 100%);
-  background: rgba(255, 255, 255, 0.96);
+  background: var(--box-color);
   border-radius: 26px;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 24px 60px var(--box-shadow);
   padding: 34px;
   display: flex;
   flex-direction: column;
@@ -34,7 +34,7 @@
 
 .admin-login-card p {
   margin: 0 0 10px;
-  color: #666;
+  color: var(--text-muted);
 }
 
 .admin-login-card label {
@@ -43,7 +43,7 @@
 }
 
 .admin-login-card input {
-  border: 1px solid #ddd;
+  border: 1px solid var(--border-color);
   border-radius: 14px;
   padding: 13px 14px;
   font-size: 15px;
@@ -51,7 +51,7 @@
 }
 
 .admin-login-card input:focus {
-  border-color: #cc0600;
+  border-color: var(--primary-color);
 }
 
 .admin-login-card button {
@@ -59,18 +59,18 @@
   border-radius: 14px;
   padding: 14px;
   font-weight: 800;
-  color: white;
-  background: #cc0600;
+  color: var(--button-text);
+  background: var(--primary-color);
   cursor: pointer;
   margin-top: 10px;
 }
 
 .admin-login-card button:hover {
-  background: #930500;
+  background: var(--primary-hover);
 }
 
 .admin-login-error {
-  color: #cc0600;
+  color: var(--primary-color);
   font-weight: 700;
 }
 
@@ -78,7 +78,7 @@
   margin-top: 8px;
   padding: 10px;
   border-radius: 12px;
-  background: #f7f7f7;
-  color: #444;
+  background: var(--secondary-color);
+  color: var(--text-color);
   font-size: 14px;
 }

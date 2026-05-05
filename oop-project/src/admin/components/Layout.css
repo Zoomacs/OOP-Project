@@ -1,9 +1,6 @@
 .admin-scope .layout {
   min-height: 100vh;
-  background:
-    radial-gradient(circle at top left, rgba(245, 158, 11, 0.08), transparent 26%),
-    radial-gradient(circle at bottom right, rgba(204, 6, 0, 0.06), transparent 24%),
-    var(--background-color);
+  background: var(--background-color);
 }
 
 .admin-scope .admin-menu-button {
@@ -15,13 +12,13 @@
   align-items: center;
   gap: 8px;
   border: 0;
-  background: linear-gradient(135deg, var(--primary-color), #e6421c);
-  color: white;
+  background: var(--primary-color);
+  color: var(--button-text);
   padding: 11px 15px;
   border-radius: 999px;
   font-weight: 900;
   cursor: pointer;
-  box-shadow: 0 10px 22px rgba(204, 6, 0, 0.22);
+  box-shadow: 0 10px 22px var(--box-shadow);
 }
 
 .admin-scope .sidebar-backdrop {
@@ -38,7 +35,7 @@
   max-width: calc(100vw - 28px);
   height: 100vh;
   overflow-y: auto;
-  background: linear-gradient(180deg, var(--surface-alt) 0%, var(--surface-soft) 100%);
+  background: var(--box-color);
   border-right: 1px solid var(--border-color);
   padding: 18px 16px 24px;
   position: fixed;
@@ -47,7 +44,7 @@
   z-index: 90;
   transform: translateX(-105%);
   transition: transform 0.24s ease;
-  box-shadow: 18px 0 40px rgba(60, 36, 22, 0.18);
+  box-shadow: 18px 0 40px var(--box-shadow);
 }
 
 .admin-scope .sidebar-open .sidebar {
@@ -59,7 +56,7 @@
   position: absolute;
   inset: 0 auto 0 0;
   width: 4px;
-  background: linear-gradient(180deg, var(--secondary-color), var(--primary-color));
+  background: var(--primary-color);
 }
 
 .admin-scope .sidebar-header {
@@ -114,7 +111,7 @@
   padding: 12px 14px;
   margin: 8px 0;
   border-radius: 12px;
-  color: #6c5e57;
+  color: var(--text-muted);
   font-size: 15px;
   font-weight: 700;
   transition: 0.2s;
@@ -123,21 +120,21 @@
 
 .admin-scope .side-link:hover,
 .admin-scope .side-link.active {
-  background: linear-gradient(90deg, rgba(204, 6, 0, 0.08), rgba(245, 158, 11, 0.14));
-  border-color: rgba(204, 6, 0, 0.12);
+  background: var(--nav-icon-hover);
+  border-color: var(--border-color);
   color: var(--text-color);
   transform: translateX(2px);
 }
 
 .admin-scope .website-link {
-  background: rgba(245, 158, 11, 0.08);
+  background: var(--secondary-color);
 }
 
 .admin-scope .admin-logout-btn {
   width: 100%;
   border: none;
-  background: #cc0600;
-  color: white;
+  background: var(--primary-color);
+  color: var(--button-text);
   padding: 12px 14px;
   border-radius: 12px;
   font-weight: 900;
@@ -150,7 +147,7 @@
 }
 
 .admin-scope .admin-logout-btn:hover {
-  background: #930500;
+  background: var(--primary-hover);
 }
 
 .admin-scope .main {
