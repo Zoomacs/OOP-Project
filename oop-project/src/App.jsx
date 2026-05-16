@@ -3,6 +3,7 @@ import Login from "./login";
 import Home from "./Home";
 import Contact from "./Contact";
 import Restaurant from "./Restaurant";
+import Menu from "./Menu";
 import OrderHistory from "./OrderHistory";
 import OrderTrack from "./OrderTrack";
 import Notification from "./Notification";
@@ -51,6 +52,7 @@ function AppContent() {
         <Route path="/checkout" element={<Checkout page={setcurrentpage} />} />
         <Route path="/PaymentPage" element={<PaymentPage page={setcurrentpage} />} />
         <Route path="/ordertrack" element={<OrderTrack page={setcurrentpage} />} />
+        <Route path="/restaurant/:id" element={<Menu page={setcurrentpage} />} />
         <Route path="/restaurantorders" element={<RestaurantOrders page={setcurrentpage} />} />
         <Route path="/admin/*" element={<AdminApp />} />
       </Routes>
