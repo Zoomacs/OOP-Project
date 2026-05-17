@@ -1,16 +1,34 @@
 import "./Home.css";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import AdminReturnButton from "./AdminReturnButton";
+import {
+  Clock,
+  Zap,
+  Flame,
+  Gift,
+  Tag,
+  ArrowRight,
+  Heart,
+  Utensils,
+  Leaf,
+  Coffee,
+  Pizza,
+  IceCream,
+  ChevronRight,
+  RotateCcw,
+} from "lucide-react";
 
 function Home({ page }) {
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const [favorites, setFavorites] = useState([]);
+  const [toast, setToast] = useState(null);
+  const navigate = useNavigate();
 
-  // Keep your original page routing effect
   useEffect(() => {
     page("home");
   }, [page]);
 
-  // Dark mode toggle effect
   useEffect(() => {
     if (isDarkMode) {
       document.body.classList.add("dark");
@@ -19,13 +37,68 @@ function Home({ page }) {
     }
   }, [isDarkMode]);
 
+  const showToast = (message) => {
+    setToast(message);
+    setTimeout(() => setToast(null), 3000);
+  };
+
+  const toggleFavorite = (id) => {
+    if (favorites.includes(id)) {
+      setFavorites(favorites.filter((favId) => favId !== id));
+      showToast("Removed from favorites");
+    } else {
+      setFavorites([...favorites, id]);
+      showToast("Saved to favorites!");
+    }
+  };
+
+  // --- NEW: Function to send items to the Cart Component ---
+  const handleAddToCart = (order) => {
+    // Extract numbers from price string (e.g., "125 EGP" -> 125)
+    const priceNumber = parseInt(order.price.replace(/\D/g, ""), 10);
+
+    const cartItem = {
+      id: order.id,
+      title: order.name,
+      price: priceNumber,
+      image: order.image || null,
+    };
+
+    // Dispatch a custom event that Cart.jsx is listening for
+    window.dispatchEvent(new CustomEvent("addToCart", { detail: cartItem }));
+    showToast(`Added ${order.name} to cart!`);
+  };
+
   const categories = [
-    { id: 1, name: "Quick Bites", icon: "fas fa-hamburger" },
-    { id: 2, name: "Healthy", icon: "fas fa-leaf" },
-    { id: 3, name: "Asian", icon: "fas fa-bowl-rice" },
-    { id: 4, name: "Café", icon: "fas fa-coffee" },
-    { id: 5, name: "Italian", icon: "fas fa-pizza-slice" },
-    { id: 6, name: "Desserts", icon: "fas fa-ice-cream" },
+    { id: 1, name: "Quick Bites", icon: <Utensils size={24} /> },
+    { id: 2, name: "Healthy", icon: <Leaf size={24} /> },
+    { id: 3, name: "Café", icon: <Coffee size={24} /> },
+    { id: 4, name: "Italian", icon: <Pizza size={24} /> },
+    { id: 5, name: "Desserts", icon: <IceCream size={24} /> },
+  ];
+
+  const recentOrders = [
+    {
+      id: 101,
+      name: "Double Cheeseburger Combo",
+      restaurant: "Student Union Grill",
+      price: "125 EGP",
+      time: "2 days ago",
+    },
+    {
+      id: 102,
+      name: "Chicken Caesar Wrap",
+      restaurant: "Leafy & Green",
+      price: "95 EGP",
+      time: "1 week ago",
+    },
+    {
+      id: 103,
+      name: "Iced Caramel Macchiato",
+      restaurant: "Campus Café",
+      price: "65 EGP",
+      time: "1 week ago",
+    },
   ];
 
   const offers = [
@@ -37,7 +110,7 @@ function Home({ page }) {
       desc: "Get 50% off all signature beef and chicken burger combo meals including fries and a drink.",
       image:
         "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=500&q=80",
-      badgeIcon: "fas fa-fire",
+      badgeIcon: <Flame size={14} />,
       badgeText: "50% OFF",
       validity: "Valid until 2:00 PM",
     },
@@ -49,7 +122,7 @@ function Home({ page }) {
       desc: "Purchase any signature vegan wrap and receive a complimentary 16oz fruit smoothie of your choice.",
       image:
         "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=500&q=80",
-      badgeIcon: "fas fa-gift",
+      badgeIcon: <Gift size={14} />,
       badgeText: "FREE ITEM",
       validity: "Valid until 4:00 PM",
     },
@@ -61,7 +134,7 @@ function Home({ page }) {
       desc: "Enjoy our premium assorted sushi and sashimi platters at a special discounted rate today.",
       image:
         "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=500&q=80",
-      badgeIcon: "fas fa-tag",
+      badgeIcon: <Tag size={14} />,
       badgeText: "20% OFF",
       validity: "Valid until 8:00 PM",
     },
@@ -69,15 +142,13 @@ function Home({ page }) {
 
   return (
     <>
-      <title>Home</title>
+      <title>Home - Q-Less</title>
 
       <div className="container">
-        {/* Render your Admin Button at the top of the container */}
         <div style={{ paddingTop: "20px" }}>
           <AdminReturnButton />
         </div>
 
-        {/* Hero Section */}
         <section className="hero">
           <div className="hero-content">
             <span className="hero-label">UNIVERSITY DINING REIMAGINED</span>
@@ -88,15 +159,15 @@ function Home({ page }) {
             </h1>
             <p>
               Order from any campus restaurant and get notified when your meal
-              is ready. No queues, no hassle.
+              is ready. No queues, no hassle, just good food.
             </p>
             <div className="hero-btns">
-              <a href="/order" className="btn btn-primary">
-                Order Now <i className="fas fa-bolt"></i>
-              </a>
-              <a href="/menu" className="btn btn-secondary">
-                View Menu
-              </a>
+              <button
+                onClick={() => navigate("/restaurant")}
+                className="btn btn-primary"
+              >
+                Order Now <Zap size={18} />
+              </button>
             </div>
           </div>
           <div className="hero-image">
@@ -104,8 +175,10 @@ function Home({ page }) {
               src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800&q=80"
               alt="Delicious Food"
             />
-            <div className="wait-time-badge">
-              <i className="fas fa-clock"></i>
+            <div className="wait-time-badge glass-effect">
+              <div className="wait-icon-wrapper">
+                <Clock size={20} />
+              </div>
               <div className="wait-time-text">
                 <span>AVG. WAIT TIME</span>
                 <strong>8 Mins</strong>
@@ -114,29 +187,63 @@ function Home({ page }) {
           </div>
         </section>
 
-        {/* Categories */}
-        <section>
+        <section className="quick-reorder-section">
+          <div className="section-header">
+            <div>
+              <h2>Buy It Again</h2>
+              <p>Quickly reorder your recent favorites</p>
+            </div>
+          </div>
+          <div className="reorder-grid">
+            {recentOrders.map((order) => (
+              <div className="reorder-card" key={order.id}>
+                <div className="reorder-info">
+                  <h4>{order.name}</h4>
+                  <p>
+                    {order.restaurant} •{" "}
+                    <span className="order-time">{order.time}</span>
+                  </p>
+                  <span className="reorder-price">{order.price}</span>
+                </div>
+                <button
+                  className="btn-icon-round"
+                  onClick={() => handleAddToCart(order)} /* <-- CHANGED HERE */
+                  title="Reorder"
+                >
+                  <RotateCcw size={18} />
+                </button>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="categories-section">
           <div className="section-header">
             <div>
               <h2>Browse Categories</h2>
               <p>What are you in the mood for today?</p>
             </div>
-            <a href="/categories" className="see-all">
-              See All <i className="fas fa-chevron-right"></i>
-            </a>
+            <button onClick={() => navigate("/restaurant")} className="see-all">
+              See All <ChevronRight size={16} />
+            </button>
           </div>
           <div className="categories-grid">
             {categories.map((category) => (
-              <div className="category-card" key={category.id}>
-                <i className={`${category.icon} category-icon`}></i>
+              <div
+                className="category-card"
+                key={category.id}
+                onClick={() =>
+                  navigate("/restaurant", { state: { filter: category.name } })
+                }
+              >
+                <div className="category-icon">{category.icon}</div>
                 <span>{category.name}</span>
               </div>
             ))}
           </div>
         </section>
 
-        {/* Offers Section */}
-        <section>
+        <section className="offers-section">
           <div className="section-header">
             <h2>
               Today's Hot Offers <span className="offers-badge">SAVINGS</span>
@@ -147,10 +254,22 @@ function Home({ page }) {
             {offers.map((offer) => (
               <div className="offer-card" key={offer.id}>
                 <span className="discount-tag">
-                  <i className={offer.badgeIcon}></i> {offer.badgeText}
+                  {offer.badgeIcon}{" "}
+                  <span style={{ marginLeft: "4px" }}>{offer.badgeText}</span>
                 </span>
-                <button className="heart-btn">
-                  <i className="fas fa-heart"></i>
+                <button
+                  className="heart-btn"
+                  onClick={() => toggleFavorite(offer.id)}
+                >
+                  <Heart
+                    size={18}
+                    fill={
+                      favorites.includes(offer.id)
+                        ? "var(--primary-color)"
+                        : "transparent"
+                    }
+                    color="var(--primary-color)"
+                  />
                 </button>
                 <img
                   src={offer.image}
@@ -165,11 +284,16 @@ function Home({ page }) {
                   <p className="offer-desc">{offer.desc}</p>
                   <div className="offer-footer">
                     <div className="validity">
-                      <i className="far fa-clock"></i> {offer.validity}
+                      <Clock size={14} /> {offer.validity}
                     </div>
-                    <a href={`/claim/${offer.id}`} className="claim-btn">
-                      Claim Offer <i className="fas fa-arrow-right"></i>
-                    </a>
+                    <button
+                      className="claim-btn"
+                      onClick={() =>
+                        showToast(`${offer.title} applied to your account!`)
+                      }
+                    >
+                      Claim Offer <ArrowRight size={16} />
+                    </button>
                   </div>
                 </div>
               </div>
@@ -177,28 +301,6 @@ function Home({ page }) {
           </div>
         </section>
 
-        {/* Banner Section */}
-        <section className="banner">
-          <div className="banner-content">
-            <span className="banner-label">NAVIGATION</span>
-            <h2>Find your nearest pickup point.</h2>
-            <p>
-              Our map shows you the quickest route from your lecture hall to the
-              dining hall. Never get lost on your way to lunch again.
-            </p>
-            <a href="/map" className="btn btn-white">
-              Open Campus Map <i className="fas fa-map-marked-alt"></i>
-            </a>
-          </div>
-          <div className="banner-image">
-            <img
-              src="https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=800&q=80"
-              alt="Campus Map Illustration"
-            />
-          </div>
-        </section>
-
-        {/* Footer */}
         <footer>
           <div>
             <div className="footer-logo">
@@ -228,9 +330,10 @@ function Home({ page }) {
             <a href="/privacy">Privacy Policy</a>
             <a href="/terms">Terms of Service</a>
             <a href="/support">Contact Support</a>
-            <a href="/map">Campus Map</a>
           </div>
         </footer>
+
+        <div className={`home-toast ${toast ? "show" : ""}`}>{toast}</div>
       </div>
     </>
   );

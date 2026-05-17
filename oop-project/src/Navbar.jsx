@@ -21,7 +21,8 @@ function Navbar({
   setSideBar,
   notification,
   setNotification,
-  isOwner, // New prop to determine the current user role
+  isOwner,
+  isStaff,
 }) {
   const navigate = useNavigate();
 
@@ -65,22 +66,23 @@ function Navbar({
   return (
     <div className="navbar">
       <div className="nav-left">
-        {/* Hide the sidebar menu toggle for owners since they don't have a sidebar */}
-        {!isOwner && (
+        {!isOwner && !isStaff && (
           <button
             className={`action-btn ${sideBar === "side-bar" ? "active" : ""}`}
             onClick={toggleSideBar}
           >
-            <Menu />
+            <Menu size={22} />
           </button>
         )}
         <Link
-          to={isOwner ? "/owner/dashboard" : "/home"}
+          to={
+            isOwner ? "/owner/dashboard" : isStaff ? "/staff/orders" : "/home"
+          }
           className="nav-logo"
           onClick={closePopups}
         >
           <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg">
-            <rect rx="40" />
+            <rect rx="40" fill="transparent" />
             <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle">
               <tspan>Q</tspan>-Less
             </text>
@@ -89,13 +91,13 @@ function Navbar({
       </div>
 
       <div className="nav-center">
-        {isOwner ? (
+        {isOwner && (
           <>
             <Link
               to="/owner/dashboard"
               className={`nav-link ${page === "dashboard" ? "curr" : ""}`}
             >
-              <LayoutDashboard />
+              <LayoutDashboard size={20} />
               <p>Dashboard</p>
             </Link>
 
@@ -103,7 +105,7 @@ function Navbar({
               to="/owner/menu"
               className={`nav-link ${page === "menu" ? "curr" : ""}`}
             >
-              <UtensilsIcon />
+              <UtensilsIcon size={20} />
               <p>Menu</p>
             </Link>
 
@@ -111,18 +113,19 @@ function Navbar({
               to="/owner/profile"
               className={`nav-link ${page === "profile" ? "curr" : ""}`}
             >
-              <User />
+              <User size={20} />
               <p>Profile</p>
             </Link>
           </>
-        ) : (
+        )}
+        {!isOwner && !isStaff && (
           <>
             <Link
               to="/home"
               className={`nav-link ${page === "home" ? "curr" : ""}`}
               onClick={closePopups}
             >
-              <House />
+              <House size={20} />
               <p>Home</p>
             </Link>
 
@@ -131,7 +134,7 @@ function Navbar({
               className={`nav-link ${page === "restaurant" ? "curr" : ""}`}
               onClick={closePopups}
             >
-              <UtensilsIcon />
+              <UtensilsIcon size={20} />
               <p>Restaurants</p>
             </Link>
 
@@ -140,7 +143,7 @@ function Navbar({
               className={`nav-link ${page === "contact" ? "curr" : ""}`}
               onClick={closePopups}
             >
-              <Headset />
+              <Headset size={20} />
               <p>Contact</p>
             </Link>
           </>
@@ -148,9 +151,9 @@ function Navbar({
       </div>
 
       <div className="nav-right">
-        {isOwner ? (
+        {isOwner || isStaff ? (
           <button className="action-btn" onClick={handleLogout} title="Logout">
-            <LogOut />
+            <LogOut size={22} />
           </button>
         ) : (
           <>
@@ -158,13 +161,13 @@ function Navbar({
               className={`action-btn ${notification === "notification" ? "active" : ""}`}
               onClick={toggleNotification}
             >
-              <Bell />
+              <Bell size={22} />
             </button>
             <button
               className={`action-btn ${cart === "cart-bar" ? "active" : ""}`}
               onClick={toggleCart}
             >
-              <ShoppingCart />
+              <ShoppingCart size={22} />
             </button>
           </>
         )}

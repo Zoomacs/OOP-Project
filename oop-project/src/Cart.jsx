@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Cart.css";
 import { useNavigate } from "react-router-dom";
 import foulimg from "./assets/foul.jpg";
@@ -11,9 +11,31 @@ function Cart({ page, display }) {
   const [items, setItem] = useState([
     { id: 0, image: foulimg, title: "Foul", quantity: 1, price: 12 },
     { id: 1, image: ta3meya, title: "Second item", quantity: 1, price: 10 },
-    { id: 2, title: "Third item", quantity: 1, price: 15 },
-    { id: 3, title: "Fourth item", quantity: 1, price: 13 },
   ]);
+
+  // Listen for 'addToCart' events from other components
+  useEffect(() => {
+    const handleAddToCart = (event) => {
+      const newItem = event.detail;
+      
+      setItem((prevItems) => {
+        const existingItem = prevItems.find((item) => item.id === newItem.id);
+        
+        if (existingItem) {
+          // If item exists, increase quantity
+          return prevItems.map((item) =>
+            item.id === newItem.id ? { ...item, quantity: item.quantity + 1 } : item
+          );
+        } else {
+          // If new item, add to cart
+          return [...prevItems, { ...newItem, quantity: 1 }];
+        }
+      });
+    };
+
+    window.addEventListener("addToCart", handleAddToCart);
+    return () => window.removeEventListener("addToCart", handleAddToCart);
+  }, []);
 
   function setItemQuantity(targetId, sign) {
     setItem((prvQ) =>
@@ -51,14 +73,14 @@ function Cart({ page, display }) {
                 className="delete-item"
                 onClick={() => deleteItem(item.id)}
               >
-                <X />
+                <X size={16} />
               </button>
               <div className="cart-item">
                 {item.image ? (
                   <img src={item.image} alt={item.title} className="item-img" />
                 ) : (
                   <div className="item-img-placeholder">
-                    <ShoppingBag />
+                    <ShoppingBag size={24} />
                   </div>
                 )}
                 <div className="item-info">
@@ -87,7 +109,7 @@ function Cart({ page, display }) {
           ))
         ) : (
           <div className="cart-empty">
-            <ShoppingBag />
+            <ShoppingBag size={48} />
             <p>Your cart is empty</p>
           </div>
         )}
@@ -108,7 +130,10 @@ function Cart({ page, display }) {
         </div>
         <button
           className="checkout"
-          onClick={() => navigate("/checkout")}
+          onClick={() => {
+            navigate("/checkout");
+            // Optional: Close cart upon navigating
+          }}
           disabled={items.length === 0}
         >
           Checkout

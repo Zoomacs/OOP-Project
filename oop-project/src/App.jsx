@@ -39,10 +39,8 @@ const OwnerProtectedRoute = ({ children }) => {
   return children;
 };
 
-// New protected route logic for staff
 const StaffProtectedRoute = ({ children }) => {
   const role = sessionStorage.getItem("userRole");
-  // Allow both owner and staff to view staff routes if necessary, but strictly staff for now
   if (role !== "staff" && role !== "owner") {
     return <Navigate to="/" replace />;
   }
@@ -53,11 +51,12 @@ function AppContent() {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
   const isOwnerRoute = location.pathname.startsWith("/owner");
-  const isStaffRoute = location.pathname.startsWith("/staff"); // Check for staff route
+  const isStaffRoute = location.pathname.startsWith("/staff"); 
 
   const isAuthRoute =
     location.pathname === "/" || location.pathname === "/register";
 
+  // Allow Navbar to show for staff so they can see the logo and logout button
   const hideStandardUI = isAdminRoute || isAuthRoute;
 
   const [currentpage, setcurrentpage] = useState("login");
@@ -95,7 +94,8 @@ function AppContent() {
           setSideBar={setSideBar}
           notification={notification}
           setNotification={setNotification}
-          isOwner={isOwnerRoute || isStaffRoute} // Treats staff similarly to owner for Navbar rendering
+          isOwner={isOwnerRoute}
+          isStaff={isStaffRoute} 
         />
       )}
 
@@ -131,7 +131,6 @@ function AppContent() {
           element={<Menu page={setcurrentpage} />}
         />
 
-        {/* Existing un-protected orders route (optional: you can remove this if staff is the only way in) */}
         <Route
           path="/restaurantorders"
           element={<RestaurantOrders page={setcurrentpage} />}
@@ -184,7 +183,7 @@ function AppContent() {
         <Route path="/admin/*" element={<AdminApp />} />
       </Routes>
 
-      {/* Hide Cart and Sidebar for BOTH owner and staff */}
+      {/* Hide Cart, Sidebar, and Notifications for both Owner and Staff */}
       {!hideStandardUI && !isOwnerRoute && !isStaffRoute && (
         <>
           {location.pathname !== "/notification" && (
