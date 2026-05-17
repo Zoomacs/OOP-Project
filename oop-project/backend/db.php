@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "root";
 $password = "";
-$database = "university_food_ordering";
+$database = "q-less_food_ordering_platform";
 
 $conn = new mysqli($host, $user, $password, $database);
 

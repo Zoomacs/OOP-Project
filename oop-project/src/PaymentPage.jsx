@@ -51,6 +51,7 @@ export default function PaymentPage() {
               </label>
 
               {file && <p className="file-name">{file.name}</p>}
+              <button onclick={handleSubmit}> upload payment proof </button>
 
               <span className="formats">
                 Accepted formats: JPG, PNG (Max 5MB)
