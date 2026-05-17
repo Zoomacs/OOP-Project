@@ -1,19 +1,22 @@
 <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
   <defs>
-
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ed1c24" />
+      <stop offset="100%" stop-color="#9e0000" />
+    </linearGradient>
   </defs>
   
-  <rect width="200" height="200" rx="40" fill="#cc0600" />
+  <rect width="196" height="196" x="2" y="2" rx="40" fill="url(#bg-gradient)" stroke="#ffffff" stroke-width="1" stroke-opacity="0.15" />
   
   <text 
     x="50%" 
-    y="50%" 
+    y="48%" 
     dominant-baseline="middle" 
     text-anchor="middle" 
     fill="#FFFFFF" 
-    font-family="'Playpen Sans', cursive" 
-    font-weight="800"
-    font-size="110">
-    Q<tspan font-size="90" dy="50" fill="#570d00">L</tspan>
+    font-family="'Nunito', ui-rounded, 'Arial Rounded MT Bold', sans-serif" 
+    font-weight="500"
+    font-size="115">
+    Q<tspan font-size="85" dy="35" dx="-8" fill="#570d00">L</tspan>
   </text>
 </svg>

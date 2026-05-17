@@ -1,22 +1,15 @@
 import "./login.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+
 function Login({ page }) {
   useEffect(() => {
     page("login");
-  }, []);
+  }, [page]);
 
   const [ID, setID] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
-  const handleIDChange = (event) => {
-    setID(event.target.value);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -25,14 +18,21 @@ function Login({ page }) {
     const enteredPassword = password.trim();
 
     if (enteredID === "admin" && enteredPassword === "123") {
-      sessionStorage.setItem("adminLoggedIn", "true");
+      sessionStorage.setItem("userRole", "admin");
       navigate("/admin", { replace: true });
       return;
     }
 
+    if (enteredID === "owner" && enteredPassword === "123") {
+      sessionStorage.setItem("userRole", "owner");
+      navigate("/owner/dashboard", { replace: true });
+      return;
+    }
+
     if (enteredID === "123" && enteredPassword === "123") {
-      sessionStorage.removeItem("adminLoggedIn");
+      sessionStorage.setItem("userRole", "student");
       navigate("/home", { replace: true });
+      return;
     }
   };
 
@@ -50,7 +50,7 @@ function Login({ page }) {
             <div className="qless-input-wrapper">
               <input
                 type="text"
-                placeholder="123 or admin"
+                placeholder="123, owner, or admin"
                 value={ID}
                 onChange={(e) => setID(e.target.value)}
                 className="qless-input"
@@ -95,7 +95,7 @@ function Login({ page }) {
         </div>
 
         <div className="qless-footer">
-          <span>© 2024 Q-LESS UNIVERSITY</span>
+          <span>© 2026 Q-LESS UNIVERSITY</span>
           <a href="#">Privacy</a>
           <a href="#">Terms</a>
         </div>

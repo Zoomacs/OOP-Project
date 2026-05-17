@@ -74,35 +74,6 @@ function Home({ page }) {
           <AdminReturnButton />
         </div>
 
-        {/* Header */}
-        <header>
-          <svg className="logo" viewBox="0 0 500 150" onClick={() => window.location.href='/'}>
-            <text x="0" y="110">
-              Q-<tspan>Less</tspan>
-            </text>
-          </svg>
-
-          <nav>
-            <ul>
-              <li><a href="/" className="active">Dashboard</a></li>
-              <li><a href="/restaurants">Restaurants</a></li>
-              <li><a href="/offers">Offers</a></li>
-              <li><a href="/help">Help</a></li>
-            </ul>
-          </nav>
-          <div className="header-actions">
-            <div className="search-bar">
-              <i className="fas fa-search text-muted"></i>
-              <input type="text" placeholder="Find food or offers..." />
-            </div>
-            <button className="icon-btn" onClick={() => setIsDarkMode(!isDarkMode)} title="Toggle Dark Mode">
-              <i className={isDarkMode ? "fas fa-sun" : "fas fa-moon"}></i>
-            </button>
-            <button className="icon-btn"><i className="far fa-bell"></i></button>
-            <button className="icon-btn"><i className="fas fa-shopping-cart"></i></button>
-            <div className="profile-pic"></div>
-          </div>
-        </header>
 
         {/* Hero Section */}
         <section className="hero">
@@ -208,10 +179,6 @@ function Home({ page }) {
             <a href="/terms">Terms of Service</a>
             <a href="/support">Contact Support</a>
             <a href="/map">Campus Map</a>
-          </div>
-          <div className="footer-icons">
-            <i className="fas fa-globe"></i>
-            <i className="fas fa-share-alt"></i>
           </div>
         </footer>
       </div>

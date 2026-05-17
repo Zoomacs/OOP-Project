@@ -6,50 +6,61 @@
   --nav-icon-hover: rgb(215, 214, 213);
   --primary-color: #cc0600;
   --primary-hover: #930500;
-  --secondary-color:#E4E4E7;
-  --secondary-hover:#c3c3c3;
+  --primary-light: #fceceb; 
+  --secondary-color: #E4E4E7;
+  --secondary-hover: #c3c3c3;
   --border-color: rgb(213, 213, 213);
   --box-color: white;
   --button-text: white;
-  --box-shadow: rgb(203, 199, 199);
+  --box-shadow: rgb(177, 177, 177);
 }
+
 .dark {
   --background-color: rgb(7, 6, 21);
   --text-color: white;
   --text-muted: rgb(168, 166, 166);
   --nav-icon-hover: rgb(49, 49, 49);
-    --secondary-color:#353535;
-  --secondary-hover:#4c4c4c;
+  --primary-light: rgba(204, 6, 0, 0.15); 
+  --secondary-color: #353535;
+  --secondary-hover: #4c4c4c;
   --border-color: rgb(55, 55, 55);
   --box-color: rgb(11, 9, 33);
   --button-text: black;
   --box-shadow: rgb(20, 20, 20);
 }
+
 * {
   -webkit-tap-highlight-color: transparent;
 }
+
 body {
   margin: 0px;
   background-color: var(--background-color);
   color: var(--text-color);
   transition: all 0.2s ease-in-out;
 }
+
 p {
   margin: 0px;
 }
+
 input {
   outline: none;
   background-color: var(--background-color);
   font-size: 24px;
   transition: all 0.2s ease-in-out;
+  color: var(--text-color); 
 }
+
 textarea {
   font-family: inherit;
   font-size: 24px;
   outline: none;
   background-color: var(--background-color);
   transition: all 0.2s ease-in-out;
+  color: var(--text-color); 
 }
+
 .logo {
   width: 100px;
   height: 50px;
@@ -61,16 +72,16 @@ textarea {
 }
 
 .logo tspan {
-  fill: var(--primary-color);
+  fill: var(--text-color);
   font-size: 110px;
 }
 
 .logo text {
-  fill: var(--text-color);
+  fill: var(--primary-color);
   font-family: "Playpen Sans", cursive;
   font-weight: 800;
   font-size: 110px;
-}
+} 
 
 @media (max-width: 480px) {
   .logo {

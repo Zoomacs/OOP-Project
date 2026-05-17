@@ -22,17 +22,11 @@ import ReplyContactTicket from "./pages/ReplyContactTicket";
 export default function AdminApp() {
   const navigate = useNavigate();
   const [isAdminLoggedIn, setIsAdminLoggedIn] = useState(() => {
-    return sessionStorage.getItem("adminLoggedIn") === "true";
+    return sessionStorage.getItem("userRole") === "admin";
   });
 
-  const handleLogin = () => {
-    sessionStorage.setItem("adminLoggedIn", "true");
-    setIsAdminLoggedIn(true);
-    navigate("/admin");
-  };
-
   const handleLogout = () => {
-    sessionStorage.removeItem("adminLoggedIn");
+    sessionStorage.clear();
     setIsAdminLoggedIn(false);
     navigate("/");
   };

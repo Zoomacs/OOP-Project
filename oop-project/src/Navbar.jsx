@@ -1,21 +1,16 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./main.css";
 import "./Navbar.css";
 import {
   House,
-  Moon,
-  Sun,
-  Utensils,
+  UtensilsIcon,
   Headset,
   ShoppingCart,
   Bell,
-  UtensilsIcon,
-  Contact,
-  ContactIcon,
-  NotebookIcon,
-  BellIcon,
   Menu,
+  LayoutDashboard,
+  User,
+  LogOut
 } from "lucide-react";
 
 function Navbar({
@@ -26,114 +21,149 @@ function Navbar({
   setSideBar,
   notification,
   setNotification,
+  isOwner // New prop to determine the current user role
 }) {
+  const navigate = useNavigate();
+
   function toggleCart() {
-    cart == "hidden cart-bar"
-      ? setCart("cart-bar")
-      : setCart("hidden cart-bar");
+    setCart(cart === "hidden cart-bar" ? "cart-bar" : "hidden cart-bar");
     setSideBar("hidden side-bar");
+    setNotification("hidden notification");
   }
 
   function toggleSideBar() {
-    sideBar == "hidden side-bar"
-      ? setSideBar("side-bar")
-      : setSideBar("hidden side-bar");
+    setSideBar(sideBar === "hidden side-bar" ? "side-bar" : "hidden side-bar");
     setCart("hidden cart-bar");
+    setNotification("hidden notification");
   }
 
   function toggleNotification() {
-    notification == "hidden notification"
-      ? setNotification("notification")
-      : setNotification("hidden notification");
+    setNotification(
+      notification === "hidden notification" ? "notification" : "hidden notification"
+    );
     setCart("hidden cart-bar");
+    setSideBar("hidden side-bar");
   }
 
-  if (page == "login") {
-    return null;
+  function closePopups() {
+    setCart("hidden cart-bar");
+    setSideBar("hidden side-bar");
+    setNotification("hidden notification");
   }
 
-  if (page == "register") {
+  function handleLogout() {
+    sessionStorage.clear();
+    navigate("/", { replace: true });
+  }
+
+  if (page === "login" || page === "register") {
     return null;
   }
 
   return (
-    <>
-      <div className="navbar">
-        <Link
-          className={`${sideBar == "side-bar" ? "active side-btn" : "side-btn"}`}
-          onClick={toggleSideBar}
-        >
-          <Menu />
-        </Link>
-        <Link
-          to="./home"
-          onClick={() => {
-            setCart("hidden cart-bar");
-            setSideBar("hidden side-bar");
-          }}
-        >
-          <svg
-            className="logo"
-            viewBox="0 0 500 200"
-            xmlns="http://www.w3.org/2000/svg"
+    <div className="navbar">
+      <div className="nav-left">
+        {/* Hide the sidebar menu toggle for owners since they don't have a sidebar */}
+        {!isOwner && (
+          <button
+            className={`action-btn ${sideBar === "side-bar" ? "active" : ""}`}
+            onClick={toggleSideBar}
           >
+            <Menu />
+          </button>
+        )}
+        <Link to={isOwner ? "/owner/dashboard" : "/home"} className="nav-logo" onClick={closePopups}>
+          <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg">
             <rect rx="40" />
-
             <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle">
               <tspan>Q</tspan>-Less
             </text>
           </svg>
         </Link>
-        <Link
-          to="/home"
-          className={`${page == "home" ? "curr nav-icon" : "nav-icon"} home`}
-          onClick={() => {
-            setCart("hidden cart-bar");
-            setSideBar("hidden side-bar");
-          }}
-        >
-          <House />
-          <p>Home</p>
-        </Link>
-
-        <Link
-          to="/restaurant"
-          className={`${page == "restaurant" ? "curr nav-icon" : "nav-icon"} restaurant`}
-          onClick={() => {
-            setCart("hidden cart-bar");
-            setSideBar("hidden side-bar");
-          }}
-        >
-          <UtensilsIcon />
-          <p>Restaurants</p>
-        </Link>
-
-        <Link
-          to="/contact"
-          className={`${page == "contact" ? "curr nav-icon" : "nav-icon"}`}
-          onClick={() => {
-            setCart("hidden cart-bar");
-            setSideBar("hidden side-bar");
-          }}
-        >
-          <Headset />
-          <p>Contact</p>
-        </Link>
-
-        <Link
-          className={`${cart == "cart-bar" ? "active cart-icon" : "cart-icon"}`}
-          onClick={toggleCart}
-        >
-          <ShoppingCart />
-        </Link>
-        <Link
-          className={`${notification == "notification" ? "active" : ""} notification-btn nav-icon`}
-          onClick={toggleNotification}
-        >
-          <Bell />
-        </Link>
       </div>
-    </>
+
+      <div className="nav-center">
+        {isOwner ? (
+          <>
+            <Link
+              to="/owner/dashboard"
+              className={`nav-link ${page === "dashboard" ? "curr" : ""}`}
+            >
+              <LayoutDashboard />
+              <p>Dashboard</p>
+            </Link>
+
+            <Link
+              to="/owner/menu"
+              className={`nav-link ${page === "menu" ? "curr" : ""}`}
+            >
+              <UtensilsIcon />
+              <p>Menu</p>
+            </Link>
+
+            <Link
+              to="/owner/profile"
+              className={`nav-link ${page === "profile" ? "curr" : ""}`}
+            >
+              <User />
+              <p>Profile</p>
+            </Link>
+          </>
+        ) : (
+          <>
+            <Link
+              to="/home"
+              className={`nav-link ${page === "home" ? "curr" : ""}`}
+              onClick={closePopups}
+            >
+              <House />
+              <p>Home</p>
+            </Link>
+
+            <Link
+              to="/restaurant"
+              className={`nav-link ${page === "restaurant" ? "curr" : ""}`}
+              onClick={closePopups}
+            >
+              <UtensilsIcon />
+              <p>Restaurants</p>
+            </Link>
+
+            <Link
+              to="/contact"
+              className={`nav-link ${page === "contact" ? "curr" : ""}`}
+              onClick={closePopups}
+            >
+              <Headset />
+              <p>Contact</p>
+            </Link>
+          </>
+        )}
+      </div>
+
+      <div className="nav-right">
+        {isOwner ? (
+          <button className="action-btn" onClick={handleLogout} title="Logout">
+            <LogOut />
+          </button>
+        ) : (
+          <>
+            <button
+              className={`action-btn ${notification === "notification" ? "active" : ""}`}
+              onClick={toggleNotification}
+            >
+              <Bell />
+            </button>
+            <button
+              className={`action-btn ${cart === "cart-bar" ? "active" : ""}`}
+              onClick={toggleCart}
+            >
+              <ShoppingCart />
+            </button>
+          </>
+        )}
+      </div>
+    </div>
   );
 }
 

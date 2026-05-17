@@ -1,15 +1,16 @@
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { ChefHat, Utensils, CheckCircle2 } from "lucide-react";
 import "./OrderTrack.css";
 
 function OrderTrack({ page }) {
   const location = useLocation();
   const navigate = useNavigate();
-  
-  const orderData = location.state?.orderData; 
+
+  const orderData = location.state?.orderData;
 
   useEffect(() => {
-    page("ordertrack"); 
+    page("ordertrack");
     if (!orderData) {
       navigate("/orderhistory");
     }
@@ -19,7 +20,10 @@ function OrderTrack({ page }) {
 
   const calculateTotal = () => {
     if (orderData.items && orderData.items.length > 0) {
-      return orderData.items.reduce((total, item) => total + (item.price * item.qty), 0);
+      return orderData.items.reduce(
+        (total, item) => total + item.price * item.qty,
+        0,
+      );
     }
     return orderData.points * 0.45;
   };
@@ -27,16 +31,22 @@ function OrderTrack({ page }) {
   return (
     <div className="ot-page-container">
       <div className="track-wrapper">
-        
-        <button className="details-btn back-nav" onClick={() => navigate("/orderhistory")}>
+        <button
+          className="details-btn back-nav"
+          onClick={() => navigate("/orderhistory")}
+        >
           &larr; Back to Orders
         </button>
 
         <div className="track-hero">
           <div className="head-text">
-            <h1>Your feast is<br />on the way!</h1>
+            <h1>
+              Your feast is
+              <br />
+              on the way!
+            </h1>
           </div>
-          
+
           <div className="estimated-card">
             <p>ESTIMATED ARRIVAL</p>
             <h2>12:45 PM</h2>
@@ -44,10 +54,9 @@ function OrderTrack({ page }) {
         </div>
 
         <div className="status-container">
-          
           <div className="status-step completed">
             <div className="step-icon">
-              
+              <ChefHat size={28} />
             </div>
             <h3 className="step-title">Preparing</h3>
             <p className="step-desc">Started at 12:15 PM</p>
@@ -57,7 +66,7 @@ function OrderTrack({ page }) {
 
           <div className="status-step active">
             <div className="step-icon">
-               
+              <Utensils size={28} />
             </div>
             <h3 className="step-title">Ready</h3>
             <p className="step-desc">Waiting for pickup</p>
@@ -67,12 +76,11 @@ function OrderTrack({ page }) {
 
           <div className="status-step">
             <div className="step-icon">
-             
+              <CheckCircle2 size={28} />
             </div>
             <h3 className="step-title">Received</h3>
             <p className="step-desc">The order has been Recived</p>
           </div>
-
         </div>
 
         <div className="summary-container">
@@ -94,7 +102,9 @@ function OrderTrack({ page }) {
                   </div>
                   <div className="item-totals">
                     <div className="item-qty">x{item.qty}</div>
-                    <div className="item-line-price">${(item.price * item.qty).toFixed(2)}</div>
+                    <div className="item-line-price">
+                      ${(item.price * item.qty).toFixed(2)}
+                    </div>
                   </div>
                 </div>
               ))
@@ -119,7 +129,6 @@ function OrderTrack({ page }) {
             <span className="total-price">${calculateTotal().toFixed(2)}</span>
           </div>
         </div>
-
       </div>
     </div>
   );

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@800&display=swap");
 
 /* --- User Provided Base Variables & Styles --- */
 :root {
@@ -9,7 +9,7 @@
   --nav-icon-hover: rgb(215, 214, 213);
   --primary-color: #cc0600;
   --primary-hover: #930500;
-  --secondary-color: #E4E4E7;
+  --secondary-color: #e4e4e7;
   --secondary-hover: #c3c3c3;
   --border-color: rgb(213, 213, 213);
   --box-color: white;
@@ -64,28 +64,6 @@ textarea {
   color: var(--text-color);
 }
 
-.logo {
-  width: 100px;
-  height: 50px;
-  cursor: pointer;
-  position: absolute;
-  left: 30px;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.logo tspan {
-  fill: var(--primary-color);
-  font-size: 110px;
-}
-
-.logo text {
-  fill: var(--text-color);
-  font-family: "Playpen Sans", cursive;
-  font-weight: 800;
-  font-size: 110px;
-}
-
 @media (max-width: 480px) {
   .logo {
     left: 10px;
@@ -107,7 +85,7 @@ header {
   align-items: center;
   padding: 20px 0;
   border-bottom: 1px solid var(--border-color);
-  min-height: 90px; 
+  min-height: 90px;
 }
 
 nav {
@@ -131,7 +109,8 @@ nav a {
   transition: color 0.3s;
 }
 
-nav a.active, nav a:hover {
+nav a.active,
+nav a:hover {
   color: var(--primary-color);
 }
 
@@ -193,7 +172,7 @@ nav a.active {
   border-radius: 24px;
   margin: 40px 0;
   border: 1px solid var(--border-color);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.02);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
 }
 
 .hero-content {
@@ -288,7 +267,7 @@ nav a.active {
   display: flex;
   align-items: center;
   gap: 15px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
 .wait-time-badge i {
@@ -355,7 +334,9 @@ nav a.active {
   justify-content: center;
   border-radius: 20px;
   cursor: pointer;
-  transition: transform 0.3s, background 0.3s;
+  transition:
+    transform 0.3s,
+    background 0.3s;
 }
 
 .category-card:hover {
@@ -398,7 +379,7 @@ nav a.active {
   background: var(--box-color);
   border-radius: 20px;
   overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s;
   position: relative;
   border: 1px solid var(--border-color);
@@ -425,7 +406,7 @@ nav a.active {
   font-weight: 700;
   font-size: 14px;
   z-index: 1;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 .heart-btn {
@@ -440,7 +421,7 @@ nav a.active {
   color: var(--primary-color);
   cursor: pointer;
   z-index: 1;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -473,7 +454,7 @@ nav a.active {
   color: var(--text-muted);
   margin-bottom: 15px;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -571,7 +552,7 @@ nav a.active {
 /* Footer */
 footer {
   border-top: 1px solid var(--border-color);
-  padding: 40px 0;
+  padding: 10px 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
