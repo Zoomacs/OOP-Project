@@ -29,6 +29,13 @@ function Login({ page }) {
       return;
     }
 
+    // New Staff Role
+    if (enteredID === "staff" && enteredPassword === "123") {
+      sessionStorage.setItem("userRole", "staff");
+      navigate("/staff/orders", { replace: true });
+      return;
+    }
+
     if (enteredID === "123" && enteredPassword === "123") {
       sessionStorage.setItem("userRole", "student");
       navigate("/home", { replace: true });
@@ -50,7 +57,7 @@ function Login({ page }) {
             <div className="qless-input-wrapper">
               <input
                 type="text"
-                placeholder="123, owner, or admin"
+                placeholder="123, staff, owner, or admin"
                 value={ID}
                 onChange={(e) => setID(e.target.value)}
                 className="qless-input"

@@ -39,10 +39,21 @@ const OwnerProtectedRoute = ({ children }) => {
   return children;
 };
 
+// New protected route logic for staff
+const StaffProtectedRoute = ({ children }) => {
+  const role = sessionStorage.getItem("userRole");
+  // Allow both owner and staff to view staff routes if necessary, but strictly staff for now
+  if (role !== "staff" && role !== "owner") {
+    return <Navigate to="/" replace />;
+  }
+  return children;
+};
+
 function AppContent() {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
   const isOwnerRoute = location.pathname.startsWith("/owner");
+  const isStaffRoute = location.pathname.startsWith("/staff"); // Check for staff route
 
   const isAuthRoute =
     location.pathname === "/" || location.pathname === "/register";
@@ -69,6 +80,9 @@ function AppContent() {
     if (location.pathname === "/owner/profile") activePage = "profile";
     if (location.pathname === "/owner/orders") activePage = "dashboard";
   }
+  if (isStaffRoute) {
+    if (location.pathname === "/staff/orders") activePage = "orders";
+  }
 
   return (
     <>
@@ -81,7 +95,7 @@ function AppContent() {
           setSideBar={setSideBar}
           notification={notification}
           setNotification={setNotification}
-          isOwner={isOwnerRoute}
+          isOwner={isOwnerRoute || isStaffRoute} // Treats staff similarly to owner for Navbar rendering
         />
       )}
 
@@ -116,11 +130,24 @@ function AppContent() {
           path="/restaurant/:id"
           element={<Menu page={setcurrentpage} />}
         />
+
+        {/* Existing un-protected orders route (optional: you can remove this if staff is the only way in) */}
         <Route
           path="/restaurantorders"
           element={<RestaurantOrders page={setcurrentpage} />}
         />
 
+        {/* --- Staff Routes --- */}
+        <Route
+          path="/staff/orders"
+          element={
+            <StaffProtectedRoute>
+              <RestaurantOrders page={setcurrentpage} />
+            </StaffProtectedRoute>
+          }
+        />
+
+        {/* --- Owner Routes --- */}
         <Route
           path="/owner/dashboard"
           element={
@@ -157,7 +184,8 @@ function AppContent() {
         <Route path="/admin/*" element={<AdminApp />} />
       </Routes>
 
-      {!hideStandardUI && !isOwnerRoute && (
+      {/* Hide Cart and Sidebar for BOTH owner and staff */}
+      {!hideStandardUI && !isOwnerRoute && !isStaffRoute && (
         <>
           {location.pathname !== "/notification" && (
             <Notification page={setcurrentpage} display={notification} />
