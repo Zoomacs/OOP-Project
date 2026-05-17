@@ -16,9 +16,9 @@ function Contact({ page }) {
             How can we <span className="highlight">help you</span> today?
           </h1>
           <p className="support-description">
-            Our dedicated team is ready to ensure your campus dining
-            experience is seamless. From order inquiries to technical
-            support, we're here for you.
+            Our dedicated team is ready to ensure your campus dining experience
+            is seamless. From order inquiries to technical support, we're here
+            for you.
           </p>
           <div className="action-buttons">
             <button className="view-tickets">View Tickets</button>

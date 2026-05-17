@@ -28,7 +28,9 @@ button {
   transition: all 0.2s ease-in-out;
 }
 
-.nav-left, .nav-center, .nav-right {
+.nav-left,
+.nav-center,
+.nav-right {
   display: flex;
   align-items: center;
   height: 100%;
@@ -119,7 +121,6 @@ button {
 
 .nav-link:hover {
   color: var(--text-color);
-
 }
 
 .nav-link:hover::after {
@@ -152,15 +153,18 @@ button {
     justify-content: space-evenly;
   }
 
-  .nav-left, .nav-center, .nav-right {
-    display: contents; 
+  .nav-left,
+  .nav-center,
+  .nav-right {
+    display: contents;
   }
 
   .nav-logo {
     display: none;
   }
 
-  .action-btn, .nav-link {
+  .action-btn,
+  .nav-link {
     flex-direction: column;
     justify-content: center;
     gap: 4px;
@@ -169,27 +173,30 @@ button {
     border-radius: 0;
     padding: 0;
   }
-  
-  .action-btn svg, .nav-link svg {
+
+  .action-btn svg,
+  .nav-link svg {
     display: block;
     width: 24px;
     height: 24px;
   }
 
   .nav-link p {
-    display: none; 
+    display: none;
   }
 
   .nav-link::after {
     display: none;
   }
 
-  .nav-link:hover, .action-btn:hover {
+  .nav-link:hover,
+  .action-btn:hover {
     background-color: transparent;
     color: var(--text-color);
   }
 
-  .nav-link.curr, .action-btn.active {
+  .nav-link.curr,
+  .action-btn.active {
     background-color: transparent;
     color: var(--primary-color);
   }

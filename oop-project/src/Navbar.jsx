@@ -10,7 +10,7 @@ import {
   Menu,
   LayoutDashboard,
   User,
-  LogOut
+  LogOut,
 } from "lucide-react";
 
 function Navbar({
@@ -21,7 +21,7 @@ function Navbar({
   setSideBar,
   notification,
   setNotification,
-  isOwner // New prop to determine the current user role
+  isOwner, // New prop to determine the current user role
 }) {
   const navigate = useNavigate();
 
@@ -39,7 +39,9 @@ function Navbar({
 
   function toggleNotification() {
     setNotification(
-      notification === "hidden notification" ? "notification" : "hidden notification"
+      notification === "hidden notification"
+        ? "notification"
+        : "hidden notification",
     );
     setCart("hidden cart-bar");
     setSideBar("hidden side-bar");
@@ -72,7 +74,11 @@ function Navbar({
             <Menu />
           </button>
         )}
-        <Link to={isOwner ? "/owner/dashboard" : "/home"} className="nav-logo" onClick={closePopups}>
+        <Link
+          to={isOwner ? "/owner/dashboard" : "/home"}
+          className="nav-logo"
+          onClick={closePopups}
+        >
           <svg viewBox="0 0 500 200" xmlns="http://www.w3.org/2000/svg">
             <rect rx="40" />
             <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle">

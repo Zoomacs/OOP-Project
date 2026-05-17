@@ -1,4 +1,10 @@
-import { BrowserRouter, Routes, Route, useLocation, Navigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useLocation,
+  Navigate,
+} from "react-router-dom";
 import { useState, useEffect } from "react";
 
 import Login from "./login";
@@ -37,9 +43,10 @@ function AppContent() {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
   const isOwnerRoute = location.pathname.startsWith("/owner");
-  
-  const isAuthRoute = location.pathname === "/" || location.pathname === "/register";
-  
+
+  const isAuthRoute =
+    location.pathname === "/" || location.pathname === "/register";
+
   const hideStandardUI = isAdminRoute || isAuthRoute;
 
   const [currentpage, setcurrentpage] = useState("login");
@@ -81,22 +88,71 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<Login page={setcurrentpage} />} />
         <Route path="/register" element={<Register page={setcurrentpage} />} />
-        
+
         <Route path="/home" element={<Home page={setcurrentpage} />} />
-        <Route path="/restaurant" element={<Restaurant page={setcurrentpage} />} />
+        <Route
+          path="/restaurant"
+          element={<Restaurant page={setcurrentpage} />}
+        />
         <Route path="/contact" element={<Contact page={setcurrentpage} />} />
-        <Route path="/notification" element={<Notification page={setcurrentpage} display="" />} />
-        <Route path="/orderhistory" element={<OrderHistory page={setcurrentpage} />} />
+        <Route
+          path="/notification"
+          element={<Notification page={setcurrentpage} display="" />}
+        />
+        <Route
+          path="/orderhistory"
+          element={<OrderHistory page={setcurrentpage} />}
+        />
         <Route path="/checkout" element={<Checkout page={setcurrentpage} />} />
-        <Route path="/PaymentPage" element={<PaymentPage page={setcurrentpage} />} />
-        <Route path="/ordertrack" element={<OrderTrack page={setcurrentpage} />} />
-        <Route path="/restaurant/:id" element={<Menu page={setcurrentpage} />} />
-        <Route path="/restaurantorders" element={<RestaurantOrders page={setcurrentpage} />} />
-        
-        <Route path="/owner/dashboard" element={<OwnerProtectedRoute><RestaurantDashboard /></OwnerProtectedRoute>} />
-        <Route path="/owner/menu" element={<OwnerProtectedRoute><MenuManagement /></OwnerProtectedRoute>} />
-        <Route path="/owner/profile" element={<OwnerProtectedRoute><RestaurantProfile /></OwnerProtectedRoute>} />
-        <Route path="/owner/orders" element={<OwnerProtectedRoute><OrderHistory page={setcurrentpage} isOwner={true} /></OwnerProtectedRoute>} />
+        <Route
+          path="/PaymentPage"
+          element={<PaymentPage page={setcurrentpage} />}
+        />
+        <Route
+          path="/ordertrack"
+          element={<OrderTrack page={setcurrentpage} />}
+        />
+        <Route
+          path="/restaurant/:id"
+          element={<Menu page={setcurrentpage} />}
+        />
+        <Route
+          path="/restaurantorders"
+          element={<RestaurantOrders page={setcurrentpage} />}
+        />
+
+        <Route
+          path="/owner/dashboard"
+          element={
+            <OwnerProtectedRoute>
+              <RestaurantDashboard />
+            </OwnerProtectedRoute>
+          }
+        />
+        <Route
+          path="/owner/menu"
+          element={
+            <OwnerProtectedRoute>
+              <MenuManagement />
+            </OwnerProtectedRoute>
+          }
+        />
+        <Route
+          path="/owner/profile"
+          element={
+            <OwnerProtectedRoute>
+              <RestaurantProfile />
+            </OwnerProtectedRoute>
+          }
+        />
+        <Route
+          path="/owner/orders"
+          element={
+            <OwnerProtectedRoute>
+              <OrderHistory page={setcurrentpage} isOwner={true} />
+            </OwnerProtectedRoute>
+          }
+        />
 
         <Route path="/admin/*" element={<AdminApp />} />
       </Routes>
@@ -107,7 +163,11 @@ function AppContent() {
             <Notification page={setcurrentpage} display={notification} />
           )}
           <Cart page={setcurrentpage} display={cart} />
-          <Sidebar page={currentpage} display={sideBar} setSideBar={setSideBar} />
+          <Sidebar
+            page={currentpage}
+            display={sideBar}
+            setSideBar={setSideBar}
+          />
         </>
       )}
     </>

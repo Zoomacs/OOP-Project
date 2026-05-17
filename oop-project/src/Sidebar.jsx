@@ -15,7 +15,7 @@ function Sidebar({ page, display, setSideBar }) {
   function handleLogout() {
     // Hide the sidebar immediately
     if (setSideBar) setSideBar("hidden side-bar");
-    
+
     // Clear session and navigate to login
     sessionStorage.clear();
     navigate("/", { replace: true });

@@ -28,7 +28,7 @@ function Notification({ page, display }) {
     page("notification");
   }, [page]);
 
- const [notifications, setNotifications] = useState([
+  const [notifications, setNotifications] = useState([
     {
       id: 1,
       title: "test",

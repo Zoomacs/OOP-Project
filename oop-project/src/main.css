@@ -6,8 +6,8 @@
   --nav-icon-hover: rgb(215, 214, 213);
   --primary-color: #cc0600;
   --primary-hover: #930500;
-  --primary-light: #fceceb; 
-  --secondary-color: #E4E4E7;
+  --primary-light: #fceceb;
+  --secondary-color: #e4e4e7;
   --secondary-hover: #c3c3c3;
   --border-color: rgb(213, 213, 213);
   --box-color: white;
@@ -20,7 +20,7 @@
   --text-color: white;
   --text-muted: rgb(168, 166, 166);
   --nav-icon-hover: rgb(49, 49, 49);
-  --primary-light: rgba(204, 6, 0, 0.15); 
+  --primary-light: rgba(204, 6, 0, 0.15);
   --secondary-color: #353535;
   --secondary-hover: #4c4c4c;
   --border-color: rgb(55, 55, 55);
@@ -49,7 +49,7 @@ input {
   background-color: var(--background-color);
   font-size: 24px;
   transition: all 0.2s ease-in-out;
-  color: var(--text-color); 
+  color: var(--text-color);
 }
 
 textarea {
@@ -58,7 +58,7 @@ textarea {
   outline: none;
   background-color: var(--background-color);
   transition: all 0.2s ease-in-out;
-  color: var(--text-color); 
+  color: var(--text-color);
 }
 
 .logo {
@@ -81,7 +81,7 @@ textarea {
   font-family: "Playpen Sans", cursive;
   font-weight: 800;
   font-size: 110px;
-} 
+}
 
 @media (max-width: 480px) {
   .logo {

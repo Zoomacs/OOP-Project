@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Restaurant_card.css";
+import { Search } from "lucide-react";
 
 function RestaurantList() {
   const dummyRestaurants = [
@@ -74,7 +75,7 @@ function RestaurantList() {
     <>
       <div className="restaurant-tools">
         <div className="restaurant-search-box">
-          <span className="search-icon">🔍</span>
+          <span className="search-icon"><Search /></span>
           <input
             type="text"
             placeholder="Search restaurants..."

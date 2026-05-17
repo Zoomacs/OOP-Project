@@ -12,7 +12,9 @@
   flex-direction: column;
   transform: translateX(0);
   opacity: 1;
-  transition: transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.3s ease;
+  transition:
+    transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
+    opacity 0.3s ease;
 }
 
 .cart-bar.hidden {
@@ -285,11 +287,11 @@
   .cart-footer {
     padding-bottom: calc(24px + env(safe-area-inset-bottom));
   }
-  
+
   .cart-list:hover .delete-item {
     opacity: 1;
   }
-  
+
   .delete-item {
     opacity: 1;
     right: -5px;
