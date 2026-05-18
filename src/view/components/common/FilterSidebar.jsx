@@ -74,7 +74,7 @@ function FilterSidebar({ filters, onFilterChange, onClear }) {
               checked={filters.offers.staffDelivery}
               onChange={() => toggleOffer("staffDelivery")}
             />
-            <span>🚶 Staff Delivery</span>
+            <span> Staff Delivery</span>
           </label>
           <label className="filter-checkbox">
             <input
@@ -82,7 +82,7 @@ function FilterSidebar({ filters, onFilterChange, onClear }) {
               checked={filters.offers.openNow}
               onChange={() => toggleOffer("openNow")}
             />
-            <span>🟢 Open Now</span>
+            <span> Open Now</span>
           </label>
         </div>
       </div>
