@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ChefHat, Utensils, CheckCircle2 } from "lucide-react";
 import "./OrderTrack.css";
@@ -6,27 +6,55 @@ import "./OrderTrack.css";
 function OrderTrack({ page }) {
   const location = useLocation();
   const navigate = useNavigate();
+  const baseOrderData = location.state?.orderData;
 
-  const orderData = location.state?.orderData;
+  const [liveStatus, setLiveStatus] = useState("pending");
 
   useEffect(() => {
-    page("ordertrack");
-    if (!orderData) {
+    if (page) page("ordertrack");
+    if (!baseOrderData) {
       navigate("/orderhistory");
+      return;
     }
-  }, [page, orderData, navigate]);
 
-  if (!orderData) return null;
+    // Fetch live tracking details from the backend
+    const fetchTracking = async () => {
+      try {
+        const response = await fetch(`http://localhost/oop-project/backend/api.php?route=order-track&order_id=${baseOrderData.id}`);
+        const result = await response.json();
+        
+        if (result.status === "success") {
+          setLiveStatus(result.data.status); // e.g., 'pending', 'out_for_delivery', 'delivered'
+        }
+      } catch (error) {
+        console.error("Failed to fetch live tracking:", error);
+      }
+    };
+
+    fetchTracking();
+    
+    // Poll the database every 5 seconds for live updates
+    const interval = setInterval(fetchTracking, 5000);
+    return () => clearInterval(interval);
+
+  }, [page, baseOrderData, navigate]);
+
+  if (!baseOrderData) return null;
 
   const calculateTotal = () => {
-    if (orderData.items && orderData.items.length > 0) {
-      return orderData.items.reduce(
+    if (baseOrderData.items && baseOrderData.items.length > 0) {
+      return baseOrderData.items.reduce(
         (total, item) => total + item.price * item.qty,
-        0,
+        0
       );
     }
-    return orderData.points * 0.45;
+    return baseOrderData.points ? baseOrderData.points * 0.45 : 0;
   };
+
+  // Determine active step based on live database status
+  const isPreparing = liveStatus === 'pending' || liveStatus === 'preparing';
+  const isReady = liveStatus === 'out_for_delivery';
+  const isDelivered = liveStatus === 'delivered';
 
   return (
     <div className="ot-page-container">
@@ -48,23 +76,23 @@ function OrderTrack({ page }) {
           </div>
 
           <div className="estimated-card">
-            <p>ESTIMATED ARRIVAL</p>
-            <h2>12:45 PM</h2>
+            <p>ORDER TIME</p>
+            <h2>{baseOrderData.time.split(',')[1]}</h2>
           </div>
         </div>
 
         <div className="status-container">
-          <div className="status-step completed">
+          <div className={`status-step ${isPreparing || isReady || isDelivered ? 'completed' : 'active'}`}>
             <div className="step-icon">
               <ChefHat size={28} />
             </div>
             <h3 className="step-title">Preparing</h3>
-            <p className="step-desc">Started at 12:15 PM</p>
+            <p className="step-desc">In the kitchen</p>
           </div>
 
-          <div className="status-line filled"></div>
+          <div className={`status-line ${isReady || isDelivered ? 'filled' : ''}`}></div>
 
-          <div className="status-step active">
+          <div className={`status-step ${isReady ? 'active' : (isDelivered ? 'completed' : '')}`}>
             <div className="step-icon">
               <Utensils size={28} />
             </div>
@@ -72,14 +100,14 @@ function OrderTrack({ page }) {
             <p className="step-desc">Waiting for pickup</p>
           </div>
 
-          <div className="status-line"></div>
+          <div className={`status-line ${isDelivered ? 'filled' : ''}`}></div>
 
-          <div className="status-step">
+          <div className={`status-step ${isDelivered ? 'completed' : ''}`}>
             <div className="step-icon">
               <CheckCircle2 size={28} />
             </div>
             <h3 className="step-title">Received</h3>
-            <p className="step-desc">The order has been Recived</p>
+            <p className="step-desc">Order completed</p>
           </div>
         </div>
 
@@ -89,11 +117,11 @@ function OrderTrack({ page }) {
           </div>
 
           <div className="summary-items">
-            {orderData.items && orderData.items.length > 0 ? (
-              orderData.items.map((item, index) => (
+            {baseOrderData.items && baseOrderData.items.length > 0 ? (
+              baseOrderData.items.map((item, index) => (
                 <div className="summary-item-row" key={index}>
                   <div className="item-image">
-                    <img src={orderData.image} alt={item.name} />
+                    <img src={baseOrderData.image} alt={item.name} />
                   </div>
                   <div className="item-info">
                     <h4>{item.name}</h4>
@@ -111,11 +139,11 @@ function OrderTrack({ page }) {
             ) : (
               <div className="summary-item-row">
                 <div className="item-image">
-                  <img src={orderData.image} alt={orderData.title} />
+                  <img src={baseOrderData.image} alt={baseOrderData.title} />
                 </div>
                 <div className="item-info">
-                  <h4>{orderData.title} Order</h4>
-                  <p>{orderData.description}</p>
+                  <h4>Order #{baseOrderData.title}</h4>
+                  <p>{baseOrderData.description}</p>
                 </div>
                 <div className="item-totals">
                   <div className="item-qty">x1</div>
