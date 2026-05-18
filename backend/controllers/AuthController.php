@@ -18,7 +18,8 @@ class AuthController extends Controller
             }
         }
         unset($user['password_hash']);
-        $this->ok(['user' => $user], 'Login successful');
+        $userModel = UserFactory::create($user);
+        $this->ok(['user' => $userModel->toArray()], 'Login successful');
     }
 
     public function register($data)

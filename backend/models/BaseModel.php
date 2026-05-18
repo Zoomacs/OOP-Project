@@ -1,11 +1,16 @@
 <?php
 class BaseModel
 {
-    protected $pdo;
+    private $pdo;
 
     public function __construct()
     {
         $this->pdo = Database::connection();
+    }
+
+    protected function getConnection()
+    {
+        return $this->pdo;
     }
 
     public function query($sql, $params = [])

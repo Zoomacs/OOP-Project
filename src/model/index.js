@@ -1,7 +1,14 @@
+export { default as BaseModel } from "./BaseModel";
 export { default as UserModel } from "./UserModel";
+export { default as AdminModel } from "./AdminModel";
+export { default as CustomerModel } from "./CustomerModel";
+export { default as StudentModel } from "./StudentModel";
+export { default as StaffModel } from "./StaffModel";
+export { default as RestaurantOwnerModel } from "./RestaurantOwnerModel";
 export { default as RestaurantModel } from "./RestaurantModel";
 export { default as MenuItemModel } from "./MenuItemModel";
 export { default as OrderModel } from "./OrderModel";
 export { default as PaymentModel } from "./PaymentModel";
 export { default as TicketModel } from "./TicketModel";
 export { default as NotificationModel } from "./NotificationModel";
+export { default as UserFactoryModel } from "./UserFactoryModel";

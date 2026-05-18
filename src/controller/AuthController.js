@@ -1,5 +1,5 @@
 import { api } from "./ApiController";
-import UserModel from "../model/UserModel";
+import UserFactoryModel from "../model/UserFactoryModel";
 
 export default class AuthController {
   static async login(identifier, password) {
@@ -13,7 +13,7 @@ export default class AuthController {
       throw new Error(result.message || "Login failed. Please check the ID and password.");
     }
 
-    return UserModel.fromApi(userData);
+    return UserFactoryModel.create(userData);
   }
 
   static async register(payload) {
@@ -38,7 +38,7 @@ export default class AuthController {
 
   static getCurrentUser() {
     const raw = sessionStorage.getItem("user");
-    return raw ? UserModel.fromApi(JSON.parse(raw)) : null;
+    return raw ? UserFactoryModel.create(JSON.parse(raw)) : null;
   }
 
   static logout() {
