@@ -9,15 +9,14 @@ class AuthController {
     }
 
     public function login($data) {
-        $id = $data['id'] ?? '';
+        $email = $data['email'] ?? '';
         $password = $data['password'] ?? '';
 
-        if (empty($id) || empty($password)) {
-            return ["success" => false, "message" => "ID and password are required"];
+        if (empty($email) || empty($password)) {
+            return ["success" => false, "message" => "Email and password are required"];
         }
 
-        // Try finding user by university ID or staff ID
-        $user = $this->userModel->findByUniversityId($id);
+        $user = $this->userModel->findByEmail($email);
 
         if (!$user) {
             return ["success" => false, "message" => "User not found"];
@@ -34,43 +33,30 @@ class AuthController {
                 "user_id" => $user['user_id'],
                 "name" => $user['name'],
                 "email" => $user['email'],
-                "type" => $user['type'],
-                "customer_type" => $user['customer_type'],
+                "type" => $user['type']
             ]
         ];
     }
 
     public function register($data) {
-        $name = $data['name'] ?? '';
+        $name = $data['fullName'] ?? '';
         $email = $data['email'] ?? '';
         $password = $data['password'] ?? '';
-        $confirm_password = $data['confirm_password'] ?? '';
-        $customer_type = $data['customer_type'] ?? 'student';
-        $university_id = $data['university_id'] ?? '';
-        $department = $data['department'] ?? null;
+        $type = $data['type'] ?? 'student';
 
-        // Validate
-        if (empty($name) || empty($email) || empty($password) || empty($university_id)) {
+        if (empty($name) || empty($email) || empty($password)) {
             return ["success" => false, "message" => "All fields are required"];
         }
 
-        if ($password !== $confirm_password) {
-            return ["success" => false, "message" => "Passwords do not match"];
-        }
-
-        // Check if email already exists
         if ($this->userModel->findByEmail($email)) {
             return ["success" => false, "message" => "Email already registered"];
         }
 
-        // Hash password
         $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
-        // Create user
-        $user_id = $this->userModel->createUser($name, $email, $hashed_password, 'customer');
+        $user_id = $this->userModel->createUser($name, $email, $hashed_password, $type);
 
-        // Create customer
-        $this->userModel->createCustomer($user_id, null, $customer_type, $university_id, $department);
+        $this->userModel->createCustomer($user_id, null, $type);
 
         return [
             "success" => true,
