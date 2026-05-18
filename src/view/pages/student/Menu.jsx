@@ -6,19 +6,59 @@ import SizeModal from "../../components/common/SizeModal";
 import "./Menu.css";
 
 const SIZE_SUFFIX = /\s+[SLM]$/;
+const OPTION_SUFFIX = /\s+(Carry Out|Sandwich)$/;
 
-function extractBaseName(name) {
-  return name.replace(SIZE_SUFFIX, "");
+function stripSuffix(name, regex) {
+  return name.replace(regex, "");
 }
 
 function groupItemsBySize(items) {
-  const groups = {};
+  const optionCandidates = {};
+  const regularItems = [];
+
   items.forEach((item) => {
-    const base = extractBaseName(item.name);
-    if (!groups[base]) groups[base] = [];
-    groups[base].push(item);
+    if (OPTION_SUFFIX.test(item.name)) {
+      const base = stripSuffix(item.name, OPTION_SUFFIX);
+      if (!optionCandidates[base]) optionCandidates[base] = [];
+      optionCandidates[base].push(item);
+    } else {
+      regularItems.push(item);
+    }
   });
-  return Object.values(groups).map((group) => {
+
+  const result = [];
+
+  Object.entries(optionCandidates).forEach(([base, group]) => {
+    if (group.length >= 2) {
+      const options = group
+        .map((item) => ({
+          id: item.id,
+          size_name: item.name.match(OPTION_SUFFIX)?.[0]?.trim() || "Option",
+          price: Number(item.price),
+          item,
+        }))
+        .sort((a, b) => a.price - b.price);
+
+      result.push({
+        ...group[0],
+        baseName: base,
+        sizes: options,
+        priceRange: `${Math.min(...options.map((s) => s.price))} - ${Math.max(...options.map((s) => s.price))} EGP`,
+        groupType: "option",
+      });
+    } else {
+      regularItems.push(group[0]);
+    }
+  });
+
+  const sizeGroups = {};
+  regularItems.forEach((item) => {
+    const base = SIZE_SUFFIX.test(item.name) ? stripSuffix(item.name, SIZE_SUFFIX) : item.name;
+    if (!sizeGroups[base]) sizeGroups[base] = [];
+    sizeGroups[base].push(item);
+  });
+
+  Object.values(sizeGroups).forEach((group) => {
     const sizes = group
       .map((item) => ({
         id: item.id,
@@ -28,17 +68,24 @@ function groupItemsBySize(items) {
       }))
       .sort((a, b) => a.price - b.price);
 
-    const first = group[0];
-    return {
-      ...first,
-      baseName: extractBaseName(first.name),
-      sizes: sizes.length > 1 ? sizes : null,
-      priceRange:
-        sizes.length > 1
-          ? `${Math.min(...sizes.map((s) => s.price))} - ${Math.max(...sizes.map((s) => s.price))} EGP`
-          : `${first.price} EGP`,
-    };
+    if (sizes.length > 1) {
+      result.push({
+        ...group[0],
+        baseName: stripSuffix(group[0].name, SIZE_SUFFIX),
+        sizes,
+        priceRange: `${Math.min(...sizes.map((s) => s.price))} - ${Math.max(...sizes.map((s) => s.price))} EGP`,
+      });
+    } else {
+      result.push({
+        ...group[0],
+        baseName: group[0].name,
+        sizes: null,
+        priceRange: `${group[0].price} EGP`,
+      });
+    }
   });
+
+  return result;
 }
 
 function Menu({ page }) {
@@ -149,8 +196,8 @@ function Menu({ page }) {
                   <h3>{item.baseName || item.name}</h3>
                   <span className="price">{item.priceRange}</span>
                 </div>
-                <p className="item-desc">{item.desc || item.description}</p>
-                {item.sizes && (
+                {(!item.sizes || item.groupType !== "option") && <p className="item-desc">{item.desc || item.description}</p>}
+                {item.sizes && item.groupType !== "option" && (
                   <span className="size-badge">Available in {item.sizes.length} sizes</span>
                 )}
                 <div className="item-footer-row">
@@ -164,7 +211,7 @@ function Menu({ page }) {
                     onClick={() => handleAddToCart(item)}
                     disabled={!item.is_available}
                   >
-                    {item.sizes ? "Choose Size" : "+"}
+                    {item.sizes ? (item.groupType === "option" ? "Choose" : "Choose Size") : "+"}
                   </button>
                 </div>
               </div>

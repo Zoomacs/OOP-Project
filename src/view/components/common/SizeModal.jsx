@@ -29,18 +29,21 @@ function SizeModal({ item, onClose, onAddToCart }) {
           <img src={item.image} alt={item.name} className="size-modal-image" />
           <div className="size-modal-info">
             <h2>{item.baseName || item.name}</h2>
-            {item.description && <p className="size-modal-desc">{item.description}</p>}
+            {item.description && item.groupType !== "option" && <p className="size-modal-desc">{item.description}</p>}
           </div>
           <div className="size-modal-sizes">
-            <h3>Choose Size</h3>
+            <h3>{item.groupType === "option" ? "Choose Option" : "Choose Size"}</h3>
             {item.sizes.map((size, index) => (
               <button
                 key={index}
                 className="size-option-btn"
                 onClick={() => onAddToCart(size)}
               >
-                <span className="size-option-name">{size.size_name}</span>
-                <span className="size-option-price">{size.price} EGP</span>
+                <span className="size-option-btn-top">
+                  <span className="size-option-name">{size.size_name}</span>
+                  <span className="size-option-price">{size.price} EGP</span>
+                </span>
+                {item.groupType === "option" && size.item?.desc && <span className="size-option-desc">{size.item.desc}</span>}
               </button>
             ))}
           </div>
