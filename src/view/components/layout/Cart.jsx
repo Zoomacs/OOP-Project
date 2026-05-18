@@ -21,7 +21,9 @@ function Cart({ display, setCart }) {
         const existingItem = prevItems.find((item) => item.id === newItem.id);
         if (existingItem) {
           return prevItems.map((item) =>
-            item.id === newItem.id ? { ...item, quantity: item.quantity + 1 } : item,
+            item.id === newItem.id
+              ? { ...item, quantity: item.quantity + 1 }
+              : item,
           );
         }
         return [...prevItems, { ...newItem, quantity: 1 }];
@@ -61,7 +63,10 @@ function Cart({ display, setCart }) {
     navigate("/checkout");
   }
 
-  const total = items.reduce((sum, item) => sum + Number(item.price) * item.quantity, 0);
+  const total = items.reduce(
+    (sum, item) => sum + Number(item.price) * item.quantity,
+    0,
+  );
   const count = items.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
@@ -69,9 +74,15 @@ function Cart({ display, setCart }) {
       <div className="cart-header">
         <div>
           <h1 className="cart-title">Cart</h1>
-          <p>{count} item{count === 1 ? "" : "s"}</p>
+          <p>
+            {count} item{count === 1 ? "" : "s"}
+          </p>
         </div>
-        <button className="cart-close" onClick={closeCart} aria-label="Close cart">
+        <button
+          className="cart-close"
+          onClick={closeCart}
+          aria-label="Close cart"
+        >
           <X size={20} />
         </button>
       </div>
@@ -80,23 +91,39 @@ function Cart({ display, setCart }) {
         {items.length > 0 ? (
           items.map((item) => (
             <div className="cart-list" key={item.id}>
-              <button className="delete-item" onClick={() => deleteItem(item.id)} title="Remove item">
+              <button
+                className="delete-item"
+                onClick={() => deleteItem(item.id)}
+                title="Remove item"
+              >
                 <X size={16} />
               </button>
               <div className="cart-item">
                 {item.image ? (
                   <img src={item.image} alt={item.title} className="item-img" />
                 ) : (
-                  <div className="item-img-placeholder"><ShoppingBag size={24} /></div>
+                  <div className="item-img-placeholder">
+                    <ShoppingBag size={24} />
+                  </div>
                 )}
                 <div className="item-info">
                   <h3>{item.title}</h3>
                   <div className="item-price">
                     <p>{Number(item.price).toFixed(2)} EGP</p>
                     <div className="quantity">
-                      <button className="quantity-btn" onClick={() => setItemQuantity(item.id, "-")}><Minus size={14} /></button>
+                      <button
+                        className="quantity-btn"
+                        onClick={() => setItemQuantity(item.id, "-")}
+                      >
+                        <Minus size={14} />
+                      </button>
                       <span>{item.quantity}</span>
-                      <button className="quantity-btn" onClick={() => setItemQuantity(item.id, "+")}><Plus size={14} /></button>
+                      <button
+                        className="quantity-btn"
+                        onClick={() => setItemQuantity(item.id, "+")}
+                      >
+                        <Plus size={14} />
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -122,7 +149,11 @@ function Cart({ display, setCart }) {
           <span>Total</span>
           <b>{total.toFixed(2)} EGP</b>
         </div>
-        <button className="checkout-btn" disabled={items.length === 0} onClick={goCheckout}>
+        <button
+          className="checkout-btn"
+          disabled={items.length === 0}
+          onClick={goCheckout}
+        >
           Checkout
         </button>
       </div>

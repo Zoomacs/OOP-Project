@@ -18,7 +18,6 @@
   font-size: 18px;
 }
 
-
 .restaurant-tools {
   display: flex;
   align-items: center;
@@ -59,7 +58,6 @@
   color: var(--text-muted);
 }
 
-
 .quick-filters {
   display: flex;
   flex-wrap: wrap;
@@ -90,14 +88,12 @@
   border-color: var(--primary-color);
 }
 
-
 .restaurant-list {
   display: grid;
   grid-template-columns: repeat(3, 340px);
   gap: 80px 28px;
   margin-top: 85px;
 }
-
 
 .restaurant-card {
   position: relative;
@@ -107,7 +103,9 @@
   border-radius: 22px;
   overflow: visible;
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
-  transition: transform 0.25s ease, box-shadow 0.25s ease,
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
     border-color 0.25s ease;
 }
 
@@ -117,13 +115,11 @@
   border-color: var(--primary-color);
 }
 
-
 .restaurant-content {
   position: relative;
   padding: 70px 20px 20px;
   text-align: center;
 }
-
 
 .restaurant-top-row {
   display: flex;
@@ -131,7 +127,6 @@
   align-items: center;
   margin-bottom: 12px;
 }
-
 
 .restaurant-logo {
   position: absolute;
@@ -157,7 +152,6 @@
   display: block;
 }
 
-
 .status-badge {
   display: inline-block;
   padding: 8px 15px;
@@ -176,7 +170,6 @@
   background-color: #777777;
 }
 
-
 .restaurant-content h2 {
   margin: 0;
   color: var(--text-color);
@@ -191,7 +184,6 @@
   font-size: 15px;
   line-height: 1.4;
 }
-
 
 .restaurant-info {
   display: flex;
@@ -218,7 +210,6 @@
   margin: 0 3px;
 }
 
-
 .restaurant-services {
   display: flex;
   justify-content: center;
@@ -236,7 +227,6 @@
   font-size: 13px;
 }
 
-
 .view-menu-btn {
   width: 100%;
   padding: 13px;
@@ -247,7 +237,9 @@
   font-size: 15px;
   font-weight: 700;
   cursor: pointer;
-  transition: background-color 0.25s ease, transform 0.2s ease;
+  transition:
+    background-color 0.25s ease,
+    transform 0.2s ease;
 }
 
 .view-menu-btn:hover {
@@ -258,14 +250,12 @@
   transform: scale(0.98);
 }
 
-
 .no-restaurants {
   grid-column: 1 / -1;
   color: var(--text-muted);
   font-size: 18px;
   margin-top: 20px;
 }
-
 
 @media (max-width: 1200px) {
   .restaurant-list {

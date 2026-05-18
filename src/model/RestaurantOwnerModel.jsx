@@ -7,9 +7,19 @@ export default class RestaurantOwnerModel extends UserModel {
     this._modelName = "RestaurantOwner";
   }
 
-  getRoleLabel() { return "Restaurant Owner"; }
-  getDashboardRoute() { return "/owner"; }
-  canAccessOwner() { return true; }
-  canPlaceOrder() { return false; }
-  isValid() { return super.isValid() && Boolean(this.restaurant_id); }
+  getRoleLabel() {
+    return "Restaurant Owner";
+  }
+  getDashboardRoute() {
+    return "/owner";
+  }
+  canAccessOwner() {
+    return true;
+  }
+  canPlaceOrder() {
+    return false;
+  }
+  isValid() {
+    return super.isValid() && Boolean(this.restaurant_id);
+  }
 }

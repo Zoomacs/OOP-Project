@@ -32,6 +32,7 @@ try {
     $router->dispatch();
 } catch (Throwable $e) {
     $pdo = Database::connection();
-    if ($pdo->inTransaction()) $pdo->rollBack();
+    if ($pdo->inTransaction())
+        $pdo->rollBack();
     (new ErrorView())->serverError($e->getMessage());
 }

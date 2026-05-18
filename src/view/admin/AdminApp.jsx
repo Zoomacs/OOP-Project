@@ -51,7 +51,10 @@ export default function AdminApp() {
           <Route path="payment-monitoring" element={<PaymentMonitoring />} />
           <Route path="system-analytics" element={<SystemAnalytics />} />
           <Route path="tickets" element={<Tickets />} />
-          <Route path="restaurants-management" element={<RestaurantsManagement />} />
+          <Route
+            path="restaurants-management"
+            element={<RestaurantsManagement />}
+          />
           <Route path="ban-student" element={<BanStudent />} />
           <Route path="add-restaurant" element={<AddRestaurant />} />
           <Route path="remove-restaurant" element={<RemoveRestaurant />} />
@@ -62,7 +65,10 @@ export default function AdminApp() {
           <Route path="reply-contact-ticket" element={<ReplyContactTicket />} />
         </Route>
 
-        <Route path="*" element={<Navigate to={isAdminLoggedIn ? "/admin" : "/"} replace />} />
+        <Route
+          path="*"
+          element={<Navigate to={isAdminLoggedIn ? "/admin" : "/"} replace />}
+        />
       </Routes>
     </div>
   );

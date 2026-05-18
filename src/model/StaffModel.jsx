@@ -10,12 +10,22 @@ export default class StaffModel extends CustomerModel {
     this.#discountRate = this._number(data.discount_rate, 0);
   }
 
-  get discount_rate() { return this.#discountRate; }
-  set discount_rate(value) { this.#discountRate = this._number(value, 0); }
+  get discount_rate() {
+    return this.#discountRate;
+  }
+  set discount_rate(value) {
+    this.#discountRate = this._number(value, 0);
+  }
 
-  getRoleLabel() { return "University Staff"; }
-  getDashboardRoute() { return this.restaurant_id ? "/restaurant-dashboard" : "/home"; }
-  canAccessOwner() { return Boolean(this.restaurant_id); }
+  getRoleLabel() {
+    return "University Staff";
+  }
+  getDashboardRoute() {
+    return this.restaurant_id ? "/restaurant-dashboard" : "/home";
+  }
+  canAccessOwner() {
+    return Boolean(this.restaurant_id);
+  }
 
   toJSON() {
     return { ...super.toJSON(), discount_rate: this.#discountRate };

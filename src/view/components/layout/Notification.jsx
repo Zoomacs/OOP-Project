@@ -67,7 +67,11 @@ function Notification({ page, display, setNotification }) {
               <p>{notifications.length} new updates</p>
             </div>
             {setNotification && (
-              <button className="notification-close" onClick={closeNotification} aria-label="Close notifications">
+              <button
+                className="notification-close"
+                onClick={closeNotification}
+                aria-label="Close notifications"
+              >
                 <X size={20} />
               </button>
             )}
@@ -75,7 +79,9 @@ function Notification({ page, display, setNotification }) {
 
           <div className="notification-cards-list">
             {loading ? (
-              <div className="empty-state"><p>Loading notifications...</p></div>
+              <div className="empty-state">
+                <p>Loading notifications...</p>
+              </div>
             ) : notifications.length > 0 ? (
               notifications.map((item) => (
                 <NotificationCard
@@ -96,7 +102,11 @@ function Notification({ page, display, setNotification }) {
           </div>
 
           <div className="notification-bottom">
-            <button className="clearall-button" onClick={handleClearAll} disabled={notifications.length === 0}>
+            <button
+              className="clearall-button"
+              onClick={handleClearAll}
+              disabled={notifications.length === 0}
+            >
               <Trash2 size={17} /> Clear All
             </button>
           </div>

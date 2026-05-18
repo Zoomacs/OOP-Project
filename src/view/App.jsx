@@ -29,7 +29,6 @@ import MenuManagement from "./pages/owner/MenuManagement";
 import RestaurantProfile from "./pages/owner/RestaurantProfile";
 import "./App.css";
 
-
 const OwnerProtectedRoute = ({ children }) => {
   const role = sessionStorage.getItem("userRole");
   if (role !== "owner") {
@@ -50,7 +49,7 @@ function AppContent() {
   const location = useLocation();
   const isAdminRoute = location.pathname.startsWith("/admin");
   const isOwnerRoute = location.pathname.startsWith("/owner");
-  const isStaffRoute = location.pathname.startsWith("/staff"); 
+  const isStaffRoute = location.pathname.startsWith("/staff");
 
   const isAuthRoute =
     location.pathname === "/" || location.pathname === "/register";
@@ -92,7 +91,7 @@ function AppContent() {
           notification={notification}
           setNotification={setNotification}
           isOwner={isOwnerRoute}
-          isStaff={isStaffRoute} 
+          isStaff={isStaffRoute}
         />
       )}
 
@@ -133,7 +132,6 @@ function AppContent() {
           element={<RestaurantOrders page={setcurrentpage} />}
         />
 
-        
         <Route
           path="/staff/orders"
           element={
@@ -143,7 +141,6 @@ function AppContent() {
           }
         />
 
-        
         <Route
           path="/owner/dashboard"
           element={
@@ -180,11 +177,14 @@ function AppContent() {
         <Route path="/admin/*" element={<AdminApp />} />
       </Routes>
 
-      
       {!hideStandardUI && !isOwnerRoute && !isStaffRoute && (
         <>
           {location.pathname !== "/notification" && (
-            <Notification page={setcurrentpage} display={notification} setNotification={setNotification} />
+            <Notification
+              page={setcurrentpage}
+              display={notification}
+              setNotification={setNotification}
+            />
           )}
           <Cart display={cart} setCart={setCart} />
           <Sidebar

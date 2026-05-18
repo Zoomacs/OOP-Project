@@ -12,7 +12,9 @@
   flex-direction: column;
   transform: translateX(0);
   opacity: 1;
-  transition: transform 0.25s ease, opacity 0.25s ease;
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease;
 }
 
 .cart-bar.hidden {
@@ -28,7 +30,11 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  background: linear-gradient(135deg, var(--box-color), var(--background-color));
+  background: linear-gradient(
+    135deg,
+    var(--box-color),
+    var(--background-color)
+  );
 }
 
 .cart-title {
@@ -88,13 +94,16 @@
   border-radius: 20px;
   padding: 14px;
   border: 1px solid var(--border-color);
-  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    border-color 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .cart-list:hover {
   border-color: var(--primary-color);
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.10);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
 .delete-item {

@@ -10,11 +10,19 @@ export default class StudentModel extends CustomerModel {
     this.#points = this._number(data.points, 0);
   }
 
-  get points() { return this.#points; }
-  set points(value) { this.#points = Math.max(0, this._number(value, 0)); }
+  get points() {
+    return this.#points;
+  }
+  set points(value) {
+    this.#points = Math.max(0, this._number(value, 0));
+  }
 
-  getRoleLabel() { return "Student"; }
-  getDashboardRoute() { return "/home"; }
+  getRoleLabel() {
+    return "Student";
+  }
+  getDashboardRoute() {
+    return "/home";
+  }
 
   toJSON() {
     return { ...super.toJSON(), points: this.#points };

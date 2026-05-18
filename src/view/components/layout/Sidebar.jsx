@@ -1,10 +1,21 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Home, UtensilsIcon, Headset, History, Moon, Sun, LogOut, X } from "lucide-react";
+import {
+  Home,
+  UtensilsIcon,
+  Headset,
+  History,
+  Moon,
+  Sun,
+  LogOut,
+  X,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import "./Sidebar.css";
 
 function Sidebar({ page, display, setSideBar }) {
-  const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "light");
+  const [theme, setTheme] = useState(
+    () => localStorage.getItem("theme") || "light",
+  );
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,9 +39,19 @@ function Sidebar({ page, display, setSideBar }) {
 
   const links = [
     { to: "/home", label: "Home", key: "home", icon: <Home /> },
-    { to: "/restaurant", label: "Restaurants", key: "restaurant", icon: <UtensilsIcon /> },
+    {
+      to: "/restaurant",
+      label: "Restaurants",
+      key: "restaurant",
+      icon: <UtensilsIcon />,
+    },
     { to: "/contact", label: "Contact", key: "contact", icon: <Headset /> },
-    { to: "/orderhistory", label: "Orders History", key: "orderhistory", icon: <History /> },
+    {
+      to: "/orderhistory",
+      label: "Orders History",
+      key: "orderhistory",
+      icon: <History />,
+    },
   ];
 
   return (
@@ -40,7 +61,11 @@ function Sidebar({ page, display, setSideBar }) {
           <h1 className="side-title">Q-Less</h1>
           <p className="side-subtitle">Food court menu</p>
         </div>
-        <button className="side-close" onClick={closeSidebar} aria-label="Close sidebar">
+        <button
+          className="side-close"
+          onClick={closeSidebar}
+          aria-label="Close sidebar"
+        >
           <X size={20} />
         </button>
       </div>

@@ -27,7 +27,7 @@ abstract class DomainModel extends BaseModel implements Arrayable
 
     protected function stringValue($value, $default = '')
     {
-        return $value === null || $value === '' ? $default : trim((string)$value);
+        return $value === null || $value === '' ? $default : trim((string) $value);
     }
 
     protected function numberValue($value, $default = 0)
@@ -37,7 +37,8 @@ abstract class DomainModel extends BaseModel implements Arrayable
 
     protected function boolIntValue($value, $default = 0)
     {
-        if ($value === null || $value === '') return $default;
+        if ($value === null || $value === '')
+            return $default;
         return ($value === true || $value === 1 || $value === '1' || $value === 'true') ? 1 : 0;
     }
 
