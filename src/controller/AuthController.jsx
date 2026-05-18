@@ -29,6 +29,11 @@ export default class AuthController {
     sessionStorage.setItem("user", JSON.stringify(user));
     sessionStorage.setItem("userRole", user.role);
     sessionStorage.setItem("userId", user.id);
+    if (user.role === "admin") {
+      sessionStorage.setItem("adminLoggedIn", "true");
+    } else {
+      sessionStorage.removeItem("adminLoggedIn");
+    }
 
     if (user.restaurant_id) {
       sessionStorage.setItem("restaurantId", user.restaurant_id);
