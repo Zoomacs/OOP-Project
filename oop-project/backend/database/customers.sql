@@ -4,5 +4,8 @@ CREATE Table customers(
     phone VARCHAR(100),
     customer_type VARCHAR(100),
     students_points INT DEFAULT 0,
+    university_id VARCHAR(50),
+    department VARCHAR(100),
     Foreign Key (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+ 
 );
