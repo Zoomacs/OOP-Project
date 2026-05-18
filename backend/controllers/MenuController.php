@@ -10,7 +10,16 @@ class MenuController extends Controller
         if ($available_only === 1) $sql .= " AND is_available=1";
         $sql .= " ORDER BY id";
         $rows = $this->q($sql, $params)->fetchAll();
-        foreach ($rows as &$r) { $r['quantity'] = 0; $r['inStock'] = (bool)$r['inStock']; $r['is_available'] = (int)$r['is_available']; }
+        $base = $this->baseUrl() . 'uploads/menu/';
+        foreach ($rows as &$r) {
+            $r['quantity'] = 0;
+            $r['inStock'] = (bool)$r['inStock'];
+            $r['is_available'] = (int)$r['is_available'];
+            if ($r['image'] && !str_starts_with($r['image'], 'http')) {
+                $r['image'] = $base . $r['image'];
+                $r['image_url'] = $r['image'];
+            }
+        }
         $this->ok(['menu' => $rows, 'items' => $rows]);
     }
 

@@ -10,9 +10,6 @@ function Restaurant({ page }) {
 
   return (
     <div className="restaurant-page">
-      <h1>Choose a Restaurant</h1>
-      <p>Order from the university food court</p>
-
       <RestaurantList />
       <AdminReturnButton />
     </div>
