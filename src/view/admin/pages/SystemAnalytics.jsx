@@ -5,7 +5,11 @@ import "./SystemAnalytics.css";
 
 export default function SystemAnalytics() {
   const [stats, setStats] = useState({ users: 0, restaurants: 0, orders: 0, revenue: 0 });
-  useEffect(() => { api("admin-stats").then((d) => setStats(d.stats || stats)); }, []);
+useEffect(() => {
+  api("admin-stats").then((d) =>
+    setStats(d.stats || { users: 0, restaurants: 0, orders: 0, revenue: 0 }),
+  );
+}, []);
   const max = Math.max(Number(stats.users), Number(stats.restaurants), Number(stats.orders), Number(stats.revenue), 1);
   const bars = [stats.users, stats.restaurants, stats.orders, stats.revenue].map((v) => `${Math.max(12, (Number(v) / max) * 100)}%`);
 

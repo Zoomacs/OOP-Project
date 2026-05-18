@@ -13,6 +13,24 @@ function Cart({ display, setCart }) {
 
   const [toastItem, setToastItem] = useState(null);
 
+  function getCartCount(cartItems) {
+    let total = 0;
+
+    for (let i = 0; i < cartItems.length; i++) {
+      total += Number(cartItems[i].quantity);
+    }
+
+    return total;
+  }
+
+  function showCartToast(itemName) {
+    setToastItem(itemName);
+
+    setTimeout(() => {
+      setToastItem(null);
+    }, 1800);
+  }
+
   useEffect(() => {
     sessionStorage.setItem("cartItems", JSON.stringify(items));
 
@@ -52,24 +70,6 @@ function Cart({ display, setCart }) {
       window.removeEventListener("addToCart", handleAddToCart);
     };
   }, []);
-
-  function getCartCount(cartItems) {
-    let total = 0;
-
-    for (let i = 0; i < cartItems.length; i++) {
-      total += Number(cartItems[i].quantity);
-    }
-
-    return total;
-  }
-
-  function showCartToast(itemName) {
-    setToastItem(itemName);
-
-    setTimeout(() => {
-      setToastItem(null);
-    }, 1800);
-  }
 
   function closeCart() {
     if (setCart) {

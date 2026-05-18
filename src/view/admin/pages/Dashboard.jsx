@@ -9,7 +9,9 @@ export default function Dashboard() {
   const [tickets, setTickets] = useState([]);
 
   useEffect(() => {
-    api("admin-stats").then((d) => setStats(d.stats || stats));
+api("admin-stats").then((d) =>
+  setStats(d.stats || { users: 0, restaurants: 0, orders: 0, revenue: 0 }),
+);
     api("orders").then((d) => setOrders((d.orders || []).slice(0, 5)));
     api("tickets").then((d) => setTickets((d.tickets || []).slice(0, 4)));
   }, []);

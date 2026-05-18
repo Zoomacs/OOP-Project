@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Plus, Search, Edit2, Trash2, Star, AlertTriangle, Zap, Megaphone, X, ImagePlus } from "lucide-react";
 import { api, getUser } from "../../api";
 import "./MenuManagement.css";
@@ -17,8 +17,15 @@ function MenuManagement() {
   const [editingItem, setEditingItem] = useState(null);
   const [formData, setFormData] = useState({ title: "", price: "", tag: "", description: "", image: "", image_data: "", inStock: true });
 
-  const loadMenu = () => api(`menu&restaurant_id=${restaurantId}`).then((d) => setItems(d.items || [])).catch((err) => alert(err.message));
-  useEffect(() => { loadMenu(); }, [restaurantId]);
+  const loadMenu = useCallback(() => {
+  return api(`menu&restaurant_id=${restaurantId}`)
+    .then((d) => setItems(d.items || []))
+    .catch((err) => alert(err.message));
+}, [restaurantId]);
+
+useEffect(() => {
+  loadMenu();
+}, [loadMenu]);
 
   function readImage(file) {
     return new Promise((resolve, reject) => {
