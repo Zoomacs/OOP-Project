@@ -3,38 +3,39 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 60px;
-  max-width: 1100px;
-  margin: 150px auto;
+  gap: 70px;
+  max-width: 1180px;
+  margin: 130px auto 70px;
   padding: 0 5%;
 }
 
 .contact-left {
   flex: 1;
   min-width: 320px;
-  max-width: 450px;
+  max-width: 470px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 22px;
 }
 
 .support-badge {
-  background-color: var(--secondary-color, var(--box-color));
-  color: var(--text-color);
+  background: rgba(204, 6, 0, 0.1);
+  color: var(--primary-color);
+  border: 1px solid rgba(204, 6, 0, 0.18);
   font-size: 13px;
-  font-weight: 800;
+  font-weight: 900;
   text-transform: uppercase;
   letter-spacing: 1px;
-  padding: 8px 16px;
-  border-radius: 20px;
+  padding: 9px 18px;
+  border-radius: 999px;
   width: max-content;
 }
 
 .main-heading {
-  font-size: 52px;
-  font-weight: 800;
+  font-size: 56px;
+  font-weight: 900;
   color: var(--text-color);
-  line-height: 1.1;
+  line-height: 1.05;
   margin: 0;
 }
 
@@ -43,60 +44,69 @@
 }
 
 .support-description {
-  font-size: 16px;
+  font-size: 17px;
   color: var(--text-muted);
-  line-height: 1.6;
+  line-height: 1.7;
+  max-width: 430px;
 }
 
 .action-buttons {
   display: flex;
-  margin-top: 10px;
+  margin-top: 8px;
 }
 
 .view-tickets {
-  background-color: var(--secondary-color, var(--box-color));
+  background-color: var(--box-color);
   color: var(--text-color);
   border: 1px solid var(--border-color);
-  padding: 12px 24px;
-  border-radius: 30px;
+  padding: 13px 26px;
+  border-radius: 999px;
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 800;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  transition: 0.25s;
   font-family: inherit;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
 }
 
 .view-tickets:hover {
-  background-color: var(--secondary-hover, var(--nav-icon-hover));
+  background-color: var(--nav-icon-hover);
+  transform: translateY(-2px);
 }
 
 .contact-right {
   flex: 1;
-  min-width: 350px;
-  max-width: 500px;
+  min-width: 360px;
+  max-width: 540px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 22px;
+  gap: 24px;
 }
 
 .contact-card {
-  border-radius: 24px;
-  padding: 40px;
+  border-radius: 28px;
+  padding: 42px;
   background-color: var(--box-color);
-  box-shadow: 0 8px 24px var(--box-shadow);
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.12);
+  border: 1px solid var(--border-color);
   display: flex;
   flex-direction: column;
   width: 100%;
   box-sizing: border-box;
-  transition: all 0.2s ease-in-out;
+  transition: 0.25s;
+}
+
+.contact-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 24px 55px rgba(0, 0, 0, 0.16);
 }
 
 #contact {
-  font-size: 28px;
-  font-weight: 700;
+  font-size: 30px;
+  font-weight: 900;
   margin-top: 0;
-  margin-bottom: 20px;
+  margin-bottom: 28px;
   color: var(--text-color);
 }
 
@@ -108,55 +118,63 @@
 
 #title {
   width: 100%;
-  background-color: transparent;
+  background-color: var(--background-color);
   color: var(--text-color);
-  border: none;
-  height: 40px;
-  font-size: 18px;
-  margin-bottom: 40px;
-  border-bottom: solid 2px var(--border-color);
+  border: 1.5px solid var(--border-color);
+  height: 52px;
+  font-size: 16px;
+  margin-bottom: 18px;
+  border-radius: 16px;
+  padding: 0 16px;
   box-sizing: border-box;
+  outline: none;
+  transition: 0.25s;
 }
 
 #title:focus {
   border-color: var(--primary-color);
-  outline: none;
+  box-shadow: 0 0 0 4px rgba(204, 6, 0, 0.08);
 }
 
 #message {
   width: 100%;
-  background-color: transparent;
+  background-color: var(--background-color);
   color: var(--text-color);
-  height: 120px;
-  resize: none;
-  font-size: 18px;
-  border: none;
-  border-bottom: solid 2px var(--border-color);
+  min-height: 150px;
+  resize: vertical;
+  font-size: 16px;
+  border: 1.5px solid var(--border-color);
+  border-radius: 16px;
+  padding: 16px;
   box-sizing: border-box;
+  outline: none;
+  transition: 0.25s;
 }
 
 #message:focus {
-  outline: none;
   border-color: var(--primary-color);
+  box-shadow: 0 0 0 4px rgba(204, 6, 0, 0.08);
 }
 
 .submit {
   align-self: flex-start;
-  margin-top: 30px;
+  margin-top: 26px;
   padding: 14px 32px;
-  border-radius: 12px;
+  border-radius: 14px;
   border: none;
   color: var(--button-text);
   background-color: var(--primary-color);
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 900;
   width: max-content;
   cursor: pointer;
-  transition: all 0.2s ease-in-out;
+  transition: 0.25s;
+  box-shadow: 0 10px 22px rgba(204, 6, 0, 0.22);
 }
 
 .submit:hover {
   background-color: var(--primary-hover);
+  transform: translateY(-2px);
 }
 
 .submit:active {
@@ -166,17 +184,22 @@
 .submit:disabled {
   opacity: 0.7;
   cursor: not-allowed;
+  transform: none;
 }
 
 .ticket-status {
-  margin-top: 15px;
+  margin-top: 16px;
   margin-bottom: 0;
   color: var(--primary-color);
-  font-weight: 600;
+  font-weight: 700;
+  background: rgba(204, 6, 0, 0.08);
+  border: 1px solid rgba(204, 6, 0, 0.16);
+  padding: 12px 14px;
+  border-radius: 14px;
 }
 
 .tickets-box {
-  margin-top: 10px;
+  margin-top: 4px;
 }
 
 .ticket-list-title {
@@ -184,28 +207,32 @@
   display: flex;
   gap: 12px;
   justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 .ticket-list-title h2 {
   margin: 0;
   color: var(--text-color);
+  font-size: 24px;
+  font-weight: 900;
 }
 
 .small-refresh {
   font-size: 13px;
-  padding: 9px 14px;
+  padding: 9px 16px;
   margin-top: 0;
+  border-radius: 12px;
 }
 
 .empty-ticket {
   color: var(--text-muted);
-  margin: 12px 0 0;
+  margin: 14px 0 0;
 }
 
 .ticket-item {
   border: 1px solid var(--border-color);
-  border-radius: 16px;
-  padding: 14px;
+  border-radius: 18px;
+  padding: 16px;
   margin-top: 14px;
   background-color: var(--background-color);
 }
@@ -221,29 +248,30 @@
   margin: 0;
   color: var(--text-color);
   font-size: 16px;
+  font-weight: 900;
 }
 
 .ticket-badge {
   background: rgba(204, 6, 0, 0.1);
   color: var(--primary-color);
-  border-radius: 20px;
-  padding: 5px 10px;
+  border-radius: 999px;
+  padding: 6px 12px;
   font-size: 12px;
-  font-weight: 700;
+  font-weight: 900;
 }
 
 .ticket-message {
   color: var(--text-muted);
-  line-height: 1.5;
+  line-height: 1.6;
   margin-bottom: 0;
 }
 
 .ticket-reply {
   background: rgba(204, 6, 0, 0.06);
   border: 1px solid rgba(204, 6, 0, 0.12);
-  border-radius: 14px;
-  margin-top: 12px;
-  padding: 12px;
+  border-radius: 16px;
+  margin-top: 14px;
+  padding: 14px;
 }
 
 .ticket-reply strong {
@@ -253,42 +281,58 @@
 .ticket-reply p {
   margin: 6px 0 0;
   color: var(--text-muted);
+  line-height: 1.5;
 }
 
 @media (max-width: 900px) {
   .contact-container {
-    margin: 100px auto;
-    gap: 35px;
+    margin: 100px auto 50px;
+    gap: 40px;
   }
 
   .main-heading {
-    font-size: 40px;
+    font-size: 42px;
+  }
+
+  .contact-card {
+    padding: 32px;
   }
 }
 
 @media (max-width: 480px) {
   .contact-container {
-    margin: 80px auto;
+    margin: 80px auto 40px;
     padding: 0 20px;
   }
 
+  .contact-left,
+  .contact-right {
+    min-width: 100%;
+  }
+
+  .main-heading {
+    font-size: 36px;
+  }
+
   .contact-card {
-    height: max-content;
     width: 100%;
-    background-color: var(--background-color);
     padding: 24px;
-    margin: 0;
-  }
-
-  #title {
-    background-color: var(--background-color);
-  }
-
-  #message {
-    background-color: var(--background-color);
+    border-radius: 22px;
   }
 
   #contact {
-    padding: 0;
+    font-size: 26px;
+  }
+
+  .submit,
+  .view-tickets {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .ticket-list-title {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }
