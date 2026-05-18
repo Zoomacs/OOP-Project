@@ -44,7 +44,9 @@ const StaffProtectedRoute = ({ children }) => {
   const isRestaurantStaff =
     role === "staff" &&
     user.restaurant_id !== null &&
-    user.restaurant_id !== undefined;
+    user.restaurant_id !== undefined &&
+    user.restaurant_id !== "" &&
+    Number(user.restaurant_id) !== 0;
 
   if (!isRestaurantStaff && role !== "owner") {
     return <Navigate to="/home" replace />;
@@ -59,13 +61,14 @@ function AppContent() {
   const isOwnerRoute = location.pathname.startsWith("/owner");
   const isStaffRoute = location.pathname.startsWith("/staff");
   const savedUser = JSON.parse(sessionStorage.getItem("user") || "{}");
-const userRole = sessionStorage.getItem("userRole");
+  const userRole = sessionStorage.getItem("userRole");
 
-const isRestaurantStaff =
-  userRole === "staff" && savedUser.restaurant_id !== null && savedUser.restaurant_id !== undefined;
-
-const isUniversityStaff =
-  userRole === "staff" && (savedUser.restaurant_id === null || savedUser.restaurant_id === undefined);
+  const isRestaurantStaff =
+    userRole === "staff" &&
+    savedUser.restaurant_id !== null &&
+    savedUser.restaurant_id !== undefined &&
+    savedUser.restaurant_id !== "" &&
+    Number(savedUser.restaurant_id) !== 0;
 
   const isAuthRoute =
     location.pathname === "/" || location.pathname === "/register";
@@ -107,7 +110,8 @@ const isUniversityStaff =
           notification={notification}
           setNotification={setNotification}
           isOwner={isOwnerRoute}
-isStaff={userRole === "staff"}        />
+          isStaff={isStaffRoute}
+        />
       )}
 
       <Routes>

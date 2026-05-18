@@ -4,7 +4,9 @@ import AuthController from "../../../controller/AuthController";
 import "./Login.css";
 
 function Login({ page }) {
-  useEffect(() => { page("login"); }, [page]);
+  useEffect(() => {
+    page("login");
+  }, [page]);
 
   const [ID, setID] = useState("");
   const [password, setPassword] = useState("");
@@ -12,17 +14,24 @@ function Login({ page }) {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const redirectByRole = (role) => {
+  function redirectByRole(user) {
+    const restaurantId = user?.restaurant_id;
+    const hasRestaurant =
+      restaurantId !== null &&
+      restaurantId !== undefined &&
+      restaurantId !== "" &&
+      Number(restaurantId) !== 0;
+
     if (user.role === "admin") {
-  navigate("/admin/dashboard");
-} else if (user.role === "owner") {
-  navigate("/owner/dashboard");
-} else if (user.role === "staff" && user.restaurant_id) {
-  navigate("/staff/orders");
-} else {
-  navigate("/home");
-}
-  };
+      navigate("/admin/dashboard", { replace: true });
+    } else if (user.role === "owner") {
+      navigate("/owner/dashboard", { replace: true });
+    } else if (user.role === "staff" && hasRestaurant) {
+      navigate("/staff/orders", { replace: true });
+    } else {
+      navigate("/home", { replace: true });
+    }
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -40,7 +49,7 @@ function Login({ page }) {
       setLoading(true);
       const user = await AuthController.login(identifier, userPassword);
       AuthController.saveSession(user);
-      redirectByRole(user.role);
+      redirectByRole(user);
     } catch (err) {
       setError(err.message || "Invalid ID or password");
     } finally {

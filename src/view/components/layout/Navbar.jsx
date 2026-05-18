@@ -99,9 +99,6 @@ function Navbar({
     navigate("/", { replace: true });
   }
 
-  if (page === "login" || page === "register") {
-    return null;
-  }
 
   return (
     <div className="navbar">
