@@ -19,7 +19,7 @@
 }
 
 .support-badge {
-  background-color: var(--secondary-color);
+  background-color: var(--secondary-color, var(--box-color));
   color: var(--text-color);
   font-size: 13px;
   font-weight: 800;
@@ -54,7 +54,7 @@
 }
 
 .view-tickets {
-  background-color: var(--secondary-color);
+  background-color: var(--secondary-color, var(--box-color));
   color: var(--text-color);
   border: 1px solid var(--border-color);
   padding: 12px 24px;
@@ -67,7 +67,7 @@
 }
 
 .view-tickets:hover {
-  background-color: var(--secondary-hover);
+  background-color: var(--secondary-hover, var(--nav-icon-hover));
 }
 
 .contact-right {
@@ -77,6 +77,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  gap: 22px;
 }
 
 .contact-card {
@@ -96,6 +97,7 @@
   font-weight: 700;
   margin-top: 0;
   margin-bottom: 20px;
+  color: var(--text-color);
 }
 
 .form-row {
@@ -112,14 +114,15 @@
   height: 40px;
   font-size: 18px;
   margin-bottom: 40px;
-  border: none;
   border-bottom: solid 2px var(--border-color);
   box-sizing: border-box;
 }
+
 #title:focus {
   border-color: var(--primary-color);
   outline: none;
 }
+
 #message {
   width: 100%;
   background-color: transparent;
@@ -131,6 +134,7 @@
   border-bottom: solid 2px var(--border-color);
   box-sizing: border-box;
 }
+
 #message:focus {
   outline: none;
   border-color: var(--primary-color);
@@ -141,16 +145,16 @@
   margin-top: 30px;
   padding: 14px 32px;
   border-radius: 12px;
+  border: none;
   color: var(--button-text);
   background-color: var(--primary-color);
-  font-size: 16px;
-  font-weight: 600;
   font-size: 16px;
   font-weight: 600;
   width: max-content;
   cursor: pointer;
   transition: all 0.2s ease-in-out;
 }
+
 .submit:hover {
   background-color: var(--primary-hover);
 }
@@ -159,26 +163,22 @@
   transform: scale(0.98);
 }
 
-@media (max-width: 480px) {
-  .contact-card {
-    left: 0;
-    top: 100%;
-    height: max-content;
-    width: 100%;
-    background-color: var(--background-color);
-    padding: 0;
-    margin: 0;
-  }
-  #title {
-    background-color: var(--background-color);
-  }
-  #message {
-    background-color: var(--background-color);
-  }
-  #contact {
-    padding: 20%;
-  }
+.submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
 }
+
+.ticket-status {
+  margin-top: 15px;
+  margin-bottom: 0;
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.tickets-box {
+  margin-top: 10px;
+}
+
 .ticket-list-title {
   align-items: center;
   display: flex;
@@ -186,9 +186,56 @@
   justify-content: space-between;
 }
 
+.ticket-list-title h2 {
+  margin: 0;
+  color: var(--text-color);
+}
+
 .small-refresh {
   font-size: 13px;
   padding: 9px 14px;
+  margin-top: 0;
+}
+
+.empty-ticket {
+  color: var(--text-muted);
+  margin: 12px 0 0;
+}
+
+.ticket-item {
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  padding: 14px;
+  margin-top: 14px;
+  background-color: var(--background-color);
+}
+
+.ticket-header {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.ticket-header h3 {
+  margin: 0;
+  color: var(--text-color);
+  font-size: 16px;
+}
+
+.ticket-badge {
+  background: rgba(204, 6, 0, 0.1);
+  color: var(--primary-color);
+  border-radius: 20px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ticket-message {
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: 0;
 }
 
 .ticket-reply {
@@ -197,4 +244,51 @@
   border-radius: 14px;
   margin-top: 12px;
   padding: 12px;
+}
+
+.ticket-reply strong {
+  color: var(--text-color);
+}
+
+.ticket-reply p {
+  margin: 6px 0 0;
+  color: var(--text-muted);
+}
+
+@media (max-width: 900px) {
+  .contact-container {
+    margin: 100px auto;
+    gap: 35px;
+  }
+
+  .main-heading {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .contact-container {
+    margin: 80px auto;
+    padding: 0 20px;
+  }
+
+  .contact-card {
+    height: max-content;
+    width: 100%;
+    background-color: var(--background-color);
+    padding: 24px;
+    margin: 0;
+  }
+
+  #title {
+    background-color: var(--background-color);
+  }
+
+  #message {
+    background-color: var(--background-color);
+  }
+
+  #contact {
+    padding: 0;
+  }
 }

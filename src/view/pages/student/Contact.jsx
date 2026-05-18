@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Mail, MessageCircle, Send, CheckCircle2 } from "lucide-react";
 import { api, getUser } from "../../api";
 import "./Contact.css";
 
@@ -7,7 +6,8 @@ function Contact({ page }) {
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
   const [statusMessage, setStatusMessage] = useState("");
-  const [success, setSuccess] = useState(false);
+  const [tickets, setTickets] = useState([]);
+  const [showTickets, setShowTickets] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const user = getUser();
@@ -16,14 +16,35 @@ function Contact({ page }) {
     if (page) {
       page("contact");
     }
+
+    loadTickets();
   }, [page]);
 
-  async function handleSubmit(e) {
+  async function loadTickets() {
+    try {
+      const userId = user?.id || sessionStorage.getItem("userId") || "";
+
+      if (!userId) {
+        return;
+      }
+
+      const data = await api(`tickets&user_id=${userId}`);
+
+      if (data.tickets) {
+        setTickets(data.tickets);
+      } else {
+        setTickets([]);
+      }
+    } catch (err) {
+      console.log(err.message);
+    }
+  }
+
+  async function sendTicket(e) {
     e.preventDefault();
 
     if (title.trim() === "" || message.trim() === "") {
-      setSuccess(false);
-      setStatusMessage("Please write the ticket title and message.");
+      setStatusMessage("Please enter ticket title and message.");
       return;
     }
 
@@ -34,90 +55,115 @@ function Contact({ page }) {
       await api("tickets", {
         method: "POST",
         body: JSON.stringify({
-          user_id: user?.id || null,
+          user_id: user?.id || sessionStorage.getItem("userId") || null,
           title: title,
-          email: user?.email || "",
+          email: user?.email || sessionStorage.getItem("userEmail") || "",
           message: message,
         }),
       });
 
       setTitle("");
       setMessage("");
-      setSuccess(true);
-      setStatusMessage("Your support ticket has been sent successfully.");
+      setStatusMessage("Ticket sent successfully.");
+      loadTickets();
     } catch (err) {
-      setSuccess(false);
-      setStatusMessage(err.message || "Something went wrong. Please try again.");
+      setStatusMessage(err.message || "Something went wrong.");
     } finally {
       setLoading(false);
     }
   }
 
   return (
-    <div className="contact-page">
-      <div className="contact-hero">
-        <span className="contact-label">SUPPORT CENTER</span>
+    <div className="contact-container">
+      <div className="contact-left">
+        <span className="support-badge">Support Center</span>
 
-        <h1>Contact Us</h1>
+        <h1 className="main-heading">
+          Contact <span className="highlight">Us</span>
+        </h1>
 
-        <p>
+        <p className="support-description">
           Send a support ticket and check the admin reply from the same page.
         </p>
+
+        <div className="action-buttons">
+          <button
+            className="view-tickets"
+            type="button"
+            onClick={() => setShowTickets(!showTickets)}
+          >
+            {showTickets ? "Hide Tickets" : "View Tickets"}
+          </button>
+        </div>
       </div>
 
-      <div className="contact-content">
-        <div className="contact-info-card">
-          <div className="contact-info-icon">
-            <MessageCircle size={28} />
-          </div>
+      <div className="contact-right">
+        <form className="contact-card" onSubmit={sendTicket}>
+          <h2 id="contact">Contact Us</h2>
 
-          <h2>Need Help?</h2>
-
-          <p>
-            Write your issue clearly and the admin will review your ticket as
-            soon as possible.
-          </p>
-
-          <div className="contact-mini-row">
-            <Mail size={18} />
-            <span>Support tickets are connected to your account.</span>
-          </div>
-        </div>
-
-        <form className="contact-form-card" onSubmit={handleSubmit}>
-          <h2>Send Ticket</h2>
-
-          <div className="contact-input-group">
-            <label>Ticket Title</label>
+          <div className="form-row">
             <input
+              id="title"
               type="text"
-              placeholder="Example: Payment problem"
+              placeholder="Ticket Title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
-          </div>
 
-          <div className="contact-input-group">
-            <label>Your Message</label>
             <textarea
-              placeholder="Describe your issue..."
+              id="message"
+              placeholder="Describe your issue"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
             ></textarea>
           </div>
 
-          {statusMessage && (
-            <div className={success ? "contact-success" : "contact-error"}>
-              {success && <CheckCircle2 size={18} />}
-              <span>{statusMessage}</span>
-            </div>
-          )}
+          {statusMessage && <p className="ticket-status">{statusMessage}</p>}
 
-          <button className="contact-submit-btn" type="submit" disabled={loading}>
-            <Send size={18} />
+          <button className="submit" type="submit" disabled={loading}>
             {loading ? "Sending..." : "Send Message"}
           </button>
         </form>
+
+        {showTickets && (
+          <div className="contact-card tickets-box">
+            <div className="ticket-list-title">
+              <h2>Your Tickets</h2>
+
+              <button
+                className="submit small-refresh"
+                type="button"
+                onClick={loadTickets}
+              >
+                Refresh
+              </button>
+            </div>
+
+            {tickets.length === 0 ? (
+              <p className="empty-ticket">No tickets yet.</p>
+            ) : (
+              tickets.map((ticket) => (
+                <div className="ticket-item" key={ticket.id}>
+                  <div className="ticket-header">
+                    <h3>{ticket.title}</h3>
+                    <span className="ticket-badge">
+                      {ticket.status || "Open"}
+                    </span>
+                  </div>
+
+                  <p className="ticket-message">{ticket.message}</p>
+
+                  {ticket.reply && (
+                    <div className="ticket-reply">
+                      <strong>Admin Reply</strong>
+                      <p>{ticket.reply}</p>
+                    </div>
+                  )}
+                </div>
+              ))
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
