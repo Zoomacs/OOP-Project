@@ -93,6 +93,12 @@ button {
   background-color: transparent;
 }
 
+.action-btn svg {
+  width: 22px;
+  height: 22px;
+  stroke-width: 2.2;
+}
+
 .action-btn:hover {
   color: var(--text-color);
 }
@@ -149,6 +155,47 @@ button {
 
 .nav-link svg {
   display: none;
+}
+
+.cart-nav-btn {
+  position: relative;
+}
+
+.cart-nav-badge {
+  position: absolute;
+  top: 3px;
+  right: 2px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--primary-color);
+  color: var(--button-text);
+  font-size: 12px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--background-color);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+}
+
+.cart-nav-badge.pulse {
+  animation: cartBadgePulse 0.35s ease;
+}
+
+@keyframes cartBadgePulse {
+  0% {
+    transform: scale(0.5);
+  }
+
+  70% {
+    transform: scale(1.25);
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
 @media (max-width: 768px) {
@@ -214,4 +261,29 @@ button {
     color: var(--primary-color);
     transform: translateY(-2px);
   }
+}
+
+.navbar .action-btn {
+  width: 45px !important;
+  height: 45px !important;
+  color: var(--text-color) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: visible !important;
+}
+
+.navbar .action-btn svg {
+  width: 24px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  min-height: 24px !important;
+  stroke: currentColor !important;
+  stroke-width: 2.4 !important;
+  display: block !important;
+  overflow: visible !important;
+}
+
+.navbar .action-btn:hover {
+  color: var(--primary-color) !important;
 }

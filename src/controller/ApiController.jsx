@@ -17,7 +17,7 @@ class ApiController {
 
     try {
       payload = text ? JSON.parse(text) : {};
-    } catch (error) {
+    } catch {
       throw new Error(text || "Backend did not return valid JSON");
     }
 

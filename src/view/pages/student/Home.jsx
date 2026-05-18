@@ -20,8 +20,7 @@ import {
 import "./Home.css";
 
 function Home({ page }) {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-  const [favorites, setFavorites] = useState([]);
+const [isDarkMode] = useState(() => document.body.classList.contains("dark"));  const [favorites, setFavorites] = useState([]);
   const [toast, setToast] = useState(null);
   const navigate = useNavigate();
 
