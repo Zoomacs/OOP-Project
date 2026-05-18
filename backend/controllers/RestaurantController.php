@@ -11,14 +11,23 @@ class RestaurantController extends Controller
         else if ($owner_id > 0) { $sql .= " WHERE owner_user_id=?"; $params[] = $owner_id; }
         $sql .= " ORDER BY id";
         $rows = $this->q($sql, $params)->fetchAll();
-        foreach ($rows as &$r) { $r['isOpen'] = (bool)$r['isOpen']; $r['staffDelivery'] = (bool)$r['staffDelivery']; }
+        $base = $this->baseUrl() . 'uploads/restaurants/';
+        foreach ($rows as &$r) {
+            $r['isOpen'] = (bool)$r['isOpen'];
+            $r['staffDelivery'] = (bool)$r['staffDelivery'];
+            if ($r['imageUrl'] && !str_starts_with($r['imageUrl'], 'http')) {
+                $r['imageUrl'] = $base . $r['imageUrl'];
+                $r['image_url'] = $r['imageUrl'];
+            }
+        }
         $this->ok(['restaurants' => $rows, 'restaurant' => $rows[0] ?? null]);
     }
 
     public function StoreRestaurant($data)
     {
+        $image = $this->saveBase64Image($data['image_data'] ?? ($data['image_url'] ?? ''), 'restaurants');
         $this->q("INSERT INTO restaurants (owner_user_id, name, owner_name, owner_email, phone, category, description, address, opening_hours, image_url, is_open, staff_delivery) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", [
-            intval($data['owner_user_id'] ?? 0) ?: null, $data['name'] ?? '', $data['owner_name'] ?? '', $data['owner_email'] ?? '', $data['phone'] ?? '', $data['category'] ?? '', $data['description'] ?? '', $data['address'] ?? '', $data['opening_hours'] ?? '', $data['image_url'] ?? '', intval($data['is_open'] ?? 1), intval($data['staff_delivery'] ?? 0)
+            intval($data['owner_user_id'] ?? 0) ?: null, $data['name'] ?? '', $data['owner_name'] ?? '', $data['owner_email'] ?? '', $data['phone'] ?? '', $data['category'] ?? '', $data['description'] ?? '', $data['address'] ?? '', $data['opening_hours'] ?? '', $image, intval($data['is_open'] ?? 1), intval($data['staff_delivery'] ?? 0)
         ]);
         $id = $this->pdo->lastInsertId();
         if (!empty($data['owner_user_id'])) $this->q("UPDATE users SET restaurant_id=? WHERE id=?", [$id, intval($data['owner_user_id'])]);
