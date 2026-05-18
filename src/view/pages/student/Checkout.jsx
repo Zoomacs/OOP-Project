@@ -17,8 +17,8 @@ function Checkout() {
 
   const user = getUser();
   const userRole = user?.role || sessionStorage.getItem("userRole") || "student";
-  const isStaff = userRole === "staff";
-  const isStudent = userRole === "student";
+const isUniversityStaff = userRole === "staff" && !user?.restaurant_id;
+const isStudent = userRole === "student";
 
   const [selected, setSelected] = useState("cash");
   const [message, setMessage] = useState("");

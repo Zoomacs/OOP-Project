@@ -126,9 +126,18 @@ INSERT INTO users
 (id, name, email, university_id, password_hash, role, department, status, restaurant_id)
 VALUES
 (1, 'System Admin', 'admin@qless.local', 'admin', '123', 'admin', 'IT', 'Active', NULL),
+
 (2, 'Student User', 'student@qless.local', '123', '123', 'student', 'Computer Science', 'Active', NULL),
+
 (3, 'Qedra Owner', 'qedra@restaurants.com', 'REST001', '123456', 'owner', 'Restaurants', 'Active', 4),
-(4, 'Mix & Wrap Owner', 'mixwrapowner@restaurants.com', 'REST002', '123456', 'owner', 'Restaurants', 'Active', 11);
+
+(4, 'Mix & Wrap Owner', 'mixwrapowner@restaurants.com', 'REST002', '123456', 'owner', 'Restaurants', 'Active', 11),
+
+(5, 'University Staff', 'staff@qless.local', 'staff', '123', 'staff', 'University Staff', 'Active', NULL),
+
+(6, 'Qedra Staff', 'qedrastaff@restaurants.com', 'QEDRASTAFF001', '123456', 'staff', 'Restaurant Staff', 'Active', 4),
+
+(7, 'Mix & Wrap Staff', 'mixwrapstaff@restaurants.com', 'MIXSTAFF001', '123456', 'staff', 'Restaurant Staff', 'Active', 11);
 
 INSERT INTO restaurants
 (id, name, owner_user_id, owner_name, owner_email, phone, category, description, address, opening_hours, image_url, is_open, rating, reviews, prep_time, staff_delivery)
@@ -277,138 +286,14 @@ VALUES
 INSERT INTO notifications
 (user_id, title, description, image_url)
 VALUES
+(2, 'Welcome to Q-Less', 'Your account is connected to the database.', ''),
+(2, 'Explore restaurants', 'Qedra and Mix & Wrap are now available.', ''),
+(5, 'Staff discount active', 'University staff receives 10% discount on every order.', ''),
+(6, 'Qedra staff account', 'You can manage Qedra restaurant orders.', ''),
+(7, 'Mix & Wrap staff account', 'You can manage Mix & Wrap restaurant orders.', '');
 
--- =========================================
--- BREAK FAST
--- =========================================
+INSERT INTO tickets
+(user_id, title, email, message, status)
+VALUES
+(2, 'Test support ticket', 'student@qless.local', 'This is a sample support ticket.', 'Open');
 
-(11, 'WRAP POTATO', 'Breakfast item', 'BREAK FAST', 55, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'CHESSE WRAP POTATO', 'Breakfast item', 'BREAK FAST', 65, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'MIX CHESSE WRAP POTATO', 'Breakfast item', 'BREAK FAST', 70, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'SUPREME WRAP POTATO', 'Breakfast item', 'BREAK FAST', 75, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'VEGO WRAP POTATO', 'Breakfast item', 'BREAK FAST', 80, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'TESTE WRAP POTATO', 'Breakfast item', 'BREAK FAST', 85, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'MIX CHESSE', 'Breakfast item', 'BREAK FAST', 90, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'TUNA', 'Breakfast item', 'BREAK FAST', 95, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'SALAMI TURKI', 'Breakfast item', 'BREAK FAST', 100, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'WRAP FLAFEL', 'Breakfast item', 'BREAK FAST', 105, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-
--- =========================================
--- POTATO & SNACKS
--- =========================================
-
-(11, 'FRENCH FIRES M', 'Medium size', 'POTATO & SNACKS', 50, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'FRENCH FIRES L', 'Large size', 'POTATO & SNACKS', 60, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'KRINKIL FIRES M', 'Medium size', 'POTATO & SNACKS', 55, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'KRINKIL FIRES L', 'Large size', 'POTATO & SNACKS', 65, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'CHEESE FIRES M', 'Medium size', 'POTATO & SNACKS', 60, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'CHEESE FIRES L', 'Large size', 'POTATO & SNACKS', 70, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'SUPREME FIRES M', 'Medium size', 'POTATO & SNACKS', 70, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'SUPREME FIRES L', 'Large size', 'POTATO & SNACKS', 80, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'BOLONEZ FIRES M', 'Medium size', 'POTATO & SNACKS', 70, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'BOLONEZ FIRES L', 'Large size', 'POTATO & SNACKS', 80, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'JALEBENO FIRES M', 'Medium size', 'POTATO & SNACKS', 60, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'JALEBENO FIRES L', 'Large size', 'POTATO & SNACKS', 70, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'CHICKEN STRIPS M', 'Medium size', 'POTATO & SNACKS', 110, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'CHICKEN STRIPS L', 'Large size', 'POTATO & SNACKS', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'CHICKEN PANE M', 'Medium size', 'POTATO & SNACKS', 100, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'CHICKEN PANE L', 'Large size', 'POTATO & SNACKS', 120, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'CHICKEN NUGGETS M', 'Medium size', 'POTATO & SNACKS', 100, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'CHICKEN NUGGETS L', 'Large size', 'POTATO & SNACKS', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'SHISH TAWOOQ M', 'Medium size', 'POTATO & SNACKS', 110, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'SHISH TAWOOQ L', 'Large size', 'POTATO & SNACKS', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'CHICKEN FAJETA M', 'Medium size', 'POTATO & SNACKS', 110, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'CHICKEN FAJETA L', 'Large size', 'POTATO & SNACKS', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'CHICKEN MUSHROOM M', 'Medium size', 'POTATO & SNACKS', 110, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'CHICKEN MUSHROOM L', 'Large size', 'POTATO & SNACKS', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'CHICKEN SHAWERMA M', 'Medium size', 'POTATO & SNACKS', 110, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'CHICKEN SHAWERMA L', 'Large size', 'POTATO & SNACKS', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'ALAGRIC M', 'Medium size', 'POTATO & SNACKS', 110, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'ALAGRIC L', 'Large size', 'POTATO & SNACKS', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-
--- =========================================
--- PIZZA
--- =========================================
-
-(11, 'MARGRITA S', 'Small pizza', 'PIZZA', 100, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'MARGRITA M', 'Medium pizza', 'PIZZA', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'SALAMI S', 'Small pizza', 'PIZZA', 110, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'SALAMI M', 'Medium pizza', 'PIZZA', 140, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'HOT DOG S', 'Small pizza', 'PIZZA', 110, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'HOT DOG M', 'Medium pizza', 'PIZZA', 140, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'CHICKEN RANCH S', 'Small pizza', 'PIZZA', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'CHICKEN RANCH M', 'Medium pizza', 'PIZZA', 160, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'CHICKEN BARBEQUE S', 'Small pizza', 'PIZZA', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'CHICKEN BARBEQUE M', 'Medium pizza', 'PIZZA', 160, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'SUPER SUPREME S', 'Small pizza', 'PIZZA', 150, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'SUPER SUPREME M', 'Medium pizza', 'PIZZA', 200, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'CHICKEN STRIPS S', 'Small pizza', 'PIZZA', 140, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'CHICKEN STRIPS M', 'Medium pizza', 'PIZZA', 170, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'SAUSAGE S', 'Small pizza', 'PIZZA', 120, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'SAUSAGE M', 'Medium pizza', 'PIZZA', 140, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'MIX CHEESE S', 'Small pizza', 'PIZZA', 110, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'MIX CHEESE M', 'Medium pizza', 'PIZZA', 140, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-
--- =========================================
--- FATA
--- =========================================
-
-(11, 'CHICKEN SHAWERMA S', 'Small fata', 'FATA', 120, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'CHICKEN SHAWERMA M', 'Medium fata', 'FATA', 140, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'STRIPS S', 'Small fata', 'FATA', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'STRIPS M', 'Medium fata', 'FATA', 150, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'SHISH TAWOOQ S', 'Small fata', 'FATA', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'SHISH TAWOOQ M', 'Medium fata', 'FATA', 150, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'ALAGRIC S', 'Small fata', 'FATA', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'ALAGRIC M', 'Medium fata', 'FATA', 150, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'CHICKEN FAJETA S', 'Small fata', 'FATA', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'CHICKEN FAJETA M', 'Medium fata', 'FATA', 150, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'MIX CHICKEN S', 'Small fata', 'FATA', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'MIX CHICKEN M', 'Medium fata', 'FATA', 150, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'MIX GRILL S', 'Small fata', 'FATA', 140, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'MIX GRILL M', 'Medium fata', 'FATA', 170, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-
--- =========================================
--- PASTA
--- =========================================
-
-(11, 'JUST', 'Pasta item', 'PASTA', 60, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'MUSHROOME', 'Pasta item', 'PASTA', 80, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'MIX CHEESE', 'Pasta item', 'PASTA', 80, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'BOLONEZ', 'Pasta item', 'PASTA', 100, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'HOT DOG', 'Pasta item', 'PASTA', 100, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'CHICKEN', 'Pasta item', 'PASTA', 110, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'STRIPS', 'Pasta item', 'PASTA', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'ALFARIDO', 'Pasta item', 'PASTA', 120, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'MAC & CHEESE', 'Pasta item', 'PASTA', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1);
