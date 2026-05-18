@@ -215,3 +215,44 @@ button {
     transform: translateY(-2px);
   }
 }
+
+.cart-nav-btn {
+  position: relative;
+}
+
+.cart-nav-badge {
+  position: absolute;
+  top: 3px;
+  right: 2px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--primary-color);
+  color: var(--button-text);
+  font-size: 12px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--background-color);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+}
+
+.cart-nav-badge.pulse {
+  animation: cartBadgePulse 0.35s ease;
+}
+
+@keyframes cartBadgePulse {
+  0% {
+    transform: scale(0.5);
+  }
+
+  70% {
+    transform: scale(1.25);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}

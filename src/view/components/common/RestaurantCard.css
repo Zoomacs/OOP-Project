@@ -154,7 +154,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 60px 28px;
-  margin-top: 40px;
+  margin-top: 70px;
 }
 
 .restaurant-card {
@@ -167,6 +167,8 @@
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
   transition: transform 0.25s ease, box-shadow 0.25s ease,
     border-color 0.25s ease;
+  display: flex;
+  flex-direction: column;
 }
 
 .restaurant-card:hover {
@@ -179,6 +181,9 @@
   position: relative;
   padding: 65px 22px 22px;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
 }
 
 .restaurant-top-row {
@@ -303,6 +308,7 @@
   font-weight: 700;
   cursor: pointer;
   transition: background-color 0.25s ease, transform 0.2s ease;
+  margin-top: auto;
 }
 
 .view-menu-btn:hover {
