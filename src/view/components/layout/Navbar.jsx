@@ -1,4 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import {
   House,
   UtensilsIcon,
@@ -24,6 +25,47 @@ function Navbar({
   isStaff,
 }) {
   const navigate = useNavigate();
+
+  const [cartCount, setCartCount] = useState(() => {
+    const saved = sessionStorage.getItem("cartItems");
+
+    if (!saved) {
+      return 0;
+    }
+
+    try {
+      const items = JSON.parse(saved);
+
+      let total = 0;
+
+      for (let i = 0; i < items.length; i++) {
+        total += Number(items[i].quantity);
+      }
+
+      return total;
+    } catch {
+      return 0;
+    }
+  });
+
+  const [cartPulse, setCartPulse] = useState(false);
+
+  useEffect(() => {
+    function handleCartUpdated(event) {
+      setCartCount(event.detail.count || 0);
+      setCartPulse(true);
+
+      setTimeout(() => {
+        setCartPulse(false);
+      }, 350);
+    }
+
+    window.addEventListener("cartUpdated", handleCartUpdated);
+
+    return () => {
+      window.removeEventListener("cartUpdated", handleCartUpdated);
+    };
+  }, []);
 
   function toggleCart() {
     setCart(cart === "hidden cart-bar" ? "cart-bar" : "hidden cart-bar");
@@ -73,6 +115,7 @@ function Navbar({
             <Menu size={22} />
           </button>
         )}
+
         <Link
           to={
             isOwner ? "/owner/dashboard" : isStaff ? "/staff/orders" : "/home"
@@ -117,6 +160,7 @@ function Navbar({
             </Link>
           </>
         )}
+
         {!isOwner && !isStaff && (
           <>
             <Link
@@ -162,11 +206,18 @@ function Navbar({
             >
               <Bell size={22} />
             </button>
+
             <button
-              className={`action-btn ${cart === "cart-bar" ? "active" : ""}`}
+              className={`action-btn cart-nav-btn ${cart === "cart-bar" ? "active" : ""}`}
               onClick={toggleCart}
             >
               <ShoppingCart size={22} />
+
+              {cartCount > 0 && (
+                <span className={`cart-nav-badge ${cartPulse ? "pulse" : ""}`}>
+                  {cartCount}
+                </span>
+              )}
             </button>
           </>
         )}
