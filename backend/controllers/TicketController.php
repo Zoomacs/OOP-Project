@@ -1,7 +1,7 @@
 <?php
 class TicketController extends Controller
 {
-    private function normalizeId($value)
+    private function NormalizeTicketId($value)
     {
         if (is_array($value)) {
             $value = $value['id'] ?? $value['raw_id'] ?? 0;
@@ -10,12 +10,12 @@ class TicketController extends Controller
         return intval($value);
     }
 
-    private function findTicket($id)
+    private function FindTicket($id)
     {
         return $this->q("SELECT * FROM tickets WHERE id=? LIMIT 1", [$id])->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function index()
+    public function IndexTicket()
     {
         $userId = intval($_GET['user_id'] ?? 0);
         $email = trim($_GET['email'] ?? '');
@@ -52,7 +52,7 @@ class TicketController extends Controller
         ]);
     }
 
-    public function store($data)
+    public function StoreTicket($data)
     {
         $title = trim($data['title'] ?? '');
         $message = trim($data['message'] ?? $data['text'] ?? '');
@@ -76,12 +76,12 @@ class TicketController extends Controller
         ]);
     }
 
-    public function update($data)
+    public function UpdateTicket($data)
     {
-        $id = $this->normalizeId($data['id'] ?? $data['raw_id'] ?? 0);
+        $id = $this->NormalizeTicketId($data['id'] ?? $data['raw_id'] ?? 0);
         if ($id <= 0) $this->fail('Ticket ID is required');
 
-        $ticket = $this->findTicket($id);
+        $ticket = $this->FindTicket($id);
         if (!$ticket) $this->fail('Ticket not found', 404);
 
         $title = array_key_exists('title', $data) ? trim($data['title']) : $ticket['title'];
@@ -115,10 +115,10 @@ class TicketController extends Controller
         ]);
     }
 
-    public function destroy($data)
+    public function DestroyTicket($data)
     {
-        $id = $this->normalizeId($data);
-        if ($id <= 0) $id = $this->normalizeId($_GET['id'] ?? 0);
+        $id = $this->NormalizeTicketId($data);
+        if ($id <= 0) $id = $this->NormalizeTicketId($_GET['id'] ?? 0);
         if ($id <= 0) $this->fail('Ticket ID is required');
 
         $this->q("DELETE FROM tickets WHERE id=?", [$id]);
@@ -128,4 +128,27 @@ class TicketController extends Controller
             'message' => 'Ticket deleted successfully'
         ]);
     }
+
+    // Backward-compatible route method names
+    public function index()
+    {
+        return $this->IndexTicket();
+    }
+
+    public function store($data)
+    {
+        return $this->StoreTicket($data);
+    }
+
+    public function update($data)
+    {
+        return $this->UpdateTicket($data);
+    }
+
+    public function destroy($data)
+    {
+        return $this->DestroyTicket($data);
+    }
+
+
 }

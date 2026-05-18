@@ -1,7 +1,7 @@
 <?php
 class AuthController extends Controller
 {
-    public function login($data)
+    public function LoginAuth($data)
     {
         $identifier = trim($data['identifier'] ?? $data['ID'] ?? '');
         $password = trim($data['password'] ?? '');
@@ -22,7 +22,7 @@ class AuthController extends Controller
         $this->ok(['user' => $userModel->toArray()], 'Login successful');
     }
 
-    public function register($data)
+    public function RegisterAuth($data)
     {
         $name = trim($data['name'] ?? $data['fullName'] ?? '');
         $email = trim($data['email'] ?? $data['universityEmail'] ?? '');
@@ -39,4 +39,17 @@ class AuthController extends Controller
         if ($role === 'owner' && $restaurant_id) $this->q("UPDATE restaurants SET owner_user_id=?, owner_email=? WHERE id=?", [$id, $email, $restaurant_id]);
         $this->ok(['id' => $id], 'Account created successfully');
     }
+
+    // Backward-compatible route method names
+    public function login($data)
+    {
+        return $this->LoginAuth($data);
+    }
+
+    public function register($data)
+    {
+        return $this->RegisterAuth($data);
+    }
+
+
 }

@@ -1,7 +1,7 @@
 <?php
 class OrderController extends Controller
 {
-    public function index()
+    public function IndexOrder()
     {
         $user_id = intval($_GET['user_id'] ?? 0);
         $restaurant_id = intval($_GET['restaurant_id'] ?? 0);
@@ -15,7 +15,7 @@ class OrderController extends Controller
         $this->ok(['orders' => $this->q($sql, $params)->fetchAll()]);
     }
 
-    public function store($data)
+    public function StoreOrder($data)
     {
         $this->pdo->beginTransaction();
         $user_id = intval($data['user_id'] ?? 1);
@@ -43,7 +43,7 @@ class OrderController extends Controller
         $this->ok(['order_id' => $order_id], 'Order created');
     }
 
-    public function update($data)
+    public function UpdateOrder($data)
     {
         $id = intval($data['id'] ?? $data['order_id'] ?? 0);
         if ($id <= 0) $this->fail('Order id is required');
@@ -51,7 +51,7 @@ class OrderController extends Controller
         $this->ok([], 'Order updated');
     }
 
-    public function destroy($data)
+    public function DestroyOrder($data)
     {
         $id = intval($_GET['id'] ?? $data['id'] ?? 0);
         if ($id <= 0) $this->fail('Order id is required');
@@ -59,7 +59,7 @@ class OrderController extends Controller
         $this->ok([], 'Order deleted');
     }
 
-    public function restaurantOrders()
+    public function RestaurantOrdersOrder()
     {
         $restaurant_id = intval($_GET['restaurant_id'] ?? 1);
         $rows = $this->q("SELECT o.id, o.status AS state, o.payment_method AS paymentType, o.total_amount AS totalPrice, o.note, COALESCE(u.name,'Guest') AS senderName,
@@ -69,7 +69,7 @@ class OrderController extends Controller
         $this->ok(['orders' => $rows]);
     }
 
-    public function updateStatus($data)
+    public function UpdateStatusOrder($data)
     {
         $id = intval($data['order_id'] ?? $data['id'] ?? 0);
         $status = $data['status'] ?? 'pending';
@@ -79,11 +79,49 @@ class OrderController extends Controller
         $this->ok([], 'Order status updated');
     }
 
-    public function track()
+    public function TrackOrder()
     {
         $id = intval($_GET['order_id'] ?? 0);
         $row = $this->q("SELECT id, status, created_at FROM orders WHERE id=?", [$id])->fetch();
         if (!$row) $this->fail('Order not found', 404);
         $this->ok(['order' => $row]);
     }
+
+    // Backward-compatible route method names
+    public function index()
+    {
+        return $this->IndexOrder();
+    }
+
+    public function store($data)
+    {
+        return $this->StoreOrder($data);
+    }
+
+    public function update($data)
+    {
+        return $this->UpdateOrder($data);
+    }
+
+    public function destroy($data)
+    {
+        return $this->DestroyOrder($data);
+    }
+
+    public function restaurantOrders()
+    {
+        return $this->RestaurantOrdersOrder();
+    }
+
+    public function updateStatus($data)
+    {
+        return $this->UpdateStatusOrder($data);
+    }
+
+    public function track()
+    {
+        return $this->TrackOrder();
+    }
+
+
 }

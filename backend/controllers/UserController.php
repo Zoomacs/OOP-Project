@@ -1,7 +1,7 @@
 <?php
 class UserController extends Controller
 {
-    public function index()
+    public function IndexUser()
     {
         $rows = $this->q("SELECT u.id, u.name, u.email, u.university_id, u.role, u.restaurant_id, r.name AS restaurant_name,
             CONCAT(UCASE(LEFT(u.role,1)), SUBSTRING(u.role,2)) AS type, u.status, u.department,
@@ -11,7 +11,7 @@ class UserController extends Controller
         $this->ok(['users' => $rows]);
     }
 
-    public function store($data)
+    public function StoreUser($data)
     {
         $name = trim($data['name'] ?? '');
         $email = trim($data['email'] ?? '');
@@ -27,7 +27,7 @@ class UserController extends Controller
         $this->ok(['id' => $this->pdo->lastInsertId()], 'User created');
     }
 
-    public function update($data)
+    public function UpdateUser($data)
     {
         $id = intval($data['id'] ?? 0);
         if ($id <= 0) $this->fail('User id is required');
@@ -42,7 +42,7 @@ class UserController extends Controller
         $this->ok([], 'User updated');
     }
 
-    public function destroy($data)
+    public function DestroyUser($data)
     {
         $id = intval($_GET['id'] ?? $data['id'] ?? 0);
         if ($id <= 0) $this->fail('User id is required');
@@ -50,7 +50,7 @@ class UserController extends Controller
         $this->ok([], 'User deleted');
     }
 
-    public function ban($data)
+    public function BanUser($data)
     {
         $uid = trim($data['university_id'] ?? '');
         $email = trim($data['email'] ?? '');
@@ -59,4 +59,32 @@ class UserController extends Controller
         else $this->fail('Student ID or email is required');
         $this->ok([], 'Student banned');
     }
+
+    // Backward-compatible route method names
+    public function index()
+    {
+        return $this->IndexUser();
+    }
+
+    public function store($data)
+    {
+        return $this->StoreUser($data);
+    }
+
+    public function update($data)
+    {
+        return $this->UpdateUser($data);
+    }
+
+    public function destroy($data)
+    {
+        return $this->DestroyUser($data);
+    }
+
+    public function ban($data)
+    {
+        return $this->BanUser($data);
+    }
+
+
 }

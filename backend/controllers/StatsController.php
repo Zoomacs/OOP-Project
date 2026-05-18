@@ -1,7 +1,7 @@
 <?php
 class StatsController extends Controller
 {
-    public function adminStats()
+    public function AdminStats()
     {
         $users = $this->q("SELECT COUNT(*) c FROM users")->fetch()['c'];
         $orders = $this->q("SELECT COUNT(*) c FROM orders")->fetch()['c'];
@@ -10,7 +10,7 @@ class StatsController extends Controller
         $this->ok(['stats' => ['users'=>$users, 'orders'=>$orders, 'restaurants'=>$restaurants, 'revenue'=>$revenue]]);
     }
 
-    public function ownerStats()
+    public function OwnerStats()
     {
         $restaurant_id = intval($_GET['restaurant_id'] ?? 1);
         $orders = $this->q("SELECT COUNT(*) c FROM orders WHERE restaurant_id=?", [$restaurant_id])->fetch()['c'];
@@ -18,4 +18,7 @@ class StatsController extends Controller
         $items = $this->q("SELECT COUNT(*) c FROM menu_items WHERE restaurant_id=? AND is_available=1", [$restaurant_id])->fetch()['c'];
         $this->ok(['stats' => ['orders'=>$orders, 'revenue'=>$revenue, 'items'=>$items]]);
     }
+
+    // Backward-compatible route method names
+
 }

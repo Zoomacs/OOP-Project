@@ -1,7 +1,7 @@
 <?php
 class RestaurantController extends Controller
 {
-    public function index()
+    public function IndexRestaurant()
     {
         $owner_id = intval($_GET['owner_user_id'] ?? 0);
         $restaurant_id = intval($_GET['restaurant_id'] ?? 0);
@@ -15,18 +15,17 @@ class RestaurantController extends Controller
         $this->ok(['restaurants' => $rows, 'restaurant' => $rows[0] ?? null]);
     }
 
-    public function store($data)
+    public function StoreRestaurant($data)
     {
-        $image = $this->saveBase64Image($data['image_data'] ?? ($data['image_url'] ?? ''), 'restaurants');
         $this->q("INSERT INTO restaurants (owner_user_id, name, owner_name, owner_email, phone, category, description, address, opening_hours, image_url, is_open, staff_delivery) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", [
-            intval($data['owner_user_id'] ?? 0) ?: null, $data['name'] ?? '', $data['owner_name'] ?? '', $data['owner_email'] ?? '', $data['phone'] ?? '', $data['category'] ?? '', $data['description'] ?? '', $data['address'] ?? '', $data['opening_hours'] ?? '', $image, intval($data['is_open'] ?? 1), intval($data['staff_delivery'] ?? 0)
+            intval($data['owner_user_id'] ?? 0) ?: null, $data['name'] ?? '', $data['owner_name'] ?? '', $data['owner_email'] ?? '', $data['phone'] ?? '', $data['category'] ?? '', $data['description'] ?? '', $data['address'] ?? '', $data['opening_hours'] ?? '', $data['image_url'] ?? '', intval($data['is_open'] ?? 1), intval($data['staff_delivery'] ?? 0)
         ]);
         $id = $this->pdo->lastInsertId();
         if (!empty($data['owner_user_id'])) $this->q("UPDATE users SET restaurant_id=? WHERE id=?", [$id, intval($data['owner_user_id'])]);
         $this->ok(['id' => $id], 'Restaurant added');
     }
 
-    public function update($data)
+    public function UpdateRestaurant($data)
     {
         $id = intval($data['id'] ?? 0);
         if ($id <= 0) $this->fail('Restaurant id is required');
@@ -39,10 +38,33 @@ class RestaurantController extends Controller
         $this->ok(['image_url' => $image], 'Restaurant updated');
     }
 
-    public function destroy($data)
+    public function DestroyRestaurant($data)
     {
         $id = intval($_GET['id'] ?? $data['id'] ?? 0);
         $this->q("DELETE FROM restaurants WHERE id=?", [$id]);
         $this->ok([], 'Restaurant removed');
     }
+
+    // Backward-compatible route method names
+    public function index()
+    {
+        return $this->IndexRestaurant();
+    }
+
+    public function store($data)
+    {
+        return $this->StoreRestaurant($data);
+    }
+
+    public function update($data)
+    {
+        return $this->UpdateRestaurant($data);
+    }
+
+    public function destroy($data)
+    {
+        return $this->DestroyRestaurant($data);
+    }
+
+
 }
