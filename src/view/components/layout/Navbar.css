@@ -12,8 +12,8 @@ button {
 }
 
 .navbar {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 260px 1fr 260px;
   align-items: center;
   border-bottom: 1px solid var(--border-color);
   background-color: var(--background-color);
@@ -21,12 +21,11 @@ button {
   top: 0;
   left: 0;
   width: 100%;
-  height: 50px;
+  height: 58px;
   font-size: 16px;
   z-index: 1000;
-  padding: 0 10px;
+  padding: 0 28px;
   box-sizing: border-box;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav-left,
@@ -38,26 +37,25 @@ button {
 }
 
 .nav-left {
-  flex: 1;
+  justify-content: flex-start;
+  gap: 10px;
 }
 
 .nav-center {
-  gap: 10px;
   justify-content: center;
-  flex: 2;
+  gap: 12px;
 }
 
 .nav-right {
-  gap: 15px;
   justify-content: flex-end;
-  flex: 1;
+  gap: 14px;
 }
 
 .nav-logo {
   display: flex;
   align-items: center;
   height: 100%;
-  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.2s ease-in-out;
 }
 
 .nav-logo:hover {
@@ -65,8 +63,8 @@ button {
 }
 
 .nav-logo svg {
-  width: 95px;
-  height: 45px;
+  width: 105px;
+  height: 50px;
 }
 
 .nav-logo tspan {
@@ -82,19 +80,33 @@ button {
 }
 
 .action-btn {
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  color: var(--text-color);
+  background-color: var(--box-color);
+  border: 1px solid var(--border-color);
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-muted);
+  position: relative;
+  box-shadow: 0 3px 10px var(--box-shadow);
   transition: all 0.2s ease-in-out;
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  background-color: transparent;
+}
+
+.action-btn svg {
+  width: 22px;
+  height: 22px;
+  stroke-width: 2.5;
+  display: block;
 }
 
 .action-btn:hover {
-  color: var(--text-color);
+  color: var(--primary-color);
+  background-color: var(--nav-icon-hover);
+  transform: translateY(-1px);
 }
 
 .action-btn:active {
@@ -103,16 +115,17 @@ button {
 
 .action-btn.active {
   color: var(--primary-color);
+  border-color: var(--primary-color);
 }
 
 .nav-link {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 0 20px;
+  padding: 0 22px;
   height: 100%;
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-muted);
   transition: all 0.3s ease;
   position: relative;
@@ -126,7 +139,7 @@ button {
   bottom: 0;
   height: 3px;
   background-color: var(--primary-color);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
   transform: translateX(-50%);
   border-radius: 3px 3px 0 0;
 }
@@ -151,17 +164,59 @@ button {
   display: none;
 }
 
+.cart-nav-btn {
+  position: relative;
+}
+
+.cart-nav-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 12px;
+  font-weight: 900;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--background-color);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+}
+
+.cart-nav-badge.pulse {
+  animation: cartBadgePulse 0.35s ease;
+}
+
+@keyframes cartBadgePulse {
+  0% {
+    transform: scale(0.5);
+  }
+
+  70% {
+    transform: scale(1.25);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
 @media (max-width: 768px) {
   .navbar {
+    display: flex;
+    justify-content: space-around;
     bottom: 0;
     top: auto;
-    height: 70px;
+    height: 72px;
     padding: 0 10px;
     border-bottom: none;
     border-top: 1px solid var(--border-color);
     box-shadow: 0 -4px 20px var(--box-shadow);
     padding-bottom: env(safe-area-inset-bottom);
-    justify-content: space-around;
   }
 
   .nav-left,
@@ -179,11 +234,15 @@ button {
     flex-direction: column;
     justify-content: center;
     gap: 4px;
-    height: 100%;
-    width: 100%;
-    border-radius: 12px;
+    height: 58px;
+    width: 58px;
+    min-width: 58px;
+    border-radius: 14px;
     padding: 0;
-    margin: 5px;
+    margin: 4px;
+    box-shadow: none;
+    background-color: transparent;
+    border: none;
   }
 
   .nav-link svg {
@@ -214,45 +273,9 @@ button {
     color: var(--primary-color);
     transform: translateY(-2px);
   }
-}
 
-.cart-nav-btn {
-  position: relative;
-}
-
-.cart-nav-badge {
-  position: absolute;
-  top: 3px;
-  right: 2px;
-  min-width: 20px;
-  height: 20px;
-  padding: 0 6px;
-  border-radius: 999px;
-  background: var(--primary-color);
-  color: var(--button-text);
-  font-size: 12px;
-  font-weight: 900;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 2px solid var(--background-color);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
-}
-
-.cart-nav-badge.pulse {
-  animation: cartBadgePulse 0.35s ease;
-}
-
-@keyframes cartBadgePulse {
-  0% {
-    transform: scale(0.5);
-  }
-
-  70% {
-    transform: scale(1.25);
-  }
-
-  100% {
-    transform: scale(1);
+  .cart-nav-badge {
+    top: 4px;
+    right: 4px;
   }
 }

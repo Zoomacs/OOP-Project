@@ -35,7 +35,6 @@ function Navbar({
 
     try {
       const items = JSON.parse(saved);
-
       let total = 0;
 
       for (let i = 0; i < items.length; i++) {
@@ -111,6 +110,7 @@ function Navbar({
           <button
             className={`action-btn ${sideBar === "side-bar" ? "active" : ""}`}
             onClick={toggleSideBar}
+            type="button"
           >
             <Menu size={22} />
           </button>
@@ -195,21 +195,32 @@ function Navbar({
 
       <div className="nav-right">
         {isOwner || isStaff ? (
-          <button className="action-btn" onClick={handleLogout} title="Logout">
+          <button
+            className="action-btn logout-btn"
+            onClick={handleLogout}
+            title="Logout"
+            type="button"
+          >
             <LogOut size={22} />
           </button>
         ) : (
           <>
             <button
-              className={`action-btn ${notification === "notification" ? "active" : ""}`}
+              className={`action-btn ${
+                notification === "notification" ? "active" : ""
+              }`}
               onClick={toggleNotification}
+              type="button"
             >
               <Bell size={22} />
             </button>
 
             <button
-              className={`action-btn cart-nav-btn ${cart === "cart-bar" ? "active" : ""}`}
+              className={`action-btn cart-nav-btn ${
+                cart === "cart-bar" ? "active" : ""
+              }`}
               onClick={toggleCart}
+              type="button"
             >
               <ShoppingCart size={22} />
 
