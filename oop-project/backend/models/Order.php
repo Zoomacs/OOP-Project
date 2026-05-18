@@ -36,5 +36,20 @@ class Order {
         $stmt->execute([$order_id]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+    // Fetch all orders for a specific restaurant
+    public function getOrdersByRestaurantId($restaurant_id) {
+        $query = "SELECT DISTINCT o.order_id, o.total_price, o.status, o.created_at, o.item_quantity, o.note 
+                  FROM orders o
+                  JOIN shopping_carts sc ON o.cart_id = sc.cart_id
+                  JOIN cart_items ci ON sc.cart_id = ci.cart_id
+                  JOIN product_items pi ON ci.product_id = pi.product_id
+                  JOIN menus m ON pi.menu_id = m.menu_id
+                  WHERE m.restaurant_id = ? 
+                  ORDER BY o.created_at DESC";
+                  
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([$restaurant_id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>

@@ -63,5 +63,21 @@ class OrderController {
             echo json_encode(["status" => "error", "message" => "Failed to update"]);
         }
     }
+    public function fetchRestaurantOrders() {
+        if (!isset($_GET['restaurant_id'])) {
+            http_response_code(400);
+            echo json_encode(["error" => "Missing restaurant_id parameter."]);
+            return;
+        }
+
+        $restaurant_id = $_GET['restaurant_id'];
+        $orderModel = new Order();
+        $orders = $orderModel->getOrdersByRestaurantId($restaurant_id);
+
+        echo json_encode([
+            "status" => "success",
+            "data" => $orders
+        ]);
+    }
 }
 ?>

@@ -1,5 +1,5 @@
 <?php
-// backend/api.php
+// backend/routes/api.php
 
 // 1. Allow React to communicate with PHP (CORS headers)
 header("Access-Control-Allow-Origin: http://localhost:5173"); 
@@ -13,8 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
     exit();
 }
 
-// 2. Require the necessary controllers
-require_once __DIR__ . '/controllers/OrderController.php';
+// 2. Require the necessary controllers (Updated path since we are inside the 'routes' folder)
+require_once __DIR__ . '/../controllers/OrderController.php';
 
 // 3. Get the requested route from the URL
 $route = isset($_GET['route']) ? $_GET['route'] : '';
@@ -33,6 +33,13 @@ switch ($route) {
         if ($requestMethod == 'GET') {
             $controller = new OrderController();
             $controller->fetchOrderTracking();
+        }
+        break;
+
+    case 'restaurant-orders':
+        if ($requestMethod == 'GET') {
+            $controller = new OrderController();
+            $controller->fetchRestaurantOrders();
         }
         break;
 
