@@ -1,5 +1,5 @@
-import "./RestaurantController.css";
 import { api } from "./ApiController";
+import "./RestaurantController.css";
 
 export default class RestaurantController {
   static getAll() { return api("restaurants"); }

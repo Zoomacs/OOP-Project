@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { ShoppingBag, DollarSign, Layers, Utensils, User, ArrowRight } from "lucide-react";
-import "./RestaurantDashboard.css";
 import { api, getUser } from "../../api";
+import "./RestaurantDashboard.css";
 
 function RestaurantDashboard() {
   const currentUser = getUser();

@@ -1,1 +1,39 @@
-/* Shared professional admin styling is in ../admin.css. */
+.payment-monitoring-page {
+  width: 100%;
+}
+
+.payment-monitoring-page .card {
+  margin-bottom: 18px;
+}
+
+.payment-monitoring-page table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.payment-monitoring-page th,
+.payment-monitoring-page td {
+  padding: 12px;
+  border-bottom: 1px solid var(--border-color);
+  text-align: left;
+}
+
+.payment-monitoring-page input,
+.payment-monitoring-page select,
+.payment-monitoring-page textarea {
+  width: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: var(--box-color);
+  color: var(--text-color);
+}
+
+.payment-monitoring-page button {
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: var(--primary-color);
+  color: var(--button-text);
+  cursor: pointer;
+}

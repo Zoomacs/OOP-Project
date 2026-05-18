@@ -45,8 +45,6 @@ abstract class DomainModel extends BaseModel implements Arrayable
     {
         return $this->originalData[$key] ?? $default;
     }
-
-    // Polymorphic methods: every model supplies its own implementation.
     abstract public function getEntityName();
     public function getDisplayName()
     {

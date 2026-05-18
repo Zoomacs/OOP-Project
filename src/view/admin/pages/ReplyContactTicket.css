@@ -1,1 +1,39 @@
-/* Shared professional admin styling is in ../admin.css. */
+.reply-contact-ticket-page {
+  width: 100%;
+}
+
+.reply-contact-ticket-page .card {
+  margin-bottom: 18px;
+}
+
+.reply-contact-ticket-page table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.reply-contact-ticket-page th,
+.reply-contact-ticket-page td {
+  padding: 12px;
+  border-bottom: 1px solid var(--border-color);
+  text-align: left;
+}
+
+.reply-contact-ticket-page input,
+.reply-contact-ticket-page select,
+.reply-contact-ticket-page textarea {
+  width: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: var(--box-color);
+  color: var(--text-color);
+}
+
+.reply-contact-ticket-page button {
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: var(--primary-color);
+  color: var(--button-text);
+  cursor: pointer;
+}

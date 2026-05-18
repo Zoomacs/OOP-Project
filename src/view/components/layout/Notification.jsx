@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import "./Notification.css";
 import AdminReturnButton from "../common/AdminReturnButton";
 import { api, getUser } from "../../api";
 import { Bell, CheckCircle2, X, Trash2 } from "lucide-react";
+import "./Notification.css";
 
 function NotificationCard({ image, title, description, time }) {
   return (

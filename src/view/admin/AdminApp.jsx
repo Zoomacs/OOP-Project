@@ -1,5 +1,3 @@
-import "./admin.css";
-import "./AdminApp.css";
 import { useState } from "react";
 import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 
@@ -19,6 +17,7 @@ import ViewCustomers from "./pages/ViewCustomers";
 import ViewTransactions from "./pages/ViewTransactions";
 import ViewContactTickets from "./pages/ViewContactTickets";
 import ReplyContactTicket from "./pages/ReplyContactTicket";
+import "./AdminApp.css";
 
 export default function AdminApp() {
   const navigate = useNavigate();

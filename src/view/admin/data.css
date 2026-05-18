@@ -1,2 +1,9 @@
-/* Styles for data.jsx.
-   Add page/component specific CSS here. */
+.data {
+  width: 100%;
+  min-height: 100%;
+  box-sizing: border-box;
+}
+
+.data * {
+  box-sizing: border-box;
+}

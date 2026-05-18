@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import "./Cart.css";
 import { useNavigate } from "react-router-dom";
 import { X, ShoppingBag, Trash2, Plus, Minus } from "lucide-react";
+import "./Cart.css";
 
 function Cart({ display, setCart }) {
   const navigate = useNavigate();

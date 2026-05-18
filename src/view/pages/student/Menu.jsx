@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import "./Menu.css";
 import { Search } from "lucide-react";
 import { api } from "../../api";
+import "./Menu.css";
 
 function Menu({ page }) {
   const { id } = useParams();

@@ -1,5 +1,5 @@
-import "./OrderModel.css";
 import BaseModel from "./BaseModel";
+import "./OrderModel.css";
 
 export default class OrderModel extends BaseModel {
   #user_id; #restaurant_id; #total; #status; #payment_method; #payment_status; #items;

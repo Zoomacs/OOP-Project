@@ -1,5 +1,5 @@
-import "./StaffModel.css";
 import CustomerModel from "./CustomerModel";
+import "./StaffModel.css";
 
 export default class StaffModel extends CustomerModel {
   #discountRate;

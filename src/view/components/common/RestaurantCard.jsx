@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./RestaurantCard.css";
 import { Search } from "lucide-react";
 import { api } from "../../api";
+import "./RestaurantCard.css";
 
 function RestaurantList() {
   const [restaurants, setRestaurants] = useState([]);

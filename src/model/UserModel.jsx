@@ -1,5 +1,5 @@
-import "./UserModel.css";
 import BaseModel from "./BaseModel";
+import "./UserModel.css";
 export default class UserModel extends BaseModel {
   #name;
   #email;
@@ -43,8 +43,6 @@ export default class UserModel extends BaseModel {
   static fromApi(data) {
     return new UserModel(data || {});
   }
-
-  // public polymorphic methods; child classes override where needed
   getRoleLabel() { return "User"; }
   getDashboardRoute() { return "/home"; }
   canAccessAdmin() { return false; }

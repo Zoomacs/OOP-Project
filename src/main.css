@@ -1,2 +1,54 @@
-/* Styles for main.jsx.
-   Add page/component specific CSS here. */
+:root {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  --background-color: #f9f6f5;
+  --text-color: #111111;
+  --text-muted: #777777;
+  --nav-icon-hover: #e6e3e1;
+  --primary-color: #cc0600;
+  --primary-hover: #930500;
+  --secondary-color: #f1ecea;
+  --secondary-hover: #e5dbd7;
+  --border-color: #d7d3d0;
+  --box-color: #ffffff;
+  --button-text: #ffffff;
+  --box-shadow: rgba(0, 0, 0, 0.1);
+}
+
+.dark {
+  --background-color: #070615;
+  --text-color: #ffffff;
+  --text-muted: #aaa6a6;
+  --nav-icon-hover: #313131;
+  --border-color: #373737;
+  --box-color: #151422;
+  --button-text: #ffffff;
+  --box-shadow: rgba(0, 0, 0, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--background-color);
+  color: var(--text-color);
+  font-family: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+}
+
+a {
+  color: inherit;
+}

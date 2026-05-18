@@ -1,5 +1,5 @@
-import "./RestaurantOwnerModel.css";
 import UserModel from "./UserModel";
+import "./RestaurantOwnerModel.css";
 
 export default class RestaurantOwnerModel extends UserModel {
   constructor(data = {}) {

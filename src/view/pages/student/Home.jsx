@@ -1,4 +1,3 @@
-import "./Home.css";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminReturnButton from "../../components/common/AdminReturnButton";
@@ -18,6 +17,7 @@ import {
   ChevronRight,
   RotateCcw,
 } from "lucide-react";
+import "./Home.css";
 
 function Home({ page }) {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -51,10 +51,7 @@ function Home({ page }) {
       showToast("Saved to favorites!");
     }
   };
-
-  // --- NEW: Function to send items to the Cart Component ---
   const handleAddToCart = (order) => {
-    // Extract numbers from price string (e.g., "125 EGP" -> 125)
     const priceNumber = parseInt(order.price.replace(/\D/g, ""), 10);
 
     const cartItem = {
@@ -63,8 +60,6 @@ function Home({ page }) {
       price: priceNumber,
       image: order.image || null,
     };
-
-    // Dispatch a custom event that Cart.jsx is listening for
     window.dispatchEvent(new CustomEvent("addToCart", { detail: cartItem }));
     showToast(`Added ${order.name} to cart!`);
   };

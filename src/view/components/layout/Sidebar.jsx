@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
-import "./Sidebar.css";
 import { Home, UtensilsIcon, Headset, History, Moon, Sun, LogOut, X } from "lucide-react";
 import { useEffect, useState } from "react";
+import "./Sidebar.css";
 
 function Sidebar({ page, display, setSideBar }) {
   const [theme, setTheme] = useState(() => localStorage.getItem("theme") || "light");

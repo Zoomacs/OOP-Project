@@ -1,6 +1,4 @@
 import { Link, useNavigate } from "react-router-dom";
-import "../../main.css";
-import "./Navbar.css";
 import {
   House,
   UtensilsIcon,
@@ -12,6 +10,7 @@ import {
   User,
   LogOut,
 } from "lucide-react";
+import "./Navbar.css";
 
 function Navbar({
   page,

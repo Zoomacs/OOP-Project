@@ -1,5 +1,5 @@
-import "./OrderController.css";
 import { api } from "./ApiController";
+import "./OrderController.css";
 
 export default class OrderController {
   static checkout(payload) { return api("checkout", { method: "POST", body: JSON.stringify(payload) }); }

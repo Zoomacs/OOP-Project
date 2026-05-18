@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ChefHat, Utensils, CheckCircle2 } from "lucide-react";
-import "./OrderTrack.css";
 import { api } from "../../api";
+import "./OrderTrack.css";
 
 function OrderTrack({ page }) {
   const location = useLocation();

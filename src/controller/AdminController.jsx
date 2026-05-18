@@ -1,5 +1,5 @@
-import "./AdminController.css";
 import { api } from "./ApiController";
+import "./AdminController.css";
 
 export default class AdminController {
   static users() { return api("users"); }

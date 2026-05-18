@@ -1,8 +1,8 @@
 import { Smartphone, Banknote } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Checkout.css";
 import { api, getUser } from "../../api";
+import "./Checkout.css";
 
 function Checkout() {
   const [selected, setSelected] = useState("cash");

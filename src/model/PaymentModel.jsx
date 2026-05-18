@@ -1,5 +1,5 @@
-import "./PaymentModel.css";
 import BaseModel from "./BaseModel";
+import "./PaymentModel.css";
 
 export default class PaymentModel extends BaseModel {
   #order_id; #amount; #method; #status; #screenshot_url;

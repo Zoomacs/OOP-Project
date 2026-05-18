@@ -1,5 +1,5 @@
-import "./MenuItemModel.css";
 import BaseModel from "./BaseModel";
+import "./MenuItemModel.css";
 
 export default class MenuItemModel extends BaseModel {
   #restaurant_id; #name; #description; #price; #category; #image_url; #is_available;

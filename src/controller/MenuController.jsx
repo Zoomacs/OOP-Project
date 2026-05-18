@@ -1,5 +1,5 @@
-import "./MenuController.css";
 import { api, API_BASE } from "./ApiController";
+import "./MenuController.css";
 
 export default class MenuController {
   static getByRestaurant(restaurantId) { return api(`menu&restaurant_id=${restaurantId}`); }

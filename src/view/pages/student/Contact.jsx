@@ -1,8 +1,7 @@
-import "./Contact.css";
-import "../../main.css";
 import { useEffect, useState } from "react";
 import AdminReturnButton from "../../components/common/AdminReturnButton";
 import { api, getUser } from "../../api";
+import "./Contact.css";
 
 function Contact({ page }) {
   const [title, setTitle] = useState("");

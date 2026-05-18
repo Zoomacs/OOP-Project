@@ -27,9 +27,8 @@ import AdminApp from "./admin/AdminApp";
 import RestaurantDashboard from "./pages/owner/RestaurantDashboard";
 import MenuManagement from "./pages/owner/MenuManagement";
 import RestaurantProfile from "./pages/owner/RestaurantProfile";
-
-import "./main.css";
 import "./App.css";
+
 
 const OwnerProtectedRoute = ({ children }) => {
   const role = sessionStorage.getItem("userRole");
@@ -55,8 +54,6 @@ function AppContent() {
 
   const isAuthRoute =
     location.pathname === "/" || location.pathname === "/register";
-
-  // Allow Navbar to show for staff so they can see the logo and logout button
   const hideStandardUI = isAdminRoute || isAuthRoute;
 
   const [currentpage, setcurrentpage] = useState("login");
@@ -136,7 +133,7 @@ function AppContent() {
           element={<RestaurantOrders page={setcurrentpage} />}
         />
 
-        {/* --- Staff Routes --- */}
+        
         <Route
           path="/staff/orders"
           element={
@@ -146,7 +143,7 @@ function AppContent() {
           }
         />
 
-        {/* --- Owner Routes --- */}
+        
         <Route
           path="/owner/dashboard"
           element={
@@ -183,7 +180,7 @@ function AppContent() {
         <Route path="/admin/*" element={<AdminApp />} />
       </Routes>
 
-      {/* Hide Cart, Sidebar, and Notifications for both Owner and Staff */}
+      
       {!hideStandardUI && !isOwnerRoute && !isStaffRoute && (
         <>
           {location.pathname !== "/notification" && (

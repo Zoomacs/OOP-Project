@@ -1,5 +1,5 @@
-import "./RestaurantModel.css";
 import BaseModel from "./BaseModel";
+import "./RestaurantModel.css";
 
 export default class RestaurantModel extends BaseModel {
   #owner_id; #name; #category; #description; #image_url; #status;

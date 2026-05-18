@@ -1,1 +1,39 @@
-/* Shared professional admin styling is in ../admin.css. */
+.system-analytics-page {
+  width: 100%;
+}
+
+.system-analytics-page .card {
+  margin-bottom: 18px;
+}
+
+.system-analytics-page table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.system-analytics-page th,
+.system-analytics-page td {
+  padding: 12px;
+  border-bottom: 1px solid var(--border-color);
+  text-align: left;
+}
+
+.system-analytics-page input,
+.system-analytics-page select,
+.system-analytics-page textarea {
+  width: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: var(--box-color);
+  color: var(--text-color);
+}
+
+.system-analytics-page button {
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: var(--primary-color);
+  color: var(--button-text);
+  cursor: pointer;
+}

@@ -1,5 +1,5 @@
-import "./TicketModel.css";
 import BaseModel from "./BaseModel";
+import "./TicketModel.css";
 
 export default class TicketModel extends BaseModel {
   #user_id; #subject; #message; #reply; #status;

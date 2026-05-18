@@ -1,5 +1,5 @@
-import "./AdminModel.css";
 import UserModel from "./UserModel";
+import "./AdminModel.css";
 
 export default class AdminModel extends UserModel {
   constructor(data = {}) {

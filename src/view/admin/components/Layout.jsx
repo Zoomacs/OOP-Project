@@ -1,6 +1,5 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
 import { useState } from "react";
-import "./Layout.css";
 import {
   Menu,
   X,
@@ -19,6 +18,7 @@ import {
   LogOut,
   MessagesSquare
 } from "lucide-react";
+import "./Layout.css";
 
 const adminPages = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard },

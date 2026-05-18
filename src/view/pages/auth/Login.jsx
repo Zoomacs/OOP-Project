@@ -1,7 +1,7 @@
-import "./Login.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthController from "../../../controller/AuthController";
+import "./Login.css";
 
 function Login({ page }) {
   useEffect(() => { page("login"); }, [page]);

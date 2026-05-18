@@ -1,1 +1,9 @@
-/* AdminApp has its own CSS file so every JSX component has a matching CSS file. */
+.admin-scope {
+  min-height: 100vh;
+  background: var(--background-color);
+  color: var(--text-color);
+}
+
+.admin-scope * {
+  box-sizing: border-box;
+}

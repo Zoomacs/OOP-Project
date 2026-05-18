@@ -1,5 +1,5 @@
-import "./TicketController.css";
 import { api } from "./ApiController";
+import "./TicketController.css";
 
 export default class TicketController {
   static create(payload) { return api("tickets", { method: "POST", body: JSON.stringify(payload) }); }

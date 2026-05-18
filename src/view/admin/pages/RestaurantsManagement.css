@@ -1,1 +1,39 @@
-/* Restaurants management uses shared admin CRUD styles from admin.css. */
+.restaurants-management-page {
+  width: 100%;
+}
+
+.restaurants-management-page .card {
+  margin-bottom: 18px;
+}
+
+.restaurants-management-page table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.restaurants-management-page th,
+.restaurants-management-page td {
+  padding: 12px;
+  border-bottom: 1px solid var(--border-color);
+  text-align: left;
+}
+
+.restaurants-management-page input,
+.restaurants-management-page select,
+.restaurants-management-page textarea {
+  width: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: var(--box-color);
+  color: var(--text-color);
+}
+
+.restaurants-management-page button {
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: var(--primary-color);
+  color: var(--button-text);
+  cursor: pointer;
+}

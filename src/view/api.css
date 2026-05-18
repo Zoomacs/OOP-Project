@@ -1,2 +1,9 @@
-/* Styles for api.jsx.
-   Add page/component specific CSS here. */
+.api {
+  width: 100%;
+  min-height: 100%;
+  box-sizing: border-box;
+}
+
+.api * {
+  box-sizing: border-box;
+}

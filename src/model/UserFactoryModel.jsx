@@ -1,9 +1,9 @@
-import "./UserFactoryModel.css";
 import AdminModel from "./AdminModel";
 import RestaurantOwnerModel from "./RestaurantOwnerModel";
 import StaffModel from "./StaffModel";
 import StudentModel from "./StudentModel";
 import UserModel from "./UserModel";
+import "./UserFactoryModel.css";
 
 export default class UserFactoryModel {
   static create(data = {}) {

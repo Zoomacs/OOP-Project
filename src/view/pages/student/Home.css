@@ -1,16 +1,16 @@
-/* --- Component Styles --- */
+
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 20px;
 }
 
-/* Section Shared Spacing */
+
 section {
   margin-bottom: 70px;
 }
 
-/* Hero Section */
+
 .hero {
   display: flex;
   align-items: center;
@@ -170,7 +170,7 @@ section {
   font-weight: 800;
 }
 
-/* Section Headers */
+
 .section-header {
   display: flex;
   justify-content: space-between;
@@ -208,12 +208,12 @@ section {
   opacity: 0.8;
 }
 
-/* Quick Reorder Section */
+
 .reorder-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 20px;
-  /* Add padding so the hover translation/shadow doesn't get clipped */
+  
   padding-top: 10px;
   padding-bottom: 15px; 
 }
@@ -279,16 +279,16 @@ section {
   color: white;
 }
 
-/* Categories */
+
 .categories-grid {
   display: flex;
   gap: 20px;
   justify-content: space-between;
   overflow-x: auto;
-  /* Add padding to account for the -8px hover effect */
+  
   padding-top: 15px;
   padding-bottom: 20px;
-  /* Optional: negative margin to keep your overall spacing the same */
+  
   margin-top: -15px; 
 }
 
@@ -341,7 +341,7 @@ section {
   color: var(--text-color);
 }
 
-/* Offers Cards Section */
+
 .offers-badge {
   background: #ffb703;
   color: #000;
@@ -357,7 +357,7 @@ section {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 30px;
-  /* Add padding so the top and shadow aren't clipped */
+  
   padding-top: 15px;
   padding-bottom: 20px;
 }
@@ -498,7 +498,7 @@ section {
   gap: 10px;
 }
 
-/* Footer */
+
 footer {
   border-top: 1px solid var(--border-color);
   padding: 30px 0;

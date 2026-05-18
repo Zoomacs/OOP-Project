@@ -1,1 +1,9 @@
-/* Styles for Restaurant. */
+.restaurant {
+  width: 100%;
+  min-height: 100%;
+  box-sizing: border-box;
+}
+
+.restaurant * {
+  box-sizing: border-box;
+}

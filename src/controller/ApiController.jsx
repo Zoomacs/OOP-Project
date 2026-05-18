@@ -24,10 +24,6 @@ class ApiController {
     if (!response.ok || payload.success === false) {
       throw new Error(payload.message || "Backend request failed");
     }
-
-    // Backend MVC views return { success, message, data: {...} }.
-    // Most frontend pages expect the data keys directly, for example result.user or result.orders.
-    // This keeps both formats working safely.
     if (payload.data && typeof payload.data === "object" && !Array.isArray(payload.data)) {
       return { ...payload, ...payload.data };
     }

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import RestaurantList from "../../components/common/RestaurantCard";
-import "./Restaurant.css";
 import AdminReturnButton from "../../components/common/AdminReturnButton";
+import "./Restaurant.css";
 
 function Restaurant({ page }) {
   useEffect(() => {

@@ -18,7 +18,7 @@
   font-size: 18px;
 }
 
-/* Search bar */
+
 .restaurant-tools {
   display: flex;
   align-items: center;
@@ -59,7 +59,7 @@
   color: var(--text-muted);
 }
 
-/* Quick filters */
+
 .quick-filters {
   display: flex;
   flex-wrap: wrap;
@@ -90,7 +90,7 @@
   border-color: var(--primary-color);
 }
 
-/* Restaurant grid */
+
 .restaurant-list {
   display: grid;
   grid-template-columns: repeat(3, 340px);
@@ -98,7 +98,7 @@
   margin-top: 85px;
 }
 
-/* Restaurant card */
+
 .restaurant-card {
   position: relative;
   width: 340px;
@@ -117,14 +117,14 @@
   border-color: var(--primary-color);
 }
 
-/* Card content */
+
 .restaurant-content {
   position: relative;
   padding: 70px 20px 20px;
   text-align: center;
 }
 
-/* Logo + status row */
+
 .restaurant-top-row {
   display: flex;
   justify-content: center;
@@ -132,7 +132,7 @@
   margin-bottom: 12px;
 }
 
-/* Restaurant logo: half outside from the top edge */
+
 .restaurant-logo {
   position: absolute;
   top: -52px;
@@ -157,7 +157,7 @@
   display: block;
 }
 
-/* Open / Closed badge */
+
 .status-badge {
   display: inline-block;
   padding: 8px 15px;
@@ -176,7 +176,7 @@
   background-color: #777777;
 }
 
-/* Text */
+
 .restaurant-content h2 {
   margin: 0;
   color: var(--text-color);
@@ -192,7 +192,7 @@
   line-height: 1.4;
 }
 
-/* Rating / reviews / time */
+
 .restaurant-info {
   display: flex;
   align-items: center;
@@ -218,7 +218,7 @@
   margin: 0 3px;
 }
 
-/* Services */
+
 .restaurant-services {
   display: flex;
   justify-content: center;
@@ -236,7 +236,7 @@
   font-size: 13px;
 }
 
-/* Button */
+
 .view-menu-btn {
   width: 100%;
   padding: 13px;
@@ -258,7 +258,7 @@
   transform: scale(0.98);
 }
 
-/* No results text */
+
 .no-restaurants {
   grid-column: 1 / -1;
   color: var(--text-muted);
@@ -266,7 +266,7 @@
   margin-top: 20px;
 }
 
-/* Responsive */
+
 @media (max-width: 1200px) {
   .restaurant-list {
     grid-template-columns: repeat(2, 340px);

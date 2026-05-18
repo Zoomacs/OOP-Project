@@ -1,1 +1,39 @@
-/* Shared professional admin styling is in ../admin.css. */
+.tickets-page {
+  width: 100%;
+}
+
+.tickets-page .card {
+  margin-bottom: 18px;
+}
+
+.tickets-page table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.tickets-page th,
+.tickets-page td {
+  padding: 12px;
+  border-bottom: 1px solid var(--border-color);
+  text-align: left;
+}
+
+.tickets-page input,
+.tickets-page select,
+.tickets-page textarea {
+  width: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: var(--box-color);
+  color: var(--text-color);
+}
+
+.tickets-page button {
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: var(--primary-color);
+  color: var(--button-text);
+  cursor: pointer;
+}

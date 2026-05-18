@@ -1,5 +1,5 @@
-import "./StudentModel.css";
 import CustomerModel from "./CustomerModel";
+import "./StudentModel.css";
 
 export default class StudentModel extends CustomerModel {
   #points;

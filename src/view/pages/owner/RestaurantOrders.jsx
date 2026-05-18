@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import "./RestaurantOrders.css";
 import userImg from "../../assets/user.png";
 import { Check, X, X as CloseIcon } from "lucide-react";
 import { api, getUser } from "../../api";
+import "./RestaurantOrders.css";
 
 function RestaurantOrders() {
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);

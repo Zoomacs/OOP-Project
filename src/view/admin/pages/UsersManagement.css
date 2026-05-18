@@ -1,1 +1,39 @@
-/* Shared professional admin styling is in ../admin.css. */
+.users-management-page {
+  width: 100%;
+}
+
+.users-management-page .card {
+  margin-bottom: 18px;
+}
+
+.users-management-page table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.users-management-page th,
+.users-management-page td {
+  padding: 12px;
+  border-bottom: 1px solid var(--border-color);
+  text-align: left;
+}
+
+.users-management-page input,
+.users-management-page select,
+.users-management-page textarea {
+  width: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: var(--box-color);
+  color: var(--text-color);
+}
+
+.users-management-page button {
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: var(--primary-color);
+  color: var(--button-text);
+  cursor: pointer;
+}

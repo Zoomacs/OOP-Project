@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Plus, Search, Edit2, Trash2, Star, AlertTriangle, Zap, Megaphone, X, ImagePlus } from "lucide-react";
-import "./MenuManagement.css";
 import { api, getUser } from "../../api";
+import "./MenuManagement.css";
 
 function getOwnerRestaurantId() {
   const user = getUser();

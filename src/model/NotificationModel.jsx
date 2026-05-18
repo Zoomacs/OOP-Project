@@ -1,5 +1,5 @@
-import "./NotificationModel.css";
 import BaseModel from "./BaseModel";
+import "./NotificationModel.css";
 
 export default class NotificationModel extends BaseModel {
   #user_id; #title; #message; #is_read;

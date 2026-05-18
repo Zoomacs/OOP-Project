@@ -1,6 +1,6 @@
-import "./AuthController.css";
 import { api } from "./ApiController";
 import UserFactoryModel from "../model/UserFactoryModel";
+import "./AuthController.css";
 
 export default class AuthController {
   static async login(identifier, password) {

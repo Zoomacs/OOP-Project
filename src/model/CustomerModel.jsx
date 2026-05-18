@@ -1,5 +1,5 @@
-import "./CustomerModel.css";
 import UserModel from "./UserModel";
+import "./CustomerModel.css";
 
 export default class CustomerModel extends UserModel {
   #phone;

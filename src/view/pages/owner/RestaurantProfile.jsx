@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Save, Ticket, CheckCircle2, Camera } from "lucide-react";
-import "./RestaurantProfile.css";
 import { api, getUser } from "../../api";
+import "./RestaurantProfile.css";
 
 function RestaurantProfile() {
   const currentUser = getUser();

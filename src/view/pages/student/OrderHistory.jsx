@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import "./OrderHistory.css";
 import kfclogo from "../../assets/kfc-logo.png";
 import { api, getUser } from "../../api";
+import "./OrderHistory.css";
 
 function OrderHistory({ page, isOwner = false }) {
   const navigate = useNavigate();
