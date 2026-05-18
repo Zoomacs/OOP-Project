@@ -215,21 +215,21 @@ function Navbar({
               <Bell size={22} />
             </button>
 
-            <button
-              className={`action-btn cart-nav-btn ${
-                cart === "cart-bar" ? "active" : ""
-              }`}
-              onClick={toggleCart}
-              type="button"
-            >
-              <ShoppingCart size={22} />
+           <button
+  className={`action-btn cart-nav-btn ${
+    cart === "cart-bar" ? "active" : ""
+  }`}
+  onClick={toggleCart}
+  type="button"
+>
+  <ShoppingCart size={24} />
 
-              {cartCount > 0 && (
-                <span className={`cart-nav-badge ${cartPulse ? "pulse" : ""}`}>
-                  {cartCount}
-                </span>
-              )}
-            </button>
+  {cartCount > 0 && (
+    <span className={`cart-nav-badge ${cartPulse ? "pulse" : ""}`}>
+      {cartCount}
+    </span>
+  )}
+</button>
           </>
         )}
       </div>
