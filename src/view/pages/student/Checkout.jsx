@@ -17,8 +17,9 @@ function Checkout() {
 
   const user = getUser();
   const userRole = user?.role || sessionStorage.getItem("userRole") || "student";
-const isUniversityStaff = userRole === "staff" && !user?.restaurant_id;
-const isStudent = userRole === "student";
+
+  const isUniversityStaff = userRole === "staff" && !user?.restaurant_id;
+  const isStudent = userRole === "student";
 
   const [selected, setSelected] = useState("cash");
   const [message, setMessage] = useState("");
@@ -44,7 +45,7 @@ const isStudent = userRole === "student";
 
   const subtotal = items.reduce(
     (sum, item) => sum + Number(item.price) * Number(item.quantity),
-    0,
+    0
   );
 
   const instapayPhone = "01000000000";
@@ -58,7 +59,7 @@ const isStudent = userRole === "student";
     ? Number((Number(pointsToUse) / 10).toFixed(2))
     : 0;
 
-  const staffDiscountValue = isStaff
+  const staffDiscountValue = isUniversityStaff
     ? Number((subtotal * 0.1).toFixed(2))
     : 0;
 
@@ -69,7 +70,7 @@ const isStudent = userRole === "student";
 
   const amountAfterDiscount = Math.max(
     subtotal - pointsDiscount - staffDiscountValue - codeDiscountValue,
-    0,
+    0
   );
 
   const tax = Number((amountAfterDiscount * 0.08).toFixed(2));
@@ -104,8 +105,8 @@ const isStudent = userRole === "student";
   }
 
   function applyDiscountCode() {
-    if (isStaff) {
-      setMessage("Staff already gets 10% discount on every order.");
+    if (isUniversityStaff) {
+      setMessage("University staff already gets 10% discount on every order.");
       return;
     }
 
@@ -205,6 +206,7 @@ const isStudent = userRole === "student";
           tax: tax,
 
           user_role: userRole,
+          is_university_staff: isUniversityStaff,
 
           staff_discount_amount: staffDiscountValue,
 
@@ -234,13 +236,14 @@ const isStudent = userRole === "student";
           total: total,
           payment_method: selected,
           user_role: userRole,
+          is_university_staff: isUniversityStaff,
           staff_discount_amount: staffDiscountValue,
           points_used: isStudent ? Number(pointsToUse) : 0,
           points_earned: isStudent ? earnedPoints : 0,
           discount_code: isStudent && appliedDiscount ? appliedDiscount.code : "",
           discount_amount: isStudent ? codeDiscountValue : 0,
           payment_proof_name: paymentProof ? paymentProof.name : "",
-        }),
+        })
       );
 
       navigate("/ordertrack");
@@ -257,7 +260,7 @@ const isStudent = userRole === "student";
           <h1 className="co-title">Secure Payment</h1>
 
           <p className="co-description">
-            {isStaff
+            {isUniversityStaff
               ? "University staff automatically receives 10% discount on every order."
               : "Choose your payment method, use points, and apply discounts."}
           </p>
@@ -370,7 +373,7 @@ const isStudent = userRole === "student";
           </div>
         </div>
 
-        {isStaff && (
+        {isUniversityStaff && (
           <div className="co-discount-card">
             <div className="co-discount-header">
               <div>
@@ -493,7 +496,7 @@ const isStudent = userRole === "student";
             <span>{subtotal.toFixed(2)} EGP</span>
           </div>
 
-          {isStaff && staffDiscountValue > 0 && (
+          {isUniversityStaff && staffDiscountValue > 0 && (
             <div className="co-row discount-row">
               <span>Staff Discount 10%</span>
               <span>-{staffDiscountValue.toFixed(2)} EGP</span>
