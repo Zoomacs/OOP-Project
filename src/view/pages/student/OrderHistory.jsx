@@ -35,9 +35,11 @@ function OrderCard({ order, isOwner, onAdvanceStatus }) {
         )}
       </div>
 
-      <div className="card-divider"></div>
+          <div className="card-price">{order.total || (order.totalPrice ? `${order.totalPrice} EGP` : '')}</div>
 
-      <div className="card-footer">
+          <div className="card-divider"></div>
+
+          <div className="card-footer">
         {!isOwner ? (
           <div className="points-tag">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

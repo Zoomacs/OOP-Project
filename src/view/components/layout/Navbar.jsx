@@ -10,6 +10,7 @@ import {
   LayoutDashboard,
   User,
   LogOut,
+  ArrowLeft,
 } from "lucide-react";
 import "./Navbar.css";
 
@@ -48,6 +49,19 @@ function Navbar({
   });
 
   const [cartPulse, setCartPulse] = useState(false);
+  const [notificationCount, setNotificationCount] = useState(0);
+  const userData = JSON.parse(sessionStorage.getItem("user") || "{}");
+
+  useEffect(() => {
+    const userId = userData?.id || 4;
+    fetch(`http://localhost/oop-project/backend/api.php?route=notifications&user_id=${userId}`)
+      .then((r) => r.json())
+      .then((data) => {
+        const notifs = data?.notifications || data?.data?.notifications || [];
+        setNotificationCount(notifs.length);
+      })
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     function handleCartUpdated(event) {
@@ -191,6 +205,17 @@ function Navbar({
       </div>
 
       <div className="nav-right">
+        {sessionStorage.getItem("adminLoggedIn") === "true" && !isOwner && !isStaff && (
+          <button
+            className="action-btn"
+            onClick={() => navigate("/admin")}
+            title="Back to Dashboard"
+            type="button"
+            style={{ color: "var(--primary-color)" }}
+          >
+            <ArrowLeft size={22} />
+          </button>
+        )}
         {isOwner || isStaff ? (
           <button
             className="action-btn logout-btn"
@@ -210,6 +235,9 @@ function Navbar({
               type="button"
             >
               <Bell size={22} />
+              {notificationCount > 0 && (
+                <span className="notification-nav-badge">{notificationCount}</span>
+              )}
             </button>
 
            <button

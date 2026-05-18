@@ -64,10 +64,38 @@ function Cart({ display, setCart }) {
       showCartToast(newItem.title || newItem.name || "Item");
     }
 
+    function handleRemoveFromCart(event) {
+      const targetId = event.detail?.id;
+      if (!targetId) return;
+      setItem((prevItems) => {
+        const existing = prevItems.find((item) => item.id === targetId);
+        if (!existing) return prevItems;
+        if (existing.quantity <= 1) return prevItems.filter((item) => item.id !== targetId);
+        return prevItems.map((item) =>
+          item.id === targetId ? { ...item, quantity: item.quantity - 1 } : item
+        );
+      });
+    }
+
+    function handleCartCleared() {
+      setItem([]);
+    }
+
+    function handleCartForceSync() {
+      const saved = sessionStorage.getItem("cartItems");
+      setItem(saved ? JSON.parse(saved) : []);
+    }
+
     window.addEventListener("addToCart", handleAddToCart);
+    window.addEventListener("removeFromCart", handleRemoveFromCart);
+    window.addEventListener("cartCleared", handleCartCleared);
+    window.addEventListener("cartForceSync", handleCartForceSync);
 
     return () => {
       window.removeEventListener("addToCart", handleAddToCart);
+      window.removeEventListener("removeFromCart", handleRemoveFromCart);
+      window.removeEventListener("cartCleared", handleCartCleared);
+      window.removeEventListener("cartForceSync", handleCartForceSync);
     };
   }, []);
 

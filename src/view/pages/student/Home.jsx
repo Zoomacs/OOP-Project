@@ -17,12 +17,16 @@ import {
   ChevronRight,
   RotateCcw,
 } from "lucide-react";
+import { api, getUser } from "../../api";
 import "./Home.css";
 
 function Home({ page }) {
-const [isDarkMode] = useState(() => document.body.classList.contains("dark"));  const [favorites, setFavorites] = useState([]);
+  const [isDarkMode] = useState(() => document.body.classList.contains("dark"));
+  const [favorites, setFavorites] = useState([]);
   const [toast, setToast] = useState(null);
+  const [recentOrders, setRecentOrders] = useState([]);
   const navigate = useNavigate();
+  const user = getUser();
 
   useEffect(() => {
     page("home");
@@ -35,6 +39,16 @@ const [isDarkMode] = useState(() => document.body.classList.contains("dark"));  
       document.body.classList.remove("dark");
     }
   }, [isDarkMode]);
+
+  useEffect(() => {
+    const userId = user?.id || 6;
+    api(`orders&user_id=${userId}`)
+      .then((data) => {
+        const orders = (data.orders || []).slice(0, 3);
+        setRecentOrders(orders);
+      })
+      .catch(() => {});
+  }, [user?.id]);
 
   const showToast = (message) => {
     setToast(message);
@@ -51,16 +65,16 @@ const [isDarkMode] = useState(() => document.body.classList.contains("dark"));  
     }
   };
   const handleAddToCart = (order) => {
-    const priceNumber = parseInt(order.price.replace(/\D/g, ""), 10);
+    const priceNumber = parseFloat(order.totalPrice || order.price || 0);
 
     const cartItem = {
       id: order.id,
-      title: order.name,
+      title: order.name || order.restaurant,
       price: priceNumber,
       image: order.image || null,
     };
     window.dispatchEvent(new CustomEvent("addToCart", { detail: cartItem }));
-    showToast(`Added ${order.name} to cart!`);
+    showToast(`Added ${cartItem.title} to cart!`);
   };
 
   const categories = [
@@ -71,64 +85,28 @@ const [isDarkMode] = useState(() => document.body.classList.contains("dark"));  
     { id: 5, name: "Desserts", icon: <IceCream size={24} /> },
   ];
 
-  const recentOrders = [
-    {
-      id: 101,
-      name: "Double Cheeseburger Combo",
-      restaurant: "Student Union Grill",
-      price: "125 EGP",
-      time: "2 days ago",
-    },
-    {
-      id: 102,
-      name: "Chicken Caesar Wrap",
-      restaurant: "Leafy & Green",
-      price: "95 EGP",
-      time: "1 week ago",
-    },
-    {
-      id: 103,
-      name: "Iced Caramel Macchiato",
-      restaurant: "Campus Café",
-      price: "65 EGP",
-      time: "1 week ago",
-    },
-  ];
-
   const offers = [
     {
       id: 1,
-      restaurant: "The Student Union Grill",
+      restaurant: "Qedra",
       priceTier: "$$",
-      title: "Half-Price Burger Combos",
-      desc: "Get 50% off all signature beef and chicken burger combo meals including fries and a drink.",
+      title: "Combo Offer: Foul + Fries + Ta3mya",
+      desc: "Get 1 foul, 1 fries, and 1 ta3mya for only 40 EGP! A complete Egyptian breakfast at an unbeatable price.",
       image:
-        "https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=500&q=80",
+        "https://images.unsplash.com/photo-1604909052743-94e838986d24?auto=format&fit=crop&w=500&q=80",
       badgeIcon: <Flame size={14} />,
-      badgeText: "50% OFF",
-      validity: "Valid until 2:00 PM",
+      badgeText: "COMBO",
+      validity: "Valid all day",
     },
     {
       id: 2,
-      restaurant: "Leafy & Green",
-      priceTier: "$",
-      title: "Free Smoothie with Wraps",
-      desc: "Purchase any signature vegan wrap and receive a complimentary 16oz fruit smoothie of your choice.",
+      restaurant: "Mix & Wrap",
+      priceTier: "$$",
+      title: "20% Off Orders Above 250 EGP",
+      desc: "Spend 250 EGP or more at Mix & Wrap and enjoy a 20% discount on your entire order. Perfect for group dining!",
       image:
-        "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=500&q=80",
+        "https://images.unsplash.com/photo-1561758033-d89a9ad46330?auto=format&fit=crop&w=500&q=80",
       badgeIcon: <Gift size={14} />,
-      badgeText: "FREE ITEM",
-      validity: "Valid until 4:00 PM",
-    },
-    {
-      id: 3,
-      restaurant: "Zen Garden Express",
-      priceTier: "$$$",
-      title: "20% Off Sushi Platters",
-      desc: "Enjoy our premium assorted sushi and sashimi platters at a special discounted rate today.",
-      image:
-        "https://images.unsplash.com/photo-1579871494447-9811cf80d66c?auto=format&fit=crop&w=500&q=80",
-      badgeIcon: <Tag size={14} />,
       badgeText: "20% OFF",
       validity: "Valid until 8:00 PM",
     },
@@ -189,19 +167,22 @@ const [isDarkMode] = useState(() => document.body.classList.contains("dark"));  
             </div>
           </div>
           <div className="reorder-grid">
+            {recentOrders.length === 0 && (
+              <p className="empty-reorder">No recent orders yet.</p>
+            )}
             {recentOrders.map((order) => (
               <div className="reorder-card" key={order.id}>
                 <div className="reorder-info">
-                  <h4>{order.name}</h4>
+                  <h4>{order.restaurant}</h4>
                   <p>
-                    {order.restaurant} •{" "}
+                    #{order.id} •{" "}
                     <span className="order-time">{order.time}</span>
                   </p>
-                  <span className="reorder-price">{order.price}</span>
+                  <span className="reorder-price">{order.total}</span>
                 </div>
                 <button
                   className="btn-icon-round"
-                  onClick={() => handleAddToCart(order)} 
+                  onClick={() => handleAddToCart(order)}
                   title="Reorder"
                 >
                   <RotateCcw size={18} />
@@ -283,10 +264,10 @@ const [isDarkMode] = useState(() => document.body.classList.contains("dark"));  
                     <button
                       className="claim-btn"
                       onClick={() =>
-                        showToast(`${offer.title} applied to your account!`)
+                        navigate(`/restaurant/${offer.id === 1 ? 4 : 11}`)
                       }
                     >
-                      Claim Offer <ArrowRight size={16} />
+                      View Offer <ArrowRight size={16} />
                     </button>
                   </div>
                 </div>

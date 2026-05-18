@@ -88,6 +88,13 @@ function groupItemsBySize(items) {
   return result;
 }
 
+function getCartQuantities() {
+  const cart = JSON.parse(sessionStorage.getItem("cartItems") || "[]");
+  const map = {};
+  cart.forEach((item) => { map[item.id] = (map[item.id] || 0) + (item.quantity || 1); });
+  return map;
+}
+
 function Menu({ page }) {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -97,7 +104,31 @@ function Menu({ page }) {
   const [menuItems, setMenuItems] = useState([]);
   const [modalItem, setModalItem] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [restaurantLockMsg, setRestaurantLockMsg] = useState("");
+  const [quantities, setQuantities] = useState(getCartQuantities);
   const restaurantName = location.state?.restaurantName;
+
+  useEffect(() => {
+    function syncCart() {
+      setQuantities(getCartQuantities());
+    }
+    window.addEventListener("cartUpdated", syncCart);
+    window.addEventListener("cartCleared", syncCart);
+    return () => {
+      window.removeEventListener("cartUpdated", syncCart);
+      window.removeEventListener("cartCleared", syncCart);
+    };
+  }, []);
+
+  function checkCartLock(restaurantId) {
+    const cart = JSON.parse(sessionStorage.getItem("cartItems") || "[]");
+    if (cart.length > 0 && cart[0].restaurant_id !== Number(restaurantId)) {
+      setRestaurantLockMsg("You have items from another restaurant in your cart. Complete or clear that order first.");
+      return true;
+    }
+    setRestaurantLockMsg("");
+    return false;
+  }
 
   useEffect(() => {
     page("menu");
@@ -121,6 +152,7 @@ function Menu({ page }) {
 
   const addToCart = (sizeItem) => {
     const item = sizeItem.item || sizeItem;
+    if (checkCartLock(item.restaurant_id)) return;
     window.dispatchEvent(new CustomEvent("addToCart", {
       detail: {
         id: sizeItem.id,
@@ -136,6 +168,7 @@ function Menu({ page }) {
   };
 
   const handleAddToCart = (item) => {
+    if (checkCartLock(item.restaurant_id)) return;
     if (item.sizes) {
       setModalItem(item);
       return;
@@ -184,6 +217,8 @@ function Menu({ page }) {
         </div>
       )}
 
+      {restaurantLockMsg && <div className="menu-lock-msg">{restaurantLockMsg}</div>}
+
       {loading ? (
         <p className="no-restaurants">Loading menu...</p>
       ) : (
@@ -206,13 +241,42 @@ function Menu({ page }) {
                       <span key={index} className={index < item.rating ? "star active" : "star"}>★</span>
                     ))}
                   </div>
-                  <button
-                    className={`qty-btn add-btn ${item.sizes ? "choose-size-btn" : ""}`}
-                    onClick={() => handleAddToCart(item)}
-                    disabled={!item.is_available}
-                  >
-                    {item.sizes ? (item.groupType === "option" ? "Choose" : "Choose Size") : "+"}
-                  </button>
+                  {item.sizes ? (
+                    <button
+                      className="qty-btn choose-size-btn"
+                      onClick={() => handleAddToCart(item)}
+                      disabled={!item.is_available}
+                    >
+                      {item.groupType === "option" ? "Choose" : "Choose Size"}
+                    </button>
+                  ) : (
+                    <div className="inline-qty">
+                      {(quantities[item.id] || 0) > 0 ? (
+                        <>
+                          <button
+                            className="qty-btn qty-minus"
+                            onClick={() => {
+                              if (checkCartLock(item.restaurant_id)) return;
+                              const cart = JSON.parse(sessionStorage.getItem("cartItems") || "[]");
+                              const idx = cart.findIndex((ci) => ci.id === item.id);
+                              if (idx === -1) return;
+                              if (cart[idx].quantity <= 1) cart.splice(idx, 1);
+                              else cart[idx].quantity -= 1;
+                              sessionStorage.setItem("cartItems", JSON.stringify(cart));
+                              setQuantities(getCartQuantities());
+                              window.dispatchEvent(new CustomEvent("cartForceSync"));
+                            }}
+                          >−</button>
+                          <span className="qty-num">{quantities[item.id]}</span>
+                        </>
+                      ) : null}
+                      <button
+                        className="qty-btn add-btn"
+                        onClick={() => handleAddToCart(item)}
+                        disabled={!item.is_available}
+                      >+</button>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>

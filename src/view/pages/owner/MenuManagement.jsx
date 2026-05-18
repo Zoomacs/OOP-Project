@@ -140,29 +140,29 @@ useEffect(() => {
           <h2>Current Menu</h2>
           <div className="search-bar"><Search size={18} /><input type="text" placeholder="Search menu..." value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} /></div>
         </div>
-        <div className="menu-items-container">
+        <div className="menu-items-grid">
           {visibleItems.map((item) => (
-            <div className="menu-list-row" key={item.id}>
-              <div className="row-left">
-                {item.image ? <img className="item-image-thumb" src={item.image} alt={item.title || item.name} /> : <div className="item-image-placeholder"><ImagePlus size={24} /></div>}
-                <div className="item-details">
-                  <div className="item-title-row">
-                    <h3>{item.title || item.name}</h3>
-                    {item.tag && <span className="item-tag tag-green">{item.tag}</span>}
-                    {!item.inStock && <span className="item-tag tag-red">STOCK OUT</span>}
-                  </div>
-                  <p className="item-desc">{item.description}</p>
+            <div className="menu-item-card" key={item.id}>
+              <div className="menu-item-card-img">
+                {item.image ? <img src={item.image} alt={item.title || item.name} /> : <div className="item-image-placeholder"><ImagePlus size={28} /></div>}
+              </div>
+              <div className="menu-item-card-body">
+                <div className="menu-item-card-header">
+                  <h3>{item.title || item.name}</h3>
                   <span className="item-price-text">{Number(item.price).toFixed(2)} EGP</span>
                 </div>
-              </div>
-              <div className="row-right">
-                <div className="stock-toggle-wrapper">
+                <p className="item-desc">{item.description}</p>
+                <div className="menu-item-card-tags">
+                  {item.tag && <span className="item-tag tag-green">{item.tag}</span>}
+                  {!item.inStock && <span className="item-tag tag-red">STOCK OUT</span>}
+                </div>
+                <div className="menu-item-card-actions">
                   <label className="toggle-switch"><input type="checkbox" checked={item.inStock} onChange={() => toggleStock(item.id)} /><span className="slider round"></span></label>
                   <span className={`toggle-label ${item.inStock ? "text-green" : "text-gray"}`}>{item.inStock ? "IN STOCK" : "STOCK OUT"}</span>
-                </div>
-                <div className="action-buttons-group">
-                  <button className="icon-action-btn" onClick={() => openEditModal(item)}><Edit2 size={18} /></button>
-                  <button className="icon-action-btn delete" onClick={() => handleRemove(item.id)}><Trash2 size={18} /></button>
+                  <div className="action-buttons-group">
+                    <button className="icon-action-btn" onClick={() => openEditModal(item)}><Edit2 size={16} /></button>
+                    <button className="icon-action-btn delete" onClick={() => handleRemove(item.id)}><Trash2 size={16} /></button>
+                  </div>
                 </div>
               </div>
             </div>

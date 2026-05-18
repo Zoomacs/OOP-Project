@@ -198,6 +198,15 @@ function AppContent() {
 
       {!hideStandardUI && !isOwnerRoute && !isStaffRoute && (
         <>
+          {(!sideBar.includes("hidden") || !cart.includes("hidden")) && (
+            <div
+              className="sidebar-cart-backdrop"
+              onClick={() => {
+                if (!sideBar.includes("hidden")) setSideBar("hidden side-bar");
+                if (!cart.includes("hidden")) setCart("hidden cart-bar");
+              }}
+            />
+          )}
           {location.pathname !== "/notification" && (
             <Notification
               page={setcurrentpage}

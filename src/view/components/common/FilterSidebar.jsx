@@ -1,8 +1,9 @@
 import { SlidersHorizontal, X } from "lucide-react";
 import "./FilterSidebar.css";
 
-const CATEGORIES = ["Fast Food", "Pizza", "Fool", "Healthy", "Drinks", "Desserts", "Asian"];
+const CATEGORIES = ["Oriental", "Fast Food", "Pizza", "Healthy", "Drinks", "Desserts"];
 const RATINGS = [4, 3, 2, 1];
+const RATING_LABELS = { 4: "4 ⭐", 3: "3 ⭐", 2: "2 ⭐", 1: "1 ⭐" };
 
 function FilterSidebar({ filters, onFilterChange, onClear }) {
   const toggleCategory = (cat) => {
@@ -43,7 +44,7 @@ function FilterSidebar({ filters, onFilterChange, onClear }) {
               className={`filter-option-btn ${filters.rating === star ? "active" : ""}`}
               onClick={() => setRating(star)}
             >
-              {star}+ ⭐
+              {RATING_LABELS[star]}
             </button>
           ))}
         </div>

@@ -6,6 +6,7 @@ import {
   TicketPercent,
   Coins,
   X,
+  MapPin,
 } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -25,6 +26,9 @@ function Checkout() {
   const [message, setMessage] = useState("");
   const [paymentProof, setPaymentProof] = useState(null);
   const [proofPreview, setProofPreview] = useState("");
+  const [useDelivery, setUseDelivery] = useState(false);
+  const [deliveryLocation, setDeliveryLocation] = useState("");
+  const [deliveryDetails, setDeliveryDetails] = useState("");
 
   const [discountCode, setDiscountCode] = useState("");
   const [appliedDiscount, setAppliedDiscount] = useState(null);
@@ -50,6 +54,8 @@ function Checkout() {
 
   const instapayPhone = "01000000000";
   const instapayOwnerName = "Q-Less Restaurant Payment";
+  const DELIVERY_FEE = 15;
+  const deliveryFee = isUniversityStaff && useDelivery ? DELIVERY_FEE : 0;
 
   const maxPointsCanUse = isStudent
     ? Math.min(userPoints, Math.floor(subtotal * 10))
@@ -74,9 +80,18 @@ function Checkout() {
   );
 
   const tax = Number((amountAfterDiscount * 0.08).toFixed(2));
-  const total = Number((amountAfterDiscount + tax).toFixed(2));
+  const total = Number((amountAfterDiscount + tax + deliveryFee).toFixed(2));
 
   const earnedPoints = isStudent ? Math.floor(total / 10) : 0;
+
+  function readFileAsBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = () => reject(new Error("Failed to read file"));
+      reader.readAsDataURL(file);
+    });
+  }
 
   function handlePaymentProofChange(e) {
     const file = e.target.files[0];
@@ -194,6 +209,8 @@ function Checkout() {
       return;
     }
 
+    const paymentProofData = paymentProof ? await readFileAsBase64(paymentProof) : "";
+
     try {
       const result = await api("orders", {
         method: "POST",
@@ -210,6 +227,10 @@ function Checkout() {
 
           staff_discount_amount: staffDiscountValue,
 
+          use_delivery: isUniversityStaff ? useDelivery : false,
+          delivery_location: isUniversityStaff && useDelivery ? deliveryLocation : "",
+          delivery_details: isUniversityStaff && useDelivery ? deliveryDetails : "",
+
           points_used: isStudent ? Number(pointsToUse) : 0,
           points_discount: isStudent ? pointsDiscount : 0,
 
@@ -217,6 +238,7 @@ function Checkout() {
           discount_amount: isStudent ? codeDiscountValue : 0,
 
           payment_proof_name: paymentProof ? paymentProof.name : "",
+          payment_proof_data: paymentProofData,
           items: items,
         }),
       });
@@ -227,6 +249,7 @@ function Checkout() {
       }
 
       sessionStorage.removeItem("cartItems");
+      window.dispatchEvent(new CustomEvent("cartCleared"));
 
       sessionStorage.setItem(
         "lastOrder",
@@ -237,7 +260,13 @@ function Checkout() {
           payment_method: selected,
           user_role: userRole,
           is_university_staff: isUniversityStaff,
+
+          use_delivery: isUniversityStaff ? useDelivery : false,
+          delivery_location: isUniversityStaff && useDelivery ? deliveryLocation : "",
+          delivery_details: isUniversityStaff && useDelivery ? deliveryDetails : "",
+
           staff_discount_amount: staffDiscountValue,
+
           points_used: isStudent ? Number(pointsToUse) : 0,
           points_earned: isStudent ? earnedPoints : 0,
           discount_code: isStudent && appliedDiscount ? appliedDiscount.code : "",
@@ -374,25 +403,46 @@ function Checkout() {
         </div>
 
         {isUniversityStaff && (
-          <div className="co-discount-card">
-            <div className="co-discount-header">
-              <div>
-                <p className="co-discount-title">
-                  <TicketPercent size={18} /> Staff Discount
-                </p>
-                <span>
-                  University staff gets <b>10%</b> discount automatically.
-                </span>
+          <>
+            <div className={`co-method ${useDelivery ? "co-method-active" : ""}`} onClick={() => setUseDelivery(!useDelivery)}>
+              <div className="co-method-top">
+                <div className="co-method-icon-wrap co-icon-green">
+                  <MapPin size={20} color="#27ae60" />
+                </div>
+                <div>
+                  <p className="co-method-title">Delivery</p>
+                  <p className="co-method-sub">Get your order delivered on campus</p>
+                </div>
+                <div className={`co-radio ${useDelivery ? "co-radio-active" : ""}`}></div>
               </div>
+              {useDelivery && (
+                <div className="delivery-fields" onClick={(e) => e.stopPropagation()}>
+                  <input type="text" className="delivery-input" placeholder="Delivery location (e.g. Building name, room number)" value={deliveryLocation} onChange={(e) => setDeliveryLocation(e.target.value)} />
+                  <textarea className="delivery-textarea" placeholder="Additional details (optional)" rows={2} value={deliveryDetails} onChange={(e) => setDeliveryDetails(e.target.value)} />
+                </div>
+              )}
             </div>
 
-            <div className="applied-discount-box">
-              <div>
-                <strong>STAFF10</strong>
-                <p>10% staff discount applied automatically</p>
+            <div className="co-discount-card">
+              <div className="co-discount-header">
+                <div>
+                  <p className="co-discount-title">
+                    <TicketPercent size={18} /> Staff Discount
+                  </p>
+                  <span>
+                    University staff gets <b>10%</b> discount automatically.
+                  </span>
+                </div>
+              </div>
+
+              <div className="applied-discount-box">
+                <div>
+                  <strong>STAFF10</strong>
+                  <p>10% staff discount applied automatically</p>
+                </div>
               </div>
             </div>
-          </div>
+          </>
         )}
 
         {isStudent && (
@@ -514,6 +564,13 @@ function Checkout() {
             <div className="co-row discount-row">
               <span>Code Discount</span>
               <span>-{codeDiscountValue.toFixed(2)} EGP</span>
+            </div>
+          )}
+
+          {deliveryFee > 0 && (
+            <div className="co-row">
+              <span>Delivery Fee</span>
+              <span>{deliveryFee.toFixed(2)} EGP</span>
             </div>
           )}
 

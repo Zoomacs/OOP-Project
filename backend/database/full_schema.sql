@@ -27,157 +27,23 @@ CREATE TABLE users (
   department VARCHAR(120) DEFAULT NULL,
   status VARCHAR(30) NOT NULL DEFAULT 'Active',
   restaurant_id INT NULL,
+  points INT DEFAULT 0,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE restaurants (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(150) NOT NULL,
-  owner_user_id INT NULL,
-  owner_name VARCHAR(120) DEFAULT NULL,
-  owner_email VARCHAR(160) DEFAULT NULL,
-  phone VARCHAR(60) DEFAULT NULL,
-  category VARCHAR(80) DEFAULT NULL,
-  description TEXT,
-  address TEXT,
-  opening_hours VARCHAR(120) DEFAULT NULL,
-  image_url TEXT,
-  is_open TINYINT(1) DEFAULT 1,
-  rating DECIMAL(2,1) DEFAULT 4.8,
-  reviews INT DEFAULT 0,
-  prep_time VARCHAR(40) DEFAULT '15-20 min',
-  staff_delivery TINYINT(1) DEFAULT 0,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE menu_items (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  restaurant_id INT NOT NULL,
-  name VARCHAR(150) NOT NULL,
-  description TEXT,
-  category VARCHAR(80) DEFAULT NULL,
-  price DECIMAL(10,2) NOT NULL DEFAULT 0,
-  rating INT DEFAULT 5,
-  image_url TEXT,
-  is_available TINYINT(1) DEFAULT 1,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (restaurant_id) REFERENCES restaurants(id) ON DELETE CASCADE
-);
-
-CREATE TABLE orders (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  user_id INT NULL,
-  restaurant_id INT NOT NULL,
-  status ENUM('pending','preparing','ready','received','delivered','cancelled') NOT NULL DEFAULT 'pending',
-  total_amount DECIMAL(10,2) NOT NULL DEFAULT 0,
-  payment_method VARCHAR(40) DEFAULT 'cash',
-  note TEXT,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL,
-  FOREIGN KEY (restaurant_id) REFERENCES restaurants(id) ON DELETE CASCADE
-);
-
-CREATE TABLE order_items (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  order_id INT NOT NULL,
-  menu_item_id INT NULL,
-  item_name VARCHAR(150) NOT NULL,
-  quantity INT NOT NULL DEFAULT 1,
-  price DECIMAL(10,2) NOT NULL DEFAULT 0,
-  FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
-  FOREIGN KEY (menu_item_id) REFERENCES menu_items(id) ON DELETE SET NULL
-);
-
-CREATE TABLE payments (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  order_id INT NOT NULL,
-  user_id INT NULL,
-  method VARCHAR(40) NOT NULL,
-  amount DECIMAL(10,2) NOT NULL,
-  status VARCHAR(30) NOT NULL DEFAULT 'Success',
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
-  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
-);
-
-CREATE TABLE tickets (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  user_id INT NULL,
-  title VARCHAR(180) NOT NULL,
-  email VARCHAR(160) DEFAULT NULL,
-  message TEXT NOT NULL,
-  status VARCHAR(30) NOT NULL DEFAULT 'Open',
-  reply TEXT,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
-);
-
-CREATE TABLE notifications (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  user_id INT NULL,
-  title VARCHAR(160) NOT NULL,
-  description TEXT NOT NULL,
-  image_url TEXT,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
-);
-
-INSERT INTO users
-(id, name, email, university_id, password_hash, role, department, status, restaurant_id)
+INSERT INTO menu_items
+(restaurant_id, name, description, category, price, rating, image_url, is_available, points_multiplier)
 VALUES
-(1, 'System Admin', 'admin@qless.local', 'admin', '123', 'admin', 'IT', 'Active', NULL),
-
-(2, 'Student User', 'student@qless.local', '123', '123', 'student', 'Computer Science', 'Active', NULL),
-
-(3, 'Qedra Owner', 'qedra@restaurants.com', 'REST001', '123456', 'owner', 'Restaurants', 'Active', 4),
-
-(4, 'Mix & Wrap Owner', 'mixwrapowner@restaurants.com', 'REST002', '123456', 'owner', 'Restaurants', 'Active', 11),
-
-(5, 'University Staff', 'staff@qless.local', 'staff', '123', 'staff', 'University Staff', 'Active', NULL),
-
-(6, 'Qedra Staff', 'qedrastaff@restaurants.com', 'QEDRASTAFF001', '123456', 'staff', 'Restaurant Staff', 'Active', 4),
-
-(7, 'Mix & Wrap Staff', 'mixwrapstaff@restaurants.com', 'MIXSTAFF001', '123456', 'staff', 'Restaurant Staff', 'Active', 11);
-
-INSERT INTO restaurants
-(id, name, owner_user_id, owner_name, owner_email, phone, category, description, address, opening_hours, image_url, is_open, rating, reviews, prep_time, staff_delivery)
-VALUES
-(
-  4,
-  'Qedra',
-  3,
-  'Qedra Owner',
-  'qedra@restaurants.com',
-  '0100000001',
-  'Egyptian Food',
-  'Traditional Egyptian breakfast and oriental food restaurant',
-  'Alexandria, Egypt',
-  '24 Hours',
-  'https://images.deliveryhero.io/image/talabat/restaurants/Qedra_Logo637896012906314949.jpg?width=180',
-  1,
-  4.8,
-  350,
-  '10-20 min',
-  1
-),
-(
-  11,
-  'Mix & Wrap',
-  4,
-  'Mix & Wrap Owner',
-  'mixwrapowner@restaurants.com',
-  '0100000002',
-  'Fast Food',
-  'Wraps, pizza, pasta, fries, and chicken meals',
-  'Alexandria, Egypt',
-  '10 AM - 2 AM',
-  'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180',
-  1,
-  4.7,
-  420,
-  '15-25 min',
-  1
-);
+(13, 'Espresso', 'Rich espresso shot', 'Drinks', 25, 5, '', 1, 1.00),
+(13, 'Cappuccino', 'Creamy cappuccino with foam', 'Drinks', 35, 5, '', 1, 1.00),
+(13, 'Latte', 'Smooth latte with milk', 'Drinks', 35, 5, '', 1, 1.00),
+(13, 'Mocha', 'Chocolate mocha coffee', 'Drinks', 40, 5, '', 1, 1.00),
+(13, 'Iced Coffee', 'Chilled brewed coffee with ice', 'Drinks', 30, 5, '', 1, 1.00),
+(13, 'Frappe', 'Blended iced coffee drink', 'Drinks', 45, 5, '', 1, 1.00),
+(13, 'Green Tea', 'Fresh brewed green tea', 'Drinks', 15, 5, '', 1, 1.00),
+(13, 'Orange Juice', 'Fresh squeezed orange juice', 'Drinks', 25, 5, '', 1, 1.00),
+(13, 'Mango Smoothie', 'Fresh mango blended smoothie', 'Drinks', 35, 5, '', 1, 1.00),
+(13, 'Water', 'Bottled water', 'Drinks', 10, 5, '', 1, 1.00);
 
 INSERT INTO menu_items
 (restaurant_id, name, description, category, price, rating, image_url, is_available)

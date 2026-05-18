@@ -34,7 +34,28 @@ class OrderController extends Controller
             $total += floatval($item['price'] ?? 0) * intval($item['quantity'] ?? 1);
         }
         if ($total <= 0) $total = floatval($data['total_amount'] ?? 0);
-        $this->q("INSERT INTO orders (user_id, restaurant_id, status, total_amount, payment_method, note) VALUES (?,?, 'pending', ?, ?, ?)", [$user_id,$restaurant_id,$total,$payment_method,$data['note'] ?? '']);
+        $use_delivery = !empty($data['use_delivery']);
+        $delivery_location = $data['delivery_location'] ?? '';
+        $delivery_details = $data['delivery_details'] ?? '';
+        $payment_proof_data = $data['payment_proof_data'] ?? '';
+        $payment_proof_url = '';
+        if ($payment_proof_data && strpos($payment_proof_data, 'data:image/') === 0) {
+            $payment_proof_url = $this->saveBase64Image($payment_proof_data, 'payments');
+        }
+        $note_parts = [];
+        if ($use_delivery) {
+            $note_parts['delivery'] = true;
+            $note_parts['location'] = $delivery_location;
+            $note_parts['details'] = $delivery_details;
+        }
+        if ($payment_proof_url) {
+            $note_parts['payment_proof'] = $payment_proof_url;
+        }
+        $extra_note = $data['note'] ?? '';
+        if (!empty($note_parts)) {
+            $extra_note = json_encode($note_parts) . ($extra_note ? " | $extra_note" : '');
+        }
+        $this->q("INSERT INTO orders (user_id, restaurant_id, status, total_amount, payment_method, note) VALUES (?,?, 'pending', ?, ?, ?)", [$user_id,$restaurant_id,$total,$payment_method,$extra_note]);
         $order_id = $this->pdo->lastInsertId();
         foreach ($items as $item) {
             $this->q("INSERT INTO order_items (order_id, menu_item_id, item_name, quantity, price) VALUES (?,?,?,?,?)", [$order_id, intval($item['id'] ?? $item['menu_item_id'] ?? 0), $item['title'] ?? $item['name'] ?? 'Item', intval($item['quantity'] ?? 1), floatval($item['price'] ?? 0)]);

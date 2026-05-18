@@ -5,7 +5,7 @@ import { api } from "../../api";
 import FilterSidebar from "./FilterSidebar";
 import "./RestaurantCard.css";
 
-const CATEGORIES = ["All", "Fast Food", "Pizza", "Fool", "Healthy", "Drinks", "Desserts", "Asian"];
+const CATEGORIES = ["All", "Oriental", "Fast Food", "Pizza", "Healthy", "Drinks", "Desserts"];
 
 function RestaurantList() {
   const [restaurants, setRestaurants] = useState([]);
@@ -42,12 +42,19 @@ function RestaurantList() {
       const text = `${restaurant.name} ${restaurant.description} ${restaurant.category}`.toLowerCase();
       if (!text.includes(searchText.toLowerCase())) return false;
       if (filters.categories.length > 0) {
+        const restaurantCats = (restaurant.category || "").split(",").map((c) => c.trim().toLowerCase());
         const matchesCategory = filters.categories.some((cat) =>
-          restaurant.category?.toLowerCase() === cat.toLowerCase()
+          restaurantCats.includes(cat.toLowerCase())
         );
         if (!matchesCategory) return false;
       }
-      if (filters.rating !== null && (restaurant.rating === undefined || restaurant.rating === null || Number(restaurant.rating) < filters.rating)) return false;
+      if (filters.rating !== null) {
+        const r = Number(restaurant.rating);
+        if (isNaN(r)) return false;
+        const min = filters.rating;
+        const max = min + 1;
+        if (r < min || r >= max) return false;
+      }
       if (filters.offers.staffDelivery && !restaurant.staffDelivery) return false;
       if (filters.offers.openNow && !restaurant.isOpen) return false;
       return true;

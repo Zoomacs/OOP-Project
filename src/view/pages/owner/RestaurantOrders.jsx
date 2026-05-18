@@ -85,21 +85,37 @@ function RestaurantOrders() {
               Details
             </button>
 
-            <div className="action-group">
-              <button
-                className="approval-btn approve"
-                onClick={() => updateStatus(order.id, "preparing")}
-              >
-                <Check size={18} />
-              </button>
-
-              <button
-                className="approval-btn reject"
-                onClick={() => updateStatus(order.id, "cancelled")}
-              >
-                <X size={18} />
-              </button>
-            </div>
+            {order.paymentType === "instapay" ? (
+              <div className="action-group-column">
+                <button
+                  className="approval-btn approve"
+                  onClick={() => updateStatus(order.id, "preparing")}
+                >
+                  <Check size={18} /> Confirm Payment
+                </button>
+                <button
+                  className="approval-btn reject"
+                  onClick={() => updateStatus(order.id, "cancelled")}
+                >
+                  <X size={18} /> Cancel
+                </button>
+              </div>
+            ) : (
+              <div className="action-group">
+                <button
+                  className="approval-btn approve"
+                  onClick={() => updateStatus(order.id, "preparing")}
+                >
+                  <Check size={18} />
+                </button>
+                <button
+                  className="approval-btn reject"
+                  onClick={() => updateStatus(order.id, "cancelled")}
+                >
+                  <X size={18} />
+                </button>
+              </div>
+            )}
           </>
         )}
 
@@ -184,11 +200,26 @@ function RestaurantOrders() {
                 <span>{selectedOrder.itemName}</span>
               </p>
 
-              {selectedOrder.note && (
-                <div className="order-note">
-                  <strong>Note:</strong> {selectedOrder.note}
-                </div>
-              )}
+              {selectedOrder.note && (() => {
+                const parts = selectedOrder.note.split('|');
+                const jsonPart = parts[0].trim();
+                const extraNote = parts[1] ? parts[1].trim() : '';
+                let displayParts = [];
+                try {
+                  const parsed = JSON.parse(jsonPart);
+                  if (parsed.delivery) {
+                    displayParts.push(`Delivery location: ${parsed.location || '-'}`);
+                    displayParts.push(`Delivery details: ${parsed.details || '-'}`);
+                  }
+                } catch {}
+                if (displayParts.length === 0 && !extraNote) return null;
+                return (
+                  <div className="order-note">
+                    {displayParts.map((p, i) => <div key={i}>{p}</div>)}
+                    {extraNote && <div><strong>Note:</strong> {extraNote}</div>}
+                  </div>
+                );
+              })()}
             </div>
 
             <div className="drawer-section">
@@ -199,6 +230,20 @@ function RestaurantOrders() {
               <p className="total-price">
                 <strong>Total:</strong> {selectedOrder.totalPrice} EGP
               </p>
+              {selectedOrder.paymentType === "instapay" && (() => {
+                let proofUrl = "";
+                try {
+                  const noteParts = (selectedOrder.note || '').split('|');
+                  const noteData = JSON.parse(noteParts[0].trim());
+                  proofUrl = noteData.payment_proof || "";
+                } catch {}
+                return proofUrl ? (
+                  <div className="payment-proof-section">
+                    <strong>Payment Proof:</strong>
+                    <img src={proofUrl} alt="Payment proof" className="payment-proof-img" />
+                  </div>
+                ) : null;
+              })()}
             </div>
           </div>
         ) : (
