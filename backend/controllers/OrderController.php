@@ -1,6 +1,8 @@
 <?php
+require_once __DIR__ . '/DesignPatterns.php';
 class OrderController extends Controller
 {
+    use UsesDesignPatterns;
     public function IndexOrder()
     {
         $user_id = intval($_GET['user_id'] ?? 0);
@@ -37,8 +39,9 @@ class OrderController extends Controller
         foreach ($items as $item) {
             $this->q("INSERT INTO order_items (order_id, menu_item_id, item_name, quantity, price) VALUES (?,?,?,?,?)", [$order_id, intval($item['id'] ?? $item['menu_item_id'] ?? 0), $item['title'] ?? $item['name'] ?? 'Item', intval($item['quantity'] ?? 1), floatval($item['price'] ?? 0)]);
         }
-        $this->q("INSERT INTO payments (order_id, user_id, method, amount, status) VALUES (?,?,?,?, 'Success')", [$order_id,$user_id,$payment_method,$total]);
-        $this->q("INSERT INTO notifications (user_id,title,description,image_url) VALUES (?, 'Order placed', ?, '')", [$user_id, 'Your order #' . $order_id . ' was sent to the restaurant.']);
+        $this->StorePaymentByStrategy($payment_method, $order_id, $user_id, $total, 'Success');
+        $this->NotifyObservers('order.created', ['user_id' => $user_id, 'order_id' => $order_id]);
+        $this->NotifyObservers('payment.created', ['user_id' => $user_id, 'order_id' => $order_id]);
         $this->pdo->commit();
         $this->ok(['order_id' => $order_id], 'Order created');
     }
@@ -75,7 +78,7 @@ class OrderController extends Controller
         $status = $data['status'] ?? 'pending';
         $this->q("UPDATE orders SET status=? WHERE id=?", [$status, $id]);
         $ord = $this->q("SELECT user_id FROM orders WHERE id=?", [$id])->fetch();
-        if ($ord) $this->q("INSERT INTO notifications (user_id,title,description,image_url) VALUES (?, 'Order update', ?, '')", [$ord['user_id'], 'Order #' . $id . ' is now ' . $status]);
+        if ($ord) $this->NotifyObservers('order.status_updated', ['user_id' => $ord['user_id'], 'order_id' => $id, 'status' => $status]);
         $this->ok([], 'Order status updated');
     }
 
