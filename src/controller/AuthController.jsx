@@ -6,12 +6,17 @@ export default class AuthController {
   static async login(identifier, password) {
     const result = await api("login", {
       method: "POST",
-      body: JSON.stringify({ identifier: identifier.trim(), password: password.trim() }),
+      body: JSON.stringify({
+        identifier: identifier.trim(),
+        password: password.trim(),
+      }),
     });
 
     const userData = result.user || result.data?.user;
     if (!userData || !userData.role) {
-      throw new Error(result.message || "Login failed. Please check the ID and password.");
+      throw new Error(
+        result.message || "Login failed. Please check the ID and password.",
+      );
     }
 
     return UserFactoryModel.create(userData);
@@ -23,7 +28,9 @@ export default class AuthController {
 
   static saveSession(user) {
     if (!user || !user.role) {
-      throw new Error("Cannot save login session because user data is missing.");
+      throw new Error(
+        "Cannot save login session because user data is missing.",
+      );
     }
 
     sessionStorage.setItem("user", JSON.stringify(user));

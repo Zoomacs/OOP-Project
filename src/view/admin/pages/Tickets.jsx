@@ -36,9 +36,9 @@ export default function Tickets() {
       tickets.filter((t) =>
         `${t.id} ${t.title} ${t.email} ${t.message} ${t.reply} ${t.status}`
           .toLowerCase()
-          .includes(search.toLowerCase())
+          .includes(search.toLowerCase()),
       ),
-    [tickets, search]
+    [tickets, search],
   );
 
   const editing = Boolean(form.id);
@@ -94,7 +94,9 @@ export default function Tickets() {
           status: text.trim() ? "Answered" : ticket.status,
         }),
       });
-      notify("Reply saved. The user can now view it in Contact > View Tickets.");
+      notify(
+        "Reply saved. The user can now view it in Contact > View Tickets.",
+      );
       await loadTickets();
     } catch (err) {
       notify(err.message || "Reply failed");
@@ -174,7 +176,11 @@ export default function Tickets() {
               {editing ? "Update Ticket" : "Create Ticket"}
             </button>
             {editing && (
-              <button type="button" className="btn ghost" onClick={() => setForm(emptyTicket)}>
+              <button
+                type="button"
+                className="btn ghost"
+                onClick={() => setForm(emptyTicket)}
+              >
                 Cancel
               </button>
             )}
@@ -208,10 +214,10 @@ export default function Tickets() {
                       ticket.status === "Urgent"
                         ? "red"
                         : ticket.status === "Pending"
-                        ? "gold"
-                        : ticket.status === "Answered"
-                        ? "green"
-                        : "blue"
+                          ? "gold"
+                          : ticket.status === "Answered"
+                            ? "green"
+                            : "blue"
                     }
                   >
                     {ticket.status}
@@ -219,9 +225,21 @@ export default function Tickets() {
                 </td>
                 <td className="text-cell">{ticket.reply || "No reply yet"}</td>
                 <td className="row-actions">
-                  <button className="btn small" onClick={() => edit(ticket)}>Edit</button>
-                  <button className="btn small green" onClick={() => reply(ticket)}>Reply</button>
-                  <button className="btn small dark" onClick={() => remove(ticket)}>Delete</button>
+                  <button className="btn small" onClick={() => edit(ticket)}>
+                    Edit
+                  </button>
+                  <button
+                    className="btn small green"
+                    onClick={() => reply(ticket)}
+                  >
+                    Reply
+                  </button>
+                  <button
+                    className="btn small dark"
+                    onClick={() => remove(ticket)}
+                  >
+                    Delete
+                  </button>
                 </td>
               </tr>
             ))}

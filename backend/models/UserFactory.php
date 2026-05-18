@@ -9,9 +9,12 @@ class UserFactory
     public static function create($data = [])
     {
         $role = strtolower(trim($data['role'] ?? 'student'));
-        if ($role === 'admin') return new Admin($data);
-        if ($role === 'owner') return new RestaurantOwner($data);
-        if ($role === 'staff') return new Staff($data);
+        if ($role === 'admin')
+            return new Admin($data);
+        if ($role === 'owner')
+            return new RestaurantOwner($data);
+        if ($role === 'staff')
+            return new Staff($data);
         return new Student($data);
     }
 }
