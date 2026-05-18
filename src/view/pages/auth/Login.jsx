@@ -71,7 +71,7 @@ function Login({ page }) {
             <div className="qless-input-wrapper">
               <input
                 type="text"
-                placeholder="123, staff, owner, or admin"
+                placeholder="Enter Your University ID"
                 value={ID}
                 onChange={(e) => setID(e.target.value)}
                 className="qless-input"
@@ -83,7 +83,9 @@ function Login({ page }) {
           <div className="qless-field-group">
             <div className="qless-password-header">
               <label className="qless-label">Password</label>
-              <a href="#" className="qless-forgot-password">Forgot Password?</a>
+              <a href="#" className="qless-forgot-password">
+                Forgot Password?
+              </a>
             </div>
             <div className="qless-input-wrapper">
               <input
@@ -97,9 +99,15 @@ function Login({ page }) {
             </div>
           </div>
 
-          {error && <p style={{ color: "#cc0600", fontWeight: 700 }}>{error}</p>}
+          {error && (
+            <p style={{ color: "#cc0600", fontWeight: 700 }}>{error}</p>
+          )}
 
-          <button type="submit" className="qless-sign-in-button" disabled={loading}>
+          <button
+            type="submit"
+            className="qless-sign-in-button"
+            disabled={loading}
+          >
             {loading ? "Signing In..." : "Sign In"}
           </button>
 
@@ -107,7 +115,11 @@ function Login({ page }) {
 
           <div className="qless-sign-up">
             <p className="qless-sign-up-text">New to campus dining?</p>
-            <button type="button" className="qless-sign-up-button" onClick={() => navigate("/register")}>
+            <button
+              type="button"
+              className="qless-sign-up-button"
+              onClick={() => navigate("/register")}
+            >
               Register Account
             </button>
           </div>
@@ -122,9 +134,21 @@ function Login({ page }) {
 
       <div className="qless-right-side">
         <div className="qless-badge">CAMPUS NEWS</div>
-        <p className="qless-tagline">Skip the line,<br /> stay in the <span>flow</span>.</p>
-        <div className="qless-big-title"><span className="qless-big-word">CAMPUS</span><br /><span className="qless-big-word-alt">LIFE</span></div>
-        <div className="qless-social-proof"><p className="qless-social-bold">Join 2,400+ students</p><p className="qless-social-sub">ordering lunch right now at Central Hall.</p></div>
+        <p className="qless-tagline">
+          Skip the line,
+          <br /> stay in the <span>flow</span>.
+        </p>
+        <div className="qless-big-title">
+          <span className="qless-big-word">CAMPUS</span>
+          <br />
+          <span className="qless-big-word-alt">LIFE</span>
+        </div>
+        <div className="qless-social-proof">
+          <p className="qless-social-bold">Join 2,400+ students</p>
+          <p className="qless-social-sub">
+            ordering lunch right now at Central Hall.
+          </p>
+        </div>
       </div>
     </div>
   );
