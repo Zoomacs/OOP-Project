@@ -13,10 +13,15 @@ function Login({ page }) {
   const navigate = useNavigate();
 
   const redirectByRole = (role) => {
-    if (role === "admin") navigate("/admin", { replace: true });
-    else if (role === "owner") navigate("/owner/dashboard", { replace: true });
-    else if (role === "staff") navigate("/staff/orders", { replace: true });
-    else navigate("/home", { replace: true });
+    if (user.role === "admin") {
+  navigate("/admin/dashboard");
+} else if (user.role === "owner") {
+  navigate("/owner/dashboard");
+} else if (user.role === "staff" && user.restaurant_id) {
+  navigate("/staff/orders");
+} else {
+  navigate("/home");
+}
   };
 
   const handleSubmit = async (event) => {
