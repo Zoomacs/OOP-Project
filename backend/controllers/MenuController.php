@@ -1,6 +1,8 @@
 <?php
+require_once __DIR__ . '/DesignPatterns.php';
 class MenuController extends Controller
 {
+    use UsesDesignPatterns;
     public function IndexMenu()
     {
         $restaurant_id = intval($_GET['restaurant_id'] ?? $_GET['id'] ?? 1);
@@ -29,7 +31,9 @@ class MenuController extends Controller
         if ($restaurant_id <= 0) $this->fail('Restaurant id is required');
         $image = $this->saveBase64Image($data['image_data'] ?? ($data['image_url'] ?? $data['image'] ?? ''), 'menu');
         $this->q("INSERT INTO menu_items (restaurant_id,name,description,category,price,rating,image_url,is_available) VALUES (?,?,?,?,?,?,?,?)", [$restaurant_id, $data['name'] ?? $data['title'] ?? '', $data['description'] ?? '', $data['category'] ?? $data['tag'] ?? '', floatval($data['price'] ?? 0), intval($data['rating'] ?? 5), $image, $this->boolInt($data['is_available'] ?? $data['inStock'] ?? 1)]);
-        $this->ok(['id' => $this->pdo->lastInsertId(), 'image_url' => $image], 'Menu item added');
+        $id = $this->pdo->lastInsertId();
+        $this->NotifyObservers('menu.created', ['user_id' => intval($data['user_id'] ?? 0), 'menu_id' => $id, 'message' => 'Menu item added.']);
+        $this->ok(['id' => $id, 'image_url' => $image], 'Menu item added');
     }
 
     public function UpdateMenu($data)
@@ -41,6 +45,7 @@ class MenuController extends Controller
         $image = $this->saveBase64Image($image_input, 'menu');
         if ($image === '') $image = $old['image_url'] ?? '';
         $this->q("UPDATE menu_items SET name=?, description=?, category=?, price=?, image_url=?, is_available=? WHERE id=?", [$data['name'] ?? $data['title'] ?? '', $data['description'] ?? '', $data['category'] ?? $data['tag'] ?? '', floatval($data['price'] ?? 0), $image, $this->boolInt($data['is_available'] ?? $data['inStock'] ?? 1), $id]);
+        $this->NotifyObservers('menu.updated', ['user_id' => intval($data['user_id'] ?? 0), 'menu_id' => $id, 'message' => 'Menu item updated.']);
         $this->ok(['image_url' => $image], 'Menu item updated');
     }
 
@@ -48,6 +53,7 @@ class MenuController extends Controller
     {
         $id = intval($_GET['id'] ?? $data['id'] ?? 0);
         $this->q("DELETE FROM menu_items WHERE id=?", [$id]);
+        $this->NotifyObservers('menu.deleted', ['user_id' => intval($data['user_id'] ?? 0), 'menu_id' => $id, 'message' => 'Menu item deleted.']);
         $this->ok([], 'Menu item deleted');
     }
 
