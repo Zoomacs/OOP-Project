@@ -1,17 +1,21 @@
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { X } from "lucide-react";
 import "./SizeModal.css";
 
 function SizeModal({ item, onClose, onAddToCart }) {
+  const handleKey = useCallback((e) => {
+    if (e.key === "Escape") onClose();
+  }, [onClose]);
+
   useEffect(() => {
-    const handleKey = (e) => { if (e.key === "Escape") onClose(); };
+    if (!item) return;
     window.addEventListener("keydown", handleKey);
     document.body.style.overflow = "hidden";
     return () => {
       window.removeEventListener("keydown", handleKey);
       document.body.style.overflow = "";
     };
-  }, [onClose]);
+  }, [item, handleKey]);
 
   if (!item) return null;
 

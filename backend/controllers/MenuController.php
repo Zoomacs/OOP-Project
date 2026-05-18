@@ -5,7 +5,7 @@ class MenuController extends Controller
     {
         $restaurant_id = intval($_GET['restaurant_id'] ?? $_GET['id'] ?? 1);
         $available_only = intval($_GET['available_only'] ?? 0);
-        $sql = "SELECT id, restaurant_id, name, name AS title, description AS `desc`, description, category AS tag, price, rating, image_url AS image, image_url AS image_url, is_available AS inStock, is_available FROM menu_items WHERE restaurant_id=?";
+        $sql = "SELECT id, restaurant_id, name, name AS title, description AS `desc`, description, category AS tag, price, rating, image_url AS image, image_url, is_available AS inStock, is_available FROM menu_items WHERE restaurant_id=?";
         $params = [$restaurant_id];
         if ($available_only === 1) $sql .= " AND is_available=1";
         $sql .= " ORDER BY id";

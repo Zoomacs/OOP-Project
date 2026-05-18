@@ -285,6 +285,14 @@
   align-self: flex-start;
 }
 
+.no-restaurants {
+  grid-column: 1 / -1;
+  color: var(--text-muted);
+  font-size: 18px;
+  margin-top: 40px;
+  text-align: center;
+}
+
 .qty-count {
   font-weight: 700;
   font-size: 16px;
