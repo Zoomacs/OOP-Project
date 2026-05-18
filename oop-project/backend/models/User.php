@@ -10,7 +10,7 @@ class User {
 
     public function findByUniversityId($university_id) {
         $stmt = $this->db->prepare("
-            SELECT u.*, c.customer_type, c.university_id, c.department, c.student_points
+            SELECT u.*, c.customer_type, c.university_id, c.department, c.students_points
             FROM users u
             JOIN customers c ON u.user_id = c.user_id
             WHERE c.university_id = ?

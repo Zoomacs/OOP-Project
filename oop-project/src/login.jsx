@@ -9,37 +9,58 @@ function Login({ page }) {
 
   const [ID, setID] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
+    setError("");
 
     const enteredID = ID.trim();
     const enteredPassword = password.trim();
 
-    if (enteredID === "admin" && enteredPassword === "123") {
-      sessionStorage.setItem("userRole", "admin");
-      navigate("/admin", { replace: true });
+    if (!enteredID || !enteredPassword) {
+      setError("Please enter your ID and password");
       return;
     }
 
-    if (enteredID === "owner" && enteredPassword === "123") {
-      sessionStorage.setItem("userRole", "owner");
-      navigate("/owner/dashboard", { replace: true });
-      return;
-    }
+    setLoading(true);
 
-    // New Staff Role
-    if (enteredID === "staff" && enteredPassword === "123") {
-      sessionStorage.setItem("userRole", "staff");
-      navigate("/staff/orders", { replace: true });
-      return;
-    }
+    try {
+      const response = await fetch(
+        "http://localhost/OOP-Project/oop-project/backend/routes/auth.php?action=login",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id: enteredID, password: enteredPassword }),
+        },
+      );
 
-    if (enteredID === "123" && enteredPassword === "123") {
-      sessionStorage.setItem("userRole", "student");
-      navigate("/home", { replace: true });
-      return;
+      const data = await response.json();
+
+      if (data.success) {
+        // Save user info to sessionStorage
+        sessionStorage.setItem("userRole", data.user.type);
+        sessionStorage.setItem("user", JSON.stringify(data.user));
+
+        // Navigate based on role
+        if (data.user.type === "admin") {
+          navigate("/admin", { replace: true });
+        } else if (data.user.type === "restaurant_owner") {
+          navigate("/owner/dashboard", { replace: true });
+        } else if (data.user.type === "restaurant_staff") {
+          navigate("/staff/orders", { replace: true });
+        } else {
+          navigate("/home", { replace: true });
+        }
+      } else {
+        setError(data.message);
+      }
+    } catch {
+      setError("Connection failed. Make sure XAMPP is running.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -72,7 +93,6 @@ function Login({ page }) {
                 Forgot Password?
               </a>
             </div>
-
             <div className="qless-input-wrapper">
               <input
                 type="password"
@@ -84,8 +104,18 @@ function Login({ page }) {
             </div>
           </div>
 
-          <button onClick={handleSubmit} className="qless-sign-in-button">
-            Sign In
+          {error && (
+            <p style={{ color: "red", fontSize: "14px", marginTop: "8px" }}>
+              {error}
+            </p>
+          )}
+
+          <button
+            onClick={handleSubmit}
+            className="qless-sign-in-button"
+            disabled={loading}
+          >
+            {loading ? "Signing in..." : "Sign In"}
           </button>
 
           <div className="qless-divider"></div>
@@ -110,18 +140,15 @@ function Login({ page }) {
 
       <div className="qless-right-side">
         <div className="qless-badge">CAMPUS NEWS</div>
-
         <p className="qless-tagline">
           Skip the line,
           <br /> stay in the <span>flow</span>.
         </p>
-
         <div className="qless-big-title">
           <span className="qless-big-word">CAMPUS</span>
           <br />
           <span className="qless-big-word-alt">LIFE</span>
         </div>
-
         <div className="qless-social-proof">
           <p className="qless-social-bold">Join 2,400+ students</p>
           <p className="qless-social-sub">
