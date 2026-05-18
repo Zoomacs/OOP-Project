@@ -1,0 +1,30 @@
+/* Shared professional admin styling is in ../admin.css. */
+.ticket-main {
+  width: 100%;
+}
+
+.ticket-topline {
+  align-items: center;
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+}
+
+.current-reply {
+  background: rgba(204, 6, 0, 0.06);
+  border: 1px solid rgba(204, 6, 0, 0.12);
+  border-radius: 14px;
+  margin: 12px 0;
+  padding: 12px;
+}
+
+.reply-box {
+  border: 1px solid var(--border-color, #ddd);
+  border-radius: 14px;
+  display: block;
+  min-height: 90px;
+  margin: 12px 0;
+  padding: 12px;
+  resize: vertical;
+  width: 100%;
+}
