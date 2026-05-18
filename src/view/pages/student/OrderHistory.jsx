@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState, useMemo } from "react";
-import kfclogo from "../../assets/kfc-logo.png";
 import { api, getUser } from "../../api";
 import "./OrderHistory.css";
 
-function OrderCard({ order, isOwner, onAdvanceStatus }) {
+const DEFAULT_IMG = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' viewBox='0 0 24 24' fill='none' stroke='%23cc0600' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2'%3E%3C/path%3E%3Cpath d='M7 2v20'%3E%3C/path%3E%3Cpath d='M21 15V2v0a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7'%3E%3C/path%3E%3C/svg%3E";
+
+function OrderCard({ order, isOwner, onAdvanceStatus, restaurantImages }) {
   const navigate = useNavigate();
 
   const handleDetailsClick = (e) => {
@@ -13,12 +14,14 @@ function OrderCard({ order, isOwner, onAdvanceStatus }) {
     navigate("/ordertrack");
   };
 
+  const imgSrc = restaurantImages?.[order.restaurant_id] || DEFAULT_IMG;
+
   return (
     <article className="modern-order-card">
       <div className="card-main-info">
         <div className="brand-header">
           <div className="brand-logo-container">
-            <img src={kfclogo} alt="Logo" className="brand-logo" />
+            <img src={imgSrc} alt="Logo" className="brand-logo" />
           </div>
           <div className="brand-text">
             <h2 className="brand-title">
@@ -80,10 +83,24 @@ function OrderCard({ order, isOwner, onAdvanceStatus }) {
 function OrderHistory({ page, isOwner = false }) {
   const [sortBy, setSortBy] = useState("date");
   const [orders, setOrders] = useState([]);
+  const [restaurantImages, setRestaurantImages] = useState({});
 
   useEffect(() => {
     if (page) page(isOwner ? "dashboard" : "orderhistory");
   }, [page, isOwner]);
+
+  useEffect(() => {
+    api("restaurants")
+      .then((data) => {
+        const map = {};
+        (data.restaurants || data.data?.restaurants || []).forEach((r) => {
+          const img = r.image_url || r.imageUrl;
+          if (r.id && img) map[r.id] = img;
+        });
+        setRestaurantImages(map);
+      })
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -162,6 +179,7 @@ function OrderHistory({ page, isOwner = false }) {
                 order={order} 
                 isOwner={isOwner} 
                 onAdvanceStatus={advanceStatus} 
+                restaurantImages={restaurantImages}
               />
             </div>
           ))}
