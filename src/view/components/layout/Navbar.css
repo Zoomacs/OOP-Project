@@ -12,8 +12,8 @@ button {
 }
 
 .navbar {
-  display: grid;
-  grid-template-columns: 260px 1fr 260px;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid var(--border-color);
   background-color: var(--background-color);
@@ -21,11 +21,12 @@ button {
   top: 0;
   left: 0;
   width: 100%;
-  height: 58px;
+  height: 50px;
   font-size: 16px;
   z-index: 1000;
-  padding: 0 28px;
+  padding: 0 10px;
   box-sizing: border-box;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav-left,
@@ -37,25 +38,26 @@ button {
 }
 
 .nav-left {
-  justify-content: flex-start;
-  gap: 10px;
+  flex: 1;
 }
 
 .nav-center {
+  gap: 10px;
   justify-content: center;
-  gap: 12px;
+  flex: 2;
 }
 
 .nav-right {
+  gap: 15px;
   justify-content: flex-end;
-  gap: 14px;
+  flex: 1;
 }
 
 .nav-logo {
   display: flex;
   align-items: center;
   height: 100%;
-  transition: transform 0.2s ease-in-out;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav-logo:hover {
@@ -63,8 +65,8 @@ button {
 }
 
 .nav-logo svg {
-  width: 105px;
-  height: 50px;
+  width: 95px;
+  height: 45px;
 }
 
 .nav-logo tspan {
@@ -80,33 +82,25 @@ button {
 }
 
 .action-btn {
-  width: 44px;
-  height: 44px;
-  min-width: 44px;
-  min-height: 44px;
-  color: var(--text-color);
-  background-color: var(--box-color);
-  border: 1px solid var(--border-color);
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative;
-  box-shadow: 0 3px 10px var(--box-shadow);
+  color: var(--text-muted);
   transition: all 0.2s ease-in-out;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: transparent;
 }
 
 .action-btn svg {
   width: 22px;
   height: 22px;
-  stroke-width: 2.5;
-  display: block;
+  stroke-width: 2.2;
 }
 
 .action-btn:hover {
-  color: var(--primary-color);
-  background-color: var(--nav-icon-hover);
-  transform: translateY(-1px);
+  color: var(--text-color);
 }
 
 .action-btn:active {
@@ -115,17 +109,16 @@ button {
 
 .action-btn.active {
   color: var(--primary-color);
-  border-color: var(--primary-color);
 }
 
 .nav-link {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 0 22px;
+  padding: 0 20px;
   height: 100%;
   font-size: 16px;
-  font-weight: 700;
+  font-weight: 600;
   color: var(--text-muted);
   transition: all 0.3s ease;
   position: relative;
@@ -139,7 +132,7 @@ button {
   bottom: 0;
   height: 3px;
   background-color: var(--primary-color);
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   transform: translateX(-50%);
   border-radius: 3px 3px 0 0;
 }
@@ -170,14 +163,14 @@ button {
 
 .cart-nav-badge {
   position: absolute;
-  top: -5px;
-  right: -5px;
+  top: 3px;
+  right: 2px;
   min-width: 20px;
   height: 20px;
   padding: 0 6px;
   border-radius: 999px;
-  background-color: var(--primary-color);
-  color: white;
+  background: var(--primary-color);
+  color: var(--button-text);
   font-size: 12px;
   font-weight: 900;
   display: flex;
@@ -207,16 +200,15 @@ button {
 
 @media (max-width: 768px) {
   .navbar {
-    display: flex;
-    justify-content: space-around;
     bottom: 0;
     top: auto;
-    height: 72px;
+    height: 70px;
     padding: 0 10px;
     border-bottom: none;
     border-top: 1px solid var(--border-color);
     box-shadow: 0 -4px 20px var(--box-shadow);
     padding-bottom: env(safe-area-inset-bottom);
+    justify-content: space-around;
   }
 
   .nav-left,
@@ -234,15 +226,11 @@ button {
     flex-direction: column;
     justify-content: center;
     gap: 4px;
-    height: 58px;
-    width: 58px;
-    min-width: 58px;
-    border-radius: 14px;
+    height: 100%;
+    width: 100%;
+    border-radius: 12px;
     padding: 0;
-    margin: 4px;
-    box-shadow: none;
-    background-color: transparent;
-    border: none;
+    margin: 5px;
   }
 
   .nav-link svg {
@@ -272,10 +260,5 @@ button {
     background-color: transparent;
     color: var(--primary-color);
     transform: translateY(-2px);
-  }
-
-  .cart-nav-badge {
-    top: 4px;
-    right: 4px;
   }
 }
