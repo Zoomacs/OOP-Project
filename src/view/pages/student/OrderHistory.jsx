@@ -52,7 +52,7 @@ function OrderCard({ order, isOwner, onAdvanceStatus }) {
         {isOwner ? (
           <button 
             type="button"
-            className="action-btn primary-btn" 
+            className="order-action-btn primary-btn" 
             onClick={() => onAdvanceStatus(order.id, order.status)}
           >
             {order.status === "preparing" ? "Mark as Ready" : "Advance Status"}
@@ -60,7 +60,7 @@ function OrderCard({ order, isOwner, onAdvanceStatus }) {
         ) : (
           <button 
             type="button"
-            className="action-btn secondary-btn" 
+            className="order-action-btn secondary-btn" 
             onClick={handleDetailsClick}
           >
             View Details

@@ -222,7 +222,7 @@
   flex-grow: 1;
 }
 
-.action-btn {
+.order-action-btn {
   display: flex;
   align-items: center;
   gap: 8px;
