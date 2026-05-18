@@ -39,9 +39,19 @@ const OwnerProtectedRoute = ({ children }) => {
 
 const StaffProtectedRoute = ({ children }) => {
   const role = sessionStorage.getItem("userRole");
-  if (role !== "staff" && role !== "owner") {
-    return <Navigate to="/" replace />;
+  const user = JSON.parse(sessionStorage.getItem("user") || "{}");
+
+  const isRestaurantStaff =
+    role === "staff" &&
+    user.restaurant_id !== null &&
+    user.restaurant_id !== undefined &&
+    user.restaurant_id !== "" &&
+    Number(user.restaurant_id) !== 0;
+
+  if (!isRestaurantStaff && role !== "owner") {
+    return <Navigate to="/home" replace />;
   }
+
   return children;
 };
 
@@ -50,6 +60,15 @@ function AppContent() {
   const isAdminRoute = location.pathname.startsWith("/admin");
   const isOwnerRoute = location.pathname.startsWith("/owner");
   const isStaffRoute = location.pathname.startsWith("/staff");
+  const savedUser = JSON.parse(sessionStorage.getItem("user") || "{}");
+  const userRole = sessionStorage.getItem("userRole");
+
+  const isRestaurantStaff =
+    userRole === "staff" &&
+    savedUser.restaurant_id !== null &&
+    savedUser.restaurant_id !== undefined &&
+    savedUser.restaurant_id !== "" &&
+    Number(savedUser.restaurant_id) !== 0;
 
   const isAuthRoute =
     location.pathname === "/" || location.pathname === "/register";
