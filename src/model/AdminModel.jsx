@@ -7,16 +7,8 @@ export default class AdminModel extends UserModel {
     this._modelName = "Admin";
   }
 
-  getRoleLabel() {
-    return "Admin";
-  }
-  getDashboardRoute() {
-    return "/admin";
-  }
-  canAccessAdmin() {
-    return true;
-  }
-  canPlaceOrder() {
-    return false;
-  }
+  getRoleLabel() { return "Admin"; }
+  getDashboardRoute() { return "/admin"; }
+  canAccessAdmin() { return true; }
+  canPlaceOrder() { return false; }
 }

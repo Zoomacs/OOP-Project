@@ -19,9 +19,7 @@ export default function ReplyContactTicket() {
 
   function selectTicket(value) {
     setId(value);
-    const ticket = tickets.find(
-      (item) => String(item.raw_id) === String(value),
-    );
+    const ticket = tickets.find((item) => String(item.raw_id) === String(value));
     setReply(ticket?.reply || "");
   }
 
@@ -40,11 +38,7 @@ export default function ReplyContactTicket() {
 
     await api("tickets", {
       method: "PUT",
-      body: JSON.stringify({
-        id: ticketId,
-        reply: reply.trim(),
-        status: "Answered",
-      }),
+      body: JSON.stringify({ id: ticketId, reply: reply.trim(), status: "Answered" }),
     });
 
     notify("Reply saved. The user can view it in Contact > View Tickets.");
@@ -52,19 +46,11 @@ export default function ReplyContactTicket() {
   }
 
   return (
-    <>
-      <PageHeader
-        title="Reply Contact Ticket"
-        subtitle="Send a support reply to a customer."
-      />
+    <div className="reply-contact-ticket-page">
+      <PageHeader title="Reply Contact Ticket" subtitle="Send a support reply to a customer." />
       <Card>
         <form className="form" onSubmit={submit}>
-          <select
-            className="input full"
-            value={id}
-            onChange={(e) => selectTicket(e.target.value)}
-            required
-          >
+          <select className="input full" value={id} onChange={(e) => selectTicket(e.target.value)} required>
             <option value="">Choose ticket</option>
             {tickets.map((ticket) => (
               <option key={ticket.raw_id} value={ticket.raw_id}>
@@ -82,6 +68,6 @@ export default function ReplyContactTicket() {
           <button className="btn full">Send Reply</button>
         </form>
       </Card>
-    </>
+    </div>
   );
 }

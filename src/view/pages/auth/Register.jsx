@@ -340,16 +340,7 @@ function Register({ page }) {
             )}
           </div>
 
-          {message && (
-            <p
-              style={{
-                color: message.includes("success") ? "green" : "#cc0600",
-                fontWeight: 700,
-              }}
-            >
-              {message}
-            </p>
-          )}
+          {message && <p style={{ color: message.includes("success") ? "green" : "#cc0600", fontWeight: 700 }}>{message}</p>}
           <button className="reg-submit" onClick={handleSubmit}>
             Sign Up
           </button>

@@ -53,20 +53,16 @@ export default function ViewContactTickets() {
   }
 
   return (
-    <>
+    <div className="view-contact-tickets-page">
       <PageHeader
         title="View Contact Tickets"
         subtitle="Read customer messages and reply directly from this page."
       >
-        <button className="btn" onClick={loadTickets}>
-          Refresh
-        </button>
+        <button className="btn" onClick={loadTickets}>Refresh</button>
       </PageHeader>
 
       <Card>
-        {tickets.length === 0 && (
-          <p className="muted">No contact tickets found.</p>
-        )}
+        {tickets.length === 0 && <p className="muted">No contact tickets found.</p>}
 
         {tickets.map((ticket) => {
           const id = rawId(ticket);
@@ -75,26 +71,14 @@ export default function ViewContactTickets() {
             <div className="ticket" key={id}>
               <div className="ticket-main">
                 <div className="ticket-topline">
-                  <b>
-                    {ticket.id} - {ticket.title}
-                  </b>
-                  <Badge
-                    type={
-                      ticket.status === "Answered"
-                        ? "green"
-                        : ticket.status === "Urgent"
-                          ? "red"
-                          : "blue"
-                    }
-                  >
+                  <b>{ticket.id} - {ticket.title}</b>
+                  <Badge type={ticket.status === "Answered" ? "green" : ticket.status === "Urgent" ? "red" : "blue"}>
                     {ticket.status}
                   </Badge>
                 </div>
 
                 <p className="muted">From: {ticket.email || "No email"}</p>
-                <p>
-                  <b>User Message:</b> {ticket.message || ticket.text}
-                </p>
+                <p><b>User Message:</b> {ticket.message || ticket.text}</p>
 
                 <div className="current-reply">
                   <b>Current Admin Reply:</b>
@@ -104,17 +88,11 @@ export default function ViewContactTickets() {
                 <textarea
                   className="reply-box"
                   value={replyText[id] || ""}
-                  onChange={(e) =>
-                    setReplyText({ ...replyText, [id]: e.target.value })
-                  }
+                  onChange={(e) => setReplyText({ ...replyText, [id]: e.target.value })}
                   placeholder="Write admin reply that will appear to the user..."
                 />
 
-                <button
-                  className="btn dark"
-                  onClick={() => saveReply(ticket)}
-                  disabled={loadingId === id}
-                >
+                <button className="btn dark" onClick={() => saveReply(ticket)} disabled={loadingId === id}>
                   {loadingId === id ? "Saving..." : "Save Reply"}
                 </button>
               </div>
@@ -122,6 +100,6 @@ export default function ViewContactTickets() {
           );
         })}
       </Card>
-    </>
+    </div>
   );
 }

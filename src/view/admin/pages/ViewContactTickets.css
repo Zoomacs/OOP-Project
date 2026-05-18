@@ -1,16 +1,40 @@
-
-.ticket-main {
+.view-contact-tickets-page {
   width: 100%;
 }
 
-.ticket-topline {
+.view-contact-tickets-page .card {
+  margin-bottom: 18px;
+}
+
+.view-contact-tickets-page table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.view-contact-tickets-page th,
+.view-contact-tickets-page td {
+  padding: 12px;
+  border-bottom: 1px solid var(--border-color);
+  text-align: left;
+}
+
+.view-contact-tickets-page input,
+.view-contact-tickets-page select,
+.view-contact-tickets-page textarea {
+  width: 100%;
+}
+.view-contact-tickets-page .ticket-main {
+  width: 100%;
+}
+
+.view-contact-tickets-page .ticket-topline {
   align-items: center;
   display: flex;
   gap: 12px;
   justify-content: space-between;
 }
 
-.current-reply {
+.view-contact-tickets-page .current-reply {
   background: rgba(204, 6, 0, 0.06);
   border: 1px solid rgba(204, 6, 0, 0.12);
   border-radius: 14px;
@@ -18,8 +42,8 @@
   padding: 12px;
 }
 
-.reply-box {
-  border: 1px solid var(--border-color, #ddd);
+.view-contact-tickets-page .reply-box {
+  border: 1px solid var(--border-color);
   border-radius: 14px;
   display: block;
   min-height: 90px;

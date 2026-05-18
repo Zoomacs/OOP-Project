@@ -6,10 +6,7 @@
   width: min(420px, calc(100vw - 32px));
   transform: translateY(0) scale(1);
   opacity: 1;
-  transition:
-    transform 0.25s ease,
-    opacity 0.25s ease,
-    visibility 0.25s ease;
+  transition: transform 0.25s ease, opacity 0.25s ease, visibility 0.25s ease;
 }
 
 .notification-panel.hidden,
@@ -36,11 +33,7 @@
 .notification-head {
   border-bottom: 1px solid var(--border-color);
   padding: 18px 20px;
-  background: linear-gradient(
-    135deg,
-    var(--box-color),
-    var(--background-color)
-  );
+  background: linear-gradient(135deg, var(--box-color), var(--background-color));
   display: flex;
   align-items: center;
   justify-content: space-between;

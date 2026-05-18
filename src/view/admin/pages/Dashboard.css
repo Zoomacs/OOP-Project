@@ -22,18 +22,71 @@
 .dashboard-page select,
 .dashboard-page textarea {
   width: 100%;
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
-  padding: 10px 12px;
-  background: var(--box-color);
-  color: var(--text-color);
+}
+.dashboard-page .hero {
+  min-height: 220px;
+  border-radius: 28px;
+  padding: 36px;
+  margin-bottom: 24px;
+  background: linear-gradient(120deg, color-mix(in srgb, var(--primary-color) 84%, black), rgba(0, 0, 0, 0.45)), url("https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1600&q=80");
+  background-size: cover;
+  background-position: center;
+  color: white;
+  box-shadow: 0 18px 35px var(--box-shadow);
+  position: relative;
+  overflow: hidden;
 }
 
-.dashboard-page button {
-  border: 0;
-  border-radius: 10px;
-  padding: 10px 14px;
-  background: var(--primary-color);
-  color: var(--button-text);
-  cursor: pointer;
+.dashboard-page .hero h1 {
+  color: white;
+}
+
+.dashboard-page .hero .subtitle {
+  color: rgba(255, 255, 255, 0.92);
+  max-width: 760px;
+}
+
+.dashboard-page .grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.dashboard-page .dashboard-two-col {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 18px;
+  margin-top: 22px;
+}
+
+.dashboard-page .ticket {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  padding: 16px;
+  border-radius: 16px;
+  background: var(--box-color);
+  border: 1px solid var(--border-color);
+  margin: 12px 0;
+  transition: 0.18s;
+}
+
+.dashboard-page .ticket:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 18px var(--box-shadow);
+}
+
+@media (max-width: 1050px) {
+  .dashboard-page .grid,
+  .dashboard-page .dashboard-two-col {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .dashboard-page .grid,
+  .dashboard-page .dashboard-two-col {
+    grid-template-columns: 1fr;
+  }
 }

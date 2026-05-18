@@ -1,9 +1,50 @@
 .admin-scope {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  --admin-panel: var(--box-color);
+  --admin-soft: var(--background-color);
+  --fresh-green: #2f8f5b;
+  --gold: #d99a16;
+  --blue: #276ef1;
+  --soft-red: color-mix(in srgb, var(--primary-color) 10%, transparent);
+  --soft-gold: color-mix(in srgb, var(--secondary-color) 60%, transparent);
+  --soft-green: color-mix(in srgb, var(--fresh-green) 13%, transparent);
+  --soft-blue: color-mix(in srgb, var(--blue) 12%, transparent);
   min-height: 100vh;
-  background: var(--background-color);
+  background: radial-gradient(circle at top left, color-mix(in srgb, var(--primary-color) 10%, transparent), transparent 30%), var(--background-color);
   color: var(--text-color);
 }
 
 .admin-scope * {
   box-sizing: border-box;
+}
+
+.admin-scope a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.admin-scope button,
+.admin-scope input,
+.admin-scope select,
+.admin-scope textarea {
+  font-family: inherit;
+}
+
+.admin-scope h1 {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 900;
+  color: var(--text-color);
+  letter-spacing: -0.6px;
+}
+
+.admin-scope label {
+  font-weight: 800;
+  color: var(--text-color);
+}
+
+@media (max-width: 700px) {
+  .admin-scope h1 {
+    font-size: 28px;
+  }
 }

@@ -24,11 +24,7 @@ class ApiController {
     if (!response.ok || payload.success === false) {
       throw new Error(payload.message || "Backend request failed");
     }
-    if (
-      payload.data &&
-      typeof payload.data === "object" &&
-      !Array.isArray(payload.data)
-    ) {
+    if (payload.data && typeof payload.data === "object" && !Array.isArray(payload.data)) {
       return { ...payload, ...payload.data };
     }
 

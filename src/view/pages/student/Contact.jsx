@@ -24,10 +24,9 @@ function Contact({ page }) {
     }
 
     try {
-      const query =
-        user.role === "admin"
-          ? "tickets"
-          : `tickets&user_id=${encodeURIComponent(user.id)}&email=${encodeURIComponent(user.email || "")}`;
+      const query = user.role === "admin"
+        ? "tickets"
+        : `tickets&user_id=${encodeURIComponent(user.id)}&email=${encodeURIComponent(user.email || "")}`;
       const data = await api(query);
       setTickets(data.tickets || []);
     } catch (err) {
@@ -136,12 +135,7 @@ function Contact({ page }) {
             <div className="contact-card tickets-box">
               <div className="ticket-list-title">
                 <h2>Your Ticket Messages</h2>
-                <button
-                  className="view-tickets small-refresh"
-                  onClick={loadTickets}
-                >
-                  Refresh
-                </button>
+                <button className="view-tickets small-refresh" onClick={loadTickets}>Refresh</button>
               </div>
 
               {tickets.length === 0 && (
@@ -151,9 +145,7 @@ function Contact({ page }) {
               {tickets.map((ticket) => (
                 <div className="ticket-item" key={ticket.raw_id || ticket.id}>
                   <div className="ticket-header">
-                    <h3>
-                      {ticket.id} - {ticket.title}
-                    </h3>
+                    <h3>{ticket.id} - {ticket.title}</h3>
                     <span className="ticket-badge">{ticket.status}</span>
                   </div>
 

@@ -12,29 +12,15 @@ export default class CustomerModel extends UserModel {
     this.#address = this._string(data.address);
   }
 
-  get phone() {
-    return this.#phone;
-  }
-  set phone(value) {
-    this.#phone = this._string(value);
-  }
+  get phone() { return this.#phone; }
+  set phone(value) { this.#phone = this._string(value); }
 
-  get address() {
-    return this.#address;
-  }
-  set address(value) {
-    this.#address = this._string(value);
-  }
+  get address() { return this.#address; }
+  set address(value) { this.#address = this._string(value); }
 
-  getRoleLabel() {
-    return "Customer";
-  }
-  getDashboardRoute() {
-    return "/home";
-  }
-  canPlaceOrder() {
-    return true;
-  }
+  getRoleLabel() { return "Customer"; }
+  getDashboardRoute() { return "/home"; }
+  canPlaceOrder() { return true; }
 
   toJSON() {
     return {

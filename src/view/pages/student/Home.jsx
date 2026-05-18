@@ -202,7 +202,7 @@ function Home({ page }) {
                 </div>
                 <button
                   className="btn-icon-round"
-                  onClick={() => handleAddToCart(order)} /* <-- CHANGED HERE */
+                  onClick={() => handleAddToCart(order)} 
                   title="Reorder"
                 >
                   <RotateCcw size={18} />
