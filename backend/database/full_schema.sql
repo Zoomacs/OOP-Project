@@ -1,4 +1,7 @@
-CREATE DATABASE IF NOT EXISTS oop_project CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE DATABASE IF NOT EXISTS oop_project
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
+
 USE oop_project;
 
 SET FOREIGN_KEY_CHECKS = 0;
@@ -119,241 +122,165 @@ CREATE TABLE notifications (
   FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
-
--- =========================================
--- IMAGE SOURCE NOTE
--- Restaurant/menu image_url fields below use public image URLs found from restaurant web/menu pages.
--- Qedra: Talabat logo + MenuEgypt menu images.
--- Mix & Wrap: Talabat restaurant image/logo. Individual item photos were not publicly exposed in the accessible page,
--- so Mix & Wrap menu items use the restaurant image/logo until real item photos are added.
--- =========================================
-
--- =========================================
--- MAIN USERS ONLY
--- =========================================
-
 INSERT INTO users
-(name, email, university_id, password_hash, role, department, status, restaurant_id)
+(id, name, email, university_id, password_hash, role, department, status, restaurant_id)
 VALUES
-('System Admin', 'admin@qless.local', 'admin', '123', 'admin', 'IT', 'Active', NULL),
-('Student User', 'student@qless.local', '123', '123', 'student', 'Computer Science', 'Active', NULL),
-('Qedra Owner', 'qedra@restaurants.com', 'REST001', '123456', 'owner', 'Restaurants', 'Active', 4),
-('Mix & Wrap Owner', 'mixwrapowner@restaurants.com', 'REST002', '123456', 'owner', 'Restaurants', 'Active', 11);
-
--- =========================================
--- RESTAURANTS
--- Only restaurants related to the comment sections below
--- =========================================
+(1, 'System Admin', 'admin@qless.local', 'admin', '123', 'admin', 'IT', 'Active', NULL),
+(2, 'Student User', 'student@qless.local', '123', '123', 'student', 'Computer Science', 'Active', NULL),
+(3, 'Qedra Owner', 'qedra@restaurants.com', 'REST001', '123456', 'owner', 'Restaurants', 'Active', 4),
+(4, 'Mix & Wrap Owner', 'mixwrapowner@restaurants.com', 'REST002', '123456', 'owner', 'Restaurants', 'Active', 11);
 
 INSERT INTO restaurants
 (id, name, owner_user_id, owner_name, owner_email, phone, category, description, address, opening_hours, image_url, is_open, rating, reviews, prep_time, staff_delivery)
 VALUES
 (
-4,
-'Qedra',
-(SELECT id FROM users WHERE email = 'qedra@restaurants.com' LIMIT 1),
-'Qedra Owner',
-'qedra@restaurants.com',
-'0100000001',
-'Egyptian Food',
-'Traditional Egyptian breakfast and oriental food restaurant',
-'Alexandria, Egypt',
-'24 Hours',
-'https://images.deliveryhero.io/image/talabat/restaurants/Qedra_Logo637896012906314949.jpg?width=180',
-1,
-4.8,
-350,
-'10-20 min',
-1
+  4,
+  'Qedra',
+  3,
+  'Qedra Owner',
+  'qedra@restaurants.com',
+  '0100000001',
+  'Egyptian Food',
+  'Traditional Egyptian breakfast and oriental food restaurant',
+  'Alexandria, Egypt',
+  '24 Hours',
+  'https://images.unsplash.com/photo-1541014741259-de529411b96a?auto=format&fit=crop&w=900&q=80',
+  1,
+  4.8,
+  350,
+  '10-20 min',
+  1
 ),
 (
-11,
-'Mix & Wrap',
-(SELECT id FROM users WHERE email = 'mixwrapowner@restaurants.com' LIMIT 1),
-'Mix & Wrap Owner',
-'mixwrapowner@restaurants.com',
-'0100000002',
-'Fast Food',
-'Wraps, pizza, pasta, snacks, and breakfast items',
-'Alexandria, Egypt',
-'10 AM - 12 AM',
-'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180',
-1,
-4.7,
-220,
-'15-25 min',
-1
+  11,
+  'Mix & Wrap',
+  4,
+  'Mix & Wrap Owner',
+  'mixwrapowner@restaurants.com',
+  '0100000002',
+  'Fast Food',
+  'Wraps, pizza, pasta, fries, and chicken meals',
+  'Alexandria, Egypt',
+  '10 AM - 2 AM',
+  'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80',
+  1,
+  4.7,
+  420,
+  '15-25 min',
+  1
 );
 
--- Make owner accounts linked to their restaurants
-UPDATE users
-SET restaurant_id = 4
-WHERE email = 'qedra@restaurants.com';
-
-UPDATE users
-SET restaurant_id = 11
-WHERE email = 'mixwrapowner@restaurants.com';
-
-
--- =========================================
--- QEDRA MENU ITEMS
--- RESTAURANT ID = 4
--- =========================================
-
 INSERT INTO menu_items
 (restaurant_id, name, description, category, price, rating, image_url, is_available)
 VALUES
-(4, 'Ful Medames', 'Traditional Egyptian fava beans with olive oil and spices', 'BREAKFAST', 35, 5, 'https://www.menuegypt.com/restaurants_menus/qedra_menu_1.jpg', 1),
-(4, 'Falafel Sandwich', 'Fresh Egyptian falafel sandwich with tahini and salad', 'BREAKFAST', 25, 5, 'https://www.menuegypt.com/restaurants_menus/qedra_menu_1.jpg', 1),
-(4, 'Feteer Meshaltet', 'Egyptian layered pastry served hot', 'PASTRY', 90, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/Qedra_Logo637896012906314949.jpg?width=180', 1),
-(4, 'Koshary', 'Rice, pasta, lentils, chickpeas, crispy onions, and tomato sauce', 'MAIN DISH', 65, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/Qedra_Logo637896012906314949.jpg?width=180', 1),
-(4, 'Mahshi Mix', 'Stuffed vegetables with Egyptian rice mixture', 'MAIN DISH', 85, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/Qedra_Logo637896012906314949.jpg?width=180', 1),
-(4, 'Molokhia With Chicken', 'Egyptian molokhia served with chicken and rice', 'MAIN DISH', 120, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/Qedra_Logo637896012906314949.jpg?width=180', 1),
-(4, 'Hawawshi', 'Spiced minced meat stuffed in Egyptian bread', 'SANDWICH', 75, 5, 'https://www.menuegypt.com/restaurants_menus/qedra_menu_4.jpg', 1),
-(4, 'Liver Sandwich', 'Alexandrian style liver sandwich', 'SANDWICH', 60, 5, 'https://www.menuegypt.com/restaurants_menus/qedra_menu_4.jpg', 1),
-(4, 'Sobia', 'Cold Egyptian coconut drink', 'DRINKS', 30, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/Qedra_Logo637896012906314949.jpg?width=180', 1),
-(4, 'Tea With Mint', 'Hot Egyptian tea with fresh mint', 'DRINKS', 20, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/Qedra_Logo637896012906314949.jpg?width=180', 1);
+-- QEDRA MENU
+(4, 'Ful Medames', 'Traditional Egyptian fava beans with olive oil and spices', 'BREAK FAST', 35, 5, 'https://images.unsplash.com/photo-1604909052743-94e838986d24?auto=format&fit=crop&w=700&q=80', 1),
+(4, 'Falafel Sandwich', 'Crispy Egyptian falafel sandwich with salad and tahini', 'BREAK FAST', 25, 5, 'https://images.unsplash.com/photo-1593001874117-c99c800e3eb5?auto=format&fit=crop&w=700&q=80', 1),
+(4, 'Taamia Plate', 'Fresh fried taamia served with bread and vegetables', 'BREAK FAST', 40, 5, 'https://images.unsplash.com/photo-1593001874117-c99c800e3eb5?auto=format&fit=crop&w=700&q=80', 1),
+(4, 'Eggs With Pastrami', 'Egyptian eggs with pastrami and oriental spices', 'BREAK FAST', 55, 5, 'https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=700&q=80', 1),
+(4, 'Cheese Sandwich', 'Fresh cheese sandwich with vegetables', 'BREAK FAST', 30, 5, 'https://images.unsplash.com/photo-1604908177522-04025c8f7cbf?auto=format&fit=crop&w=700&q=80', 1),
+(4, 'Potato Sandwich', 'Fried potato sandwich with salad and sauce', 'BREAK FAST', 30, 5, 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=700&q=80', 1),
+(4, 'Oriental Breakfast Meal', 'Full breakfast meal with ful, falafel, eggs, bread, and salad', 'BREAK FAST', 95, 5, 'https://images.unsplash.com/photo-1541014741259-de529411b96a?auto=format&fit=crop&w=700&q=80', 1),
+(4, 'Koshary', 'Classic Egyptian koshary with rice, pasta, lentils, chickpeas, and sauce', 'MAIN DISH', 70, 5, 'https://images.unsplash.com/photo-1604909052743-94e838986d24?auto=format&fit=crop&w=700&q=80', 1),
+(4, 'Hawawshi', 'Egyptian meat stuffed bread served hot', 'MAIN DISH', 85, 5, 'https://images.unsplash.com/photo-1604908177522-04025c8f7cbf?auto=format&fit=crop&w=700&q=80', 1),
+(4, 'Molokhia Chicken Meal', 'Molokhia with chicken, rice, and oriental sides', 'MAIN DISH', 120, 5, 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=700&q=80', 1),
 
--- =========================================
--- MIX & WRAP MENU ITEMS
--- RESTAURANT ID = 11
--- =========================================
+-- MIX & WRAP BREAK FAST
+(11, 'WRAP POTATO', 'Breakfast potato wrap', 'BREAK FAST', 55, 5, 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'CHESSE WRAP POTATO', 'Cheese potato wrap', 'BREAK FAST', 65, 5, 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'MIX CHESSE WRAP POTATO', 'Mixed cheese potato wrap', 'BREAK FAST', 70, 5, 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'SUPREME WRAP POTATO', 'Supreme potato wrap', 'BREAK FAST', 75, 5, 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'VEGO WRAP POTATO', 'Vegetable potato wrap', 'BREAK FAST', 80, 5, 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'TESTE WRAP POTATO', 'Special taste potato wrap', 'BREAK FAST', 85, 5, 'https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'MIX CHESSE', 'Mixed cheese breakfast item', 'BREAK FAST', 90, 5, 'https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'TUNA', 'Tuna breakfast item', 'BREAK FAST', 95, 5, 'https://images.unsplash.com/photo-1553621042-f6e147245754?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'SALAMI TURKI', 'Turkey salami breakfast item', 'BREAK FAST', 100, 5, 'https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'WRAP FLAFEL', 'Falafel wrap breakfast item', 'BREAK FAST', 105, 5, 'https://images.unsplash.com/photo-1593001874117-c99c800e3eb5?auto=format&fit=crop&w=700&q=80', 1),
 
-INSERT INTO menu_items
-(restaurant_id, name, description, category, price, rating, image_url, is_available)
+-- MIX & WRAP POTATO AND SNACKS
+(11, 'FRENCH FIRES M', 'Medium fries', 'POTATO & SNACKS', 50, 5, 'https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'FRENCH FIRES L', 'Large fries', 'POTATO & SNACKS', 60, 5, 'https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'KRINKIL FIRES M', 'Medium crinkle fries', 'POTATO & SNACKS', 55, 5, 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'KRINKIL FIRES L', 'Large crinkle fries', 'POTATO & SNACKS', 65, 5, 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'CHEESE FIRES M', 'Medium cheese fries', 'POTATO & SNACKS', 60, 5, 'https://images.unsplash.com/photo-1576107232684-1279f390859f?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'CHEESE FIRES L', 'Large cheese fries', 'POTATO & SNACKS', 70, 5, 'https://images.unsplash.com/photo-1576107232684-1279f390859f?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'SUPREME FIRES M', 'Medium supreme fries', 'POTATO & SNACKS', 70, 5, 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'SUPREME FIRES L', 'Large supreme fries', 'POTATO & SNACKS', 80, 5, 'https://images.unsplash.com/photo-1573080496219-bb080dd4f877?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'BOLONEZ FIRES M', 'Medium bolognese fries', 'POTATO & SNACKS', 70, 5, 'https://images.unsplash.com/photo-1576107232684-1279f390859f?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'BOLONEZ FIRES L', 'Large bolognese fries', 'POTATO & SNACKS', 80, 5, 'https://images.unsplash.com/photo-1576107232684-1279f390859f?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'JALEBENO FIRES M', 'Medium jalapeno fries', 'POTATO & SNACKS', 60, 5, 'https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'JALEBENO FIRES L', 'Large jalapeno fries', 'POTATO & SNACKS', 70, 5, 'https://images.unsplash.com/photo-1630384060421-cb20d0e0649d?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'CHICKEN STRIPS M', 'Medium chicken strips', 'POTATO & SNACKS', 110, 5, 'https://images.unsplash.com/photo-1562967916-eb82221dfb36?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'CHICKEN STRIPS L', 'Large chicken strips', 'POTATO & SNACKS', 130, 5, 'https://images.unsplash.com/photo-1562967916-eb82221dfb36?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'CHICKEN PANE M', 'Medium chicken pane', 'POTATO & SNACKS', 100, 5, 'https://images.unsplash.com/photo-1562967916-eb82221dfb36?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'CHICKEN PANE L', 'Large chicken pane', 'POTATO & SNACKS', 120, 5, 'https://images.unsplash.com/photo-1562967916-eb82221dfb36?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'CHICKEN NUGGETS M', 'Medium chicken nuggets', 'POTATO & SNACKS', 100, 5, 'https://images.unsplash.com/photo-1562967916-eb82221dfb36?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'CHICKEN NUGGETS L', 'Large chicken nuggets', 'POTATO & SNACKS', 130, 5, 'https://images.unsplash.com/photo-1562967916-eb82221dfb36?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'SHISH TAWOOQ M', 'Medium shish tawooq', 'POTATO & SNACKS', 110, 5, 'https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'SHISH TAWOOQ L', 'Large shish tawooq', 'POTATO & SNACKS', 130, 5, 'https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'CHICKEN FAJETA M', 'Medium chicken fajita', 'POTATO & SNACKS', 110, 5, 'https://images.unsplash.com/photo-1611250188496-e966043a0629?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'CHICKEN FAJETA L', 'Large chicken fajita', 'POTATO & SNACKS', 130, 5, 'https://images.unsplash.com/photo-1611250188496-e966043a0629?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'CHICKEN MUSHROOM M', 'Medium chicken mushroom', 'POTATO & SNACKS', 110, 5, 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'CHICKEN MUSHROOM L', 'Large chicken mushroom', 'POTATO & SNACKS', 130, 5, 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'CHICKEN SHAWERMA M', 'Medium chicken shawerma', 'POTATO & SNACKS', 110, 5, 'https://images.unsplash.com/photo-1662116765994-1e4200c43589?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'CHICKEN SHAWERMA L', 'Large chicken shawerma', 'POTATO & SNACKS', 130, 5, 'https://images.unsplash.com/photo-1662116765994-1e4200c43589?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'ALAGRIC M', 'Medium grilled chicken', 'POTATO & SNACKS', 110, 5, 'https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'ALAGRIC L', 'Large grilled chicken', 'POTATO & SNACKS', 130, 5, 'https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=700&q=80', 1),
+
+-- MIX & WRAP PIZZA
+(11, 'MARGRITA S', 'Small margherita pizza', 'PIZZA', 100, 5, 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'MARGRITA M', 'Medium margherita pizza', 'PIZZA', 130, 5, 'https://images.unsplash.com/photo-1574071318508-1cdbab80d002?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'SALAMI S', 'Small salami pizza', 'PIZZA', 110, 5, 'https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'SALAMI M', 'Medium salami pizza', 'PIZZA', 140, 5, 'https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'HOT DOG S', 'Small hot dog pizza', 'PIZZA', 110, 5, 'https://images.unsplash.com/photo-1612392062631-94dd858cba88?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'HOT DOG M', 'Medium hot dog pizza', 'PIZZA', 140, 5, 'https://images.unsplash.com/photo-1612392062631-94dd858cba88?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'CHICKEN RANCH S', 'Small chicken ranch pizza', 'PIZZA', 130, 5, 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'CHICKEN RANCH M', 'Medium chicken ranch pizza', 'PIZZA', 160, 5, 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'CHICKEN BARBEQUE S', 'Small chicken barbeque pizza', 'PIZZA', 130, 5, 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'CHICKEN BARBEQUE M', 'Medium chicken barbeque pizza', 'PIZZA', 160, 5, 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'SUPER SUPREME S', 'Small super supreme pizza', 'PIZZA', 150, 5, 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'SUPER SUPREME M', 'Medium super supreme pizza', 'PIZZA', 200, 5, 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'CHICKEN STRIPS S', 'Small chicken strips pizza', 'PIZZA', 140, 5, 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'CHICKEN STRIPS M', 'Medium chicken strips pizza', 'PIZZA', 170, 5, 'https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'SAUSAGE S', 'Small sausage pizza', 'PIZZA', 120, 5, 'https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'SAUSAGE M', 'Medium sausage pizza', 'PIZZA', 140, 5, 'https://images.unsplash.com/photo-1628840042765-356cda07504e?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'MIX CHEESE S', 'Small mix cheese pizza', 'PIZZA', 110, 5, 'https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'MIX CHEESE M', 'Medium mix cheese pizza', 'PIZZA', 140, 5, 'https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?auto=format&fit=crop&w=700&q=80', 1),
+
+-- MIX & WRAP FATA
+(11, 'CHICKEN SHAWERMA S', 'Small chicken shawerma fata', 'FATA', 120, 5, 'https://images.unsplash.com/photo-1662116765994-1e4200c43589?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'CHICKEN SHAWERMA M', 'Medium chicken shawerma fata', 'FATA', 140, 5, 'https://images.unsplash.com/photo-1662116765994-1e4200c43589?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'STRIPS S', 'Small strips fata', 'FATA', 130, 5, 'https://images.unsplash.com/photo-1562967916-eb82221dfb36?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'STRIPS M', 'Medium strips fata', 'FATA', 150, 5, 'https://images.unsplash.com/photo-1562967916-eb82221dfb36?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'SHISH TAWOOQ S', 'Small shish tawooq fata', 'FATA', 130, 5, 'https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'SHISH TAWOOQ M', 'Medium shish tawooq fata', 'FATA', 150, 5, 'https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'ALAGRIC S', 'Small grilled chicken fata', 'FATA', 130, 5, 'https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'ALAGRIC M', 'Medium grilled chicken fata', 'FATA', 150, 5, 'https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'CHICKEN FAJETA S', 'Small chicken fajita fata', 'FATA', 130, 5, 'https://images.unsplash.com/photo-1611250188496-e966043a0629?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'CHICKEN FAJETA M', 'Medium chicken fajita fata', 'FATA', 150, 5, 'https://images.unsplash.com/photo-1611250188496-e966043a0629?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'MIX CHICKEN S', 'Small mix chicken fata', 'FATA', 130, 5, 'https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'MIX CHICKEN M', 'Medium mix chicken fata', 'FATA', 150, 5, 'https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'MIX GRILL S', 'Small mix grill fata', 'FATA', 140, 5, 'https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'MIX GRILL M', 'Medium mix grill fata', 'FATA', 170, 5, 'https://images.unsplash.com/photo-1598515214211-89d3c73ae83b?auto=format&fit=crop&w=700&q=80', 1),
+
+-- MIX & WRAP PASTA
+(11, 'JUST', 'Classic pasta item', 'PASTA', 60, 5, 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'MUSHROOME', 'Mushroom pasta item', 'PASTA', 80, 5, 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'MIX CHEESE', 'Mix cheese pasta item', 'PASTA', 80, 5, 'https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'BOLONEZ', 'Bolognese pasta item', 'PASTA', 100, 5, 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'HOT DOG', 'Hot dog pasta item', 'PASTA', 100, 5, 'https://images.unsplash.com/photo-1612392062631-94dd858cba88?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'CHICKEN', 'Chicken pasta item', 'PASTA', 110, 5, 'https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'STRIPS', 'Chicken strips pasta item', 'PASTA', 130, 5, 'https://images.unsplash.com/photo-1562967916-eb82221dfb36?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'ALFARIDO', 'Alfredo pasta item', 'PASTA', 120, 5, 'https://images.unsplash.com/photo-1645112411341-6c4fd023882c?auto=format&fit=crop&w=700&q=80', 1),
+(11, 'MAC & CHEESE', 'Mac and cheese pasta item', 'PASTA', 130, 5, 'https://images.unsplash.com/photo-1543339494-b4cd4f7ba686?auto=format&fit=crop&w=700&q=80', 1);
+
+INSERT INTO notifications
+(user_id, title, description, image_url)
 VALUES
+(2, 'Welcome to Q-Less', 'Your account is connected to the database.', ''),
+(2, 'Explore restaurants', 'Qedra and Mix & Wrap are now available.', '');
 
--- =========================================
--- BREAK FAST
--- =========================================
-
-(11, 'WRAP POTATO', 'Breakfast item', 'BREAK FAST', 55, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'CHESSE WRAP POTATO', 'Breakfast item', 'BREAK FAST', 65, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'MIX CHESSE WRAP POTATO', 'Breakfast item', 'BREAK FAST', 70, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'SUPREME WRAP POTATO', 'Breakfast item', 'BREAK FAST', 75, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'VEGO WRAP POTATO', 'Breakfast item', 'BREAK FAST', 80, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'TESTE WRAP POTATO', 'Breakfast item', 'BREAK FAST', 85, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'MIX CHESSE', 'Breakfast item', 'BREAK FAST', 90, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'TUNA', 'Breakfast item', 'BREAK FAST', 95, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'SALAMI TURKI', 'Breakfast item', 'BREAK FAST', 100, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'WRAP FLAFEL', 'Breakfast item', 'BREAK FAST', 105, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-
--- =========================================
--- POTATO & SNACKS
--- =========================================
-
-(11, 'FRENCH FIRES M', 'Medium size', 'POTATO & SNACKS', 50, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'FRENCH FIRES L', 'Large size', 'POTATO & SNACKS', 60, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'KRINKIL FIRES M', 'Medium size', 'POTATO & SNACKS', 55, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'KRINKIL FIRES L', 'Large size', 'POTATO & SNACKS', 65, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'CHEESE FIRES M', 'Medium size', 'POTATO & SNACKS', 60, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'CHEESE FIRES L', 'Large size', 'POTATO & SNACKS', 70, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'SUPREME FIRES M', 'Medium size', 'POTATO & SNACKS', 70, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'SUPREME FIRES L', 'Large size', 'POTATO & SNACKS', 80, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'BOLONEZ FIRES M', 'Medium size', 'POTATO & SNACKS', 70, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'BOLONEZ FIRES L', 'Large size', 'POTATO & SNACKS', 80, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'JALEBENO FIRES M', 'Medium size', 'POTATO & SNACKS', 60, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'JALEBENO FIRES L', 'Large size', 'POTATO & SNACKS', 70, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'CHICKEN STRIPS M', 'Medium size', 'POTATO & SNACKS', 110, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'CHICKEN STRIPS L', 'Large size', 'POTATO & SNACKS', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'CHICKEN PANE M', 'Medium size', 'POTATO & SNACKS', 100, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'CHICKEN PANE L', 'Large size', 'POTATO & SNACKS', 120, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'CHICKEN NUGGETS M', 'Medium size', 'POTATO & SNACKS', 100, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'CHICKEN NUGGETS L', 'Large size', 'POTATO & SNACKS', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'SHISH TAWOOQ M', 'Medium size', 'POTATO & SNACKS', 110, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'SHISH TAWOOQ L', 'Large size', 'POTATO & SNACKS', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'CHICKEN FAJETA M', 'Medium size', 'POTATO & SNACKS', 110, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'CHICKEN FAJETA L', 'Large size', 'POTATO & SNACKS', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'CHICKEN MUSHROOM M', 'Medium size', 'POTATO & SNACKS', 110, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'CHICKEN MUSHROOM L', 'Large size', 'POTATO & SNACKS', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'CHICKEN SHAWERMA M', 'Medium size', 'POTATO & SNACKS', 110, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'CHICKEN SHAWERMA L', 'Large size', 'POTATO & SNACKS', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'ALAGRIC M', 'Medium size', 'POTATO & SNACKS', 110, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'ALAGRIC L', 'Large size', 'POTATO & SNACKS', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-
--- =========================================
--- PIZZA
--- =========================================
-
-(11, 'MARGRITA S', 'Small pizza', 'PIZZA', 100, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'MARGRITA M', 'Medium pizza', 'PIZZA', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'SALAMI S', 'Small pizza', 'PIZZA', 110, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'SALAMI M', 'Medium pizza', 'PIZZA', 140, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'HOT DOG S', 'Small pizza', 'PIZZA', 110, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'HOT DOG M', 'Medium pizza', 'PIZZA', 140, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'CHICKEN RANCH S', 'Small pizza', 'PIZZA', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'CHICKEN RANCH M', 'Medium pizza', 'PIZZA', 160, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'CHICKEN BARBEQUE S', 'Small pizza', 'PIZZA', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'CHICKEN BARBEQUE M', 'Medium pizza', 'PIZZA', 160, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'SUPER SUPREME S', 'Small pizza', 'PIZZA', 150, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'SUPER SUPREME M', 'Medium pizza', 'PIZZA', 200, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'CHICKEN STRIPS S', 'Small pizza', 'PIZZA', 140, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'CHICKEN STRIPS M', 'Medium pizza', 'PIZZA', 170, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'SAUSAGE S', 'Small pizza', 'PIZZA', 120, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'SAUSAGE M', 'Medium pizza', 'PIZZA', 140, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'MIX CHEESE S', 'Small pizza', 'PIZZA', 110, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'MIX CHEESE M', 'Medium pizza', 'PIZZA', 140, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-
--- =========================================
--- FATA
--- =========================================
-
-(11, 'CHICKEN SHAWERMA S', 'Small fata', 'FATA', 120, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'CHICKEN SHAWERMA M', 'Medium fata', 'FATA', 140, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'STRIPS S', 'Small fata', 'FATA', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'STRIPS M', 'Medium fata', 'FATA', 150, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'SHISH TAWOOQ S', 'Small fata', 'FATA', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'SHISH TAWOOQ M', 'Medium fata', 'FATA', 150, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'ALAGRIC S', 'Small fata', 'FATA', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'ALAGRIC M', 'Medium fata', 'FATA', 150, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'CHICKEN FAJETA S', 'Small fata', 'FATA', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'CHICKEN FAJETA M', 'Medium fata', 'FATA', 150, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'MIX CHICKEN S', 'Small fata', 'FATA', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'MIX CHICKEN M', 'Medium fata', 'FATA', 150, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-(11, 'MIX GRILL S', 'Small fata', 'FATA', 140, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'MIX GRILL M', 'Medium fata', 'FATA', 170, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-
-
--- =========================================
--- PASTA
--- =========================================
-
-(11, 'JUST', 'Pasta item', 'PASTA', 60, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'MUSHROOME', 'Pasta item', 'PASTA', 80, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'MIX CHEESE', 'Pasta item', 'PASTA', 80, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'BOLONEZ', 'Pasta item', 'PASTA', 100, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'HOT DOG', 'Pasta item', 'PASTA', 100, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'CHICKEN', 'Pasta item', 'PASTA', 110, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'STRIPS', 'Pasta item', 'PASTA', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'ALFARIDO', 'Pasta item', 'PASTA', 120, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1),
-(11, 'MAC & CHEESE', 'Pasta item', 'PASTA', 130, 5, 'https://images.deliveryhero.io/image/talabat/restaurants/LOGO__Ahmed_Elmetwaly638867296198075638.jpg?width=180', 1);
+INSERT INTO tickets
+(user_id, title, email, message, status)
+VALUES
+(2, 'Test support ticket', 'student@qless.local', 'This is a sample support ticket.', 'Open');
