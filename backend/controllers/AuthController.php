@@ -40,7 +40,6 @@ class AuthController extends Controller
         $this->ok(['id' => $id], 'Account created successfully');
     }
 
-    // Backward-compatible route method names
     public function login($data)
     {
         return $this->LoginAuth($data);
