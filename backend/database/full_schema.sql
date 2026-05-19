@@ -31,6 +31,18 @@ CREATE TABLE users (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE notifications (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  user_id INT NOT NULL,
+  title VARCHAR(255) NOT NULL,
+  description TEXT,
+  image_url VARCHAR(500) DEFAULT '',
+  is_read TINYINT DEFAULT 0,
+  order_id INT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
 INSERT INTO menu_items
 (restaurant_id, name, description, category, price, rating, image_url, is_available, points_multiplier)
 VALUES
@@ -150,13 +162,13 @@ VALUES
 (11, 'MAC & CHEESE', 'Mac and cheese pasta item', 'PASTA', 130, 5, 'https://images.unsplash.com/photo-1543339494-b4cd4f7ba686?auto=format&fit=crop&w=700&q=80', 1);
 
 INSERT INTO notifications
-(user_id, title, description, image_url)
+(user_id, title, description, image_url, is_read, order_id)
 VALUES
-(2, 'Welcome to Q-Less', 'Your account is connected to the database.', ''),
-(2, 'Explore restaurants', 'Qedra and Mix & Wrap are now available.', ''),
-(5, 'Staff discount active', 'University staff receives 10% discount on every order.', ''),
-(6, 'Qedra staff account', 'You can manage Qedra restaurant orders.', ''),
-(7, 'Mix & Wrap staff account', 'You can manage Mix & Wrap restaurant orders.', '');
+(2, 'Welcome to Q-Less', 'Your account is connected to the database.', '', 0, NULL),
+(2, 'Explore restaurants', 'Qedra and Mix & Wrap are now available.', '', 0, NULL),
+(5, 'Staff discount active', 'University staff receives 10% discount on every order.', '', 0, NULL),
+(6, 'Qedra staff account', 'You can manage Qedra restaurant orders.', '', 0, NULL),
+(7, 'Mix & Wrap staff account', 'You can manage Mix & Wrap restaurant orders.', '', 0, NULL);
 
 INSERT INTO tickets
 (user_id, title, email, message, status)

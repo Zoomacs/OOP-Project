@@ -74,6 +74,7 @@ class Router
         if ($this->route === 'notifications') {
             $c = new NotificationController();
             if ($this->method === 'GET') return $c->index();
+            if ($this->method === 'PUT') return $c->markRead($this->data);
             if ($this->method === 'DELETE') return $c->destroy($this->data);
         }
 

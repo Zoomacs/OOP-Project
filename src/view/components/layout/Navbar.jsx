@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import {
   House,
   UtensilsIcon,
@@ -52,16 +52,26 @@ function Navbar({
   const [notificationCount, setNotificationCount] = useState(0);
   const userData = JSON.parse(sessionStorage.getItem("user") || "{}");
 
-  useEffect(() => {
+  const fetchNotificationCount = useCallback(() => {
     const userId = userData?.id || 4;
     fetch(`http://localhost/oop-project/backend/api.php?route=notifications&user_id=${userId}`)
       .then((r) => r.json())
       .then((data) => {
         const notifs = data?.notifications || data?.data?.notifications || [];
-        setNotificationCount(notifs.length);
+        setNotificationCount(notifs.filter(n => !n.is_read).length);
       })
       .catch(() => {});
-  }, []);
+  }, [userData?.id]);
+
+  useEffect(() => {
+    fetchNotificationCount();
+  }, [fetchNotificationCount]);
+
+  useEffect(() => {
+    const handleNotifUpdate = () => fetchNotificationCount();
+    window.addEventListener("notificationUpdated", handleNotifUpdate);
+    return () => window.removeEventListener("notificationUpdated", handleNotifUpdate);
+  }, [fetchNotificationCount]);
 
   useEffect(() => {
     function handleCartUpdated(event) {

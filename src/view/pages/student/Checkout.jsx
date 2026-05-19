@@ -8,7 +8,7 @@ import {
   X,
   MapPin,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { api, getUser } from "../../api";
 import "./Checkout.css";
@@ -22,6 +22,9 @@ function Checkout() {
   const isUniversityStaff = userRole === "staff" && !user?.restaurant_id;
   const isStudent = userRole === "student";
 
+  const items = JSON.parse(sessionStorage.getItem("cartItems") || "[]");
+  const restaurantId = items.length > 0 ? items[0].restaurant_id : null;
+
   const [selected, setSelected] = useState("cash");
   const [message, setMessage] = useState("");
   const [paymentProof, setPaymentProof] = useState(null);
@@ -29,23 +32,29 @@ function Checkout() {
   const [useDelivery, setUseDelivery] = useState(false);
   const [deliveryLocation, setDeliveryLocation] = useState("");
   const [deliveryDetails, setDeliveryDetails] = useState("");
+  const [restaurantDelivery, setRestaurantDelivery] = useState(false);
 
   const [discountCode, setDiscountCode] = useState("");
   const [appliedDiscount, setAppliedDiscount] = useState(null);
 
   const [userPoints, setUserPoints] = useState(() => {
     const savedPoints = sessionStorage.getItem("userPoints");
-
-    if (savedPoints) {
-      return Number(savedPoints);
-    }
-
+    if (savedPoints) return Number(savedPoints);
     return 120;
   });
 
   const [pointsToUse, setPointsToUse] = useState(0);
 
-  const items = JSON.parse(sessionStorage.getItem("cartItems") || "[]");
+  useEffect(() => {
+    if (restaurantId) {
+      api(`restaurants&restaurant_id=${restaurantId}`)
+        .then((data) => {
+          const r = data.restaurant || data.restaurants?.[0];
+          setRestaurantDelivery(r?.staffDelivery === true || r?.staffDelivery === "1");
+        })
+        .catch(() => setRestaurantDelivery(false));
+    }
+  }, [restaurantId]);
 
   const subtotal = items.reduce(
     (sum, item) => sum + Number(item.price) * Number(item.quantity),
@@ -55,7 +64,7 @@ function Checkout() {
   const instapayPhone = "01000000000";
   const instapayOwnerName = "Q-Less Restaurant Payment";
   const DELIVERY_FEE = 15;
-  const deliveryFee = isUniversityStaff && useDelivery ? DELIVERY_FEE : 0;
+  const deliveryFee = isUniversityStaff && restaurantDelivery && useDelivery ? DELIVERY_FEE : 0;
 
   const maxPointsCanUse = isStudent
     ? Math.min(userPoints, Math.floor(subtotal * 10))
@@ -227,9 +236,9 @@ function Checkout() {
 
           staff_discount_amount: staffDiscountValue,
 
-          use_delivery: isUniversityStaff ? useDelivery : false,
-          delivery_location: isUniversityStaff && useDelivery ? deliveryLocation : "",
-          delivery_details: isUniversityStaff && useDelivery ? deliveryDetails : "",
+          use_delivery: isUniversityStaff && restaurantDelivery ? useDelivery : false,
+          delivery_location: isUniversityStaff && restaurantDelivery && useDelivery ? deliveryLocation : "",
+          delivery_details: isUniversityStaff && restaurantDelivery && useDelivery ? deliveryDetails : "",
 
           points_used: isStudent ? Number(pointsToUse) : 0,
           points_discount: isStudent ? pointsDiscount : 0,
@@ -261,9 +270,9 @@ function Checkout() {
           user_role: userRole,
           is_university_staff: isUniversityStaff,
 
-          use_delivery: isUniversityStaff ? useDelivery : false,
-          delivery_location: isUniversityStaff && useDelivery ? deliveryLocation : "",
-          delivery_details: isUniversityStaff && useDelivery ? deliveryDetails : "",
+          use_delivery: isUniversityStaff && restaurantDelivery ? useDelivery : false,
+          delivery_location: isUniversityStaff && restaurantDelivery && useDelivery ? deliveryLocation : "",
+          delivery_details: isUniversityStaff && restaurantDelivery && useDelivery ? deliveryDetails : "",
 
           staff_discount_amount: staffDiscountValue,
 
@@ -402,47 +411,47 @@ function Checkout() {
           </div>
         </div>
 
+        {isUniversityStaff && restaurantDelivery && (
+          <div className={`co-method ${useDelivery ? "co-method-active" : ""}`} onClick={() => setUseDelivery(!useDelivery)}>
+            <div className="co-method-top">
+              <div className="co-method-icon-wrap co-icon-green">
+                <MapPin size={20} color="#27ae60" />
+              </div>
+              <div>
+                <p className="co-method-title">Delivery</p>
+                <p className="co-method-sub">Get your order delivered on campus</p>
+              </div>
+              <div className={`co-radio ${useDelivery ? "co-radio-active" : ""}`}></div>
+            </div>
+            {useDelivery && (
+              <div className="delivery-fields" onClick={(e) => e.stopPropagation()}>
+                <input type="text" className="delivery-input" placeholder="Delivery location (e.g. Building name, room number)" value={deliveryLocation} onChange={(e) => setDeliveryLocation(e.target.value)} />
+                <textarea className="delivery-textarea" placeholder="Additional details (optional)" rows={2} value={deliveryDetails} onChange={(e) => setDeliveryDetails(e.target.value)} />
+              </div>
+            )}
+          </div>
+        )}
+
         {isUniversityStaff && (
-          <>
-            <div className={`co-method ${useDelivery ? "co-method-active" : ""}`} onClick={() => setUseDelivery(!useDelivery)}>
-              <div className="co-method-top">
-                <div className="co-method-icon-wrap co-icon-green">
-                  <MapPin size={20} color="#27ae60" />
-                </div>
-                <div>
-                  <p className="co-method-title">Delivery</p>
-                  <p className="co-method-sub">Get your order delivered on campus</p>
-                </div>
-                <div className={`co-radio ${useDelivery ? "co-radio-active" : ""}`}></div>
-              </div>
-              {useDelivery && (
-                <div className="delivery-fields" onClick={(e) => e.stopPropagation()}>
-                  <input type="text" className="delivery-input" placeholder="Delivery location (e.g. Building name, room number)" value={deliveryLocation} onChange={(e) => setDeliveryLocation(e.target.value)} />
-                  <textarea className="delivery-textarea" placeholder="Additional details (optional)" rows={2} value={deliveryDetails} onChange={(e) => setDeliveryDetails(e.target.value)} />
-                </div>
-              )}
-            </div>
-
-            <div className="co-discount-card">
-              <div className="co-discount-header">
-                <div>
-                  <p className="co-discount-title">
-                    <TicketPercent size={18} /> Staff Discount
-                  </p>
-                  <span>
-                    University staff gets <b>10%</b> discount automatically.
-                  </span>
-                </div>
-              </div>
-
-              <div className="applied-discount-box">
-                <div>
-                  <strong>STAFF10</strong>
-                  <p>10% staff discount applied automatically</p>
-                </div>
+          <div className="co-discount-card">
+            <div className="co-discount-header">
+              <div>
+                <p className="co-discount-title">
+                  <TicketPercent size={18} /> Staff Discount
+                </p>
+                <span>
+                  University staff gets <b>10%</b> discount automatically.
+                </span>
               </div>
             </div>
-          </>
+
+            <div className="applied-discount-box">
+              <div>
+                <strong>STAFF10</strong>
+                <p>10% staff discount applied automatically</p>
+              </div>
+            </div>
+          </div>
         )}
 
         {isStudent && (

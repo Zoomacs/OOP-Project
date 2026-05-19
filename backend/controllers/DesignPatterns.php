@@ -44,6 +44,7 @@ class DatabaseNotificationObserver implements AppObserver
     private function titleFor($event, $payload)
     {
         if ($event === 'order.created') return 'Order placed';
+        if ($event === 'order.received') return 'New order';
         if ($event === 'order.status_updated') return 'Order update';
         if ($event === 'payment.created') return 'Payment created';
         if ($event === 'menu.created') return 'Menu item added';
@@ -56,6 +57,9 @@ class DatabaseNotificationObserver implements AppObserver
     {
         if ($event === 'order.created') {
             return 'Your order #' . ($payload['order_id'] ?? '') . ' was sent to the restaurant.';
+        }
+        if ($event === 'order.received') {
+            return 'New order #' . ($payload['order_id'] ?? '') . ' has been received.';
         }
         if ($event === 'order.status_updated') {
             return 'Order #' . ($payload['order_id'] ?? '') . ' is now ' . ($payload['status'] ?? 'updated') . '.';

@@ -51,6 +51,12 @@ class OrderController extends Controller
         if ($payment_proof_url) {
             $note_parts['payment_proof'] = $payment_proof_url;
         }
+        if (isset($data['subtotal'])) $note_parts['subtotal'] = floatval($data['subtotal']);
+        if (isset($data['tax'])) $note_parts['tax'] = floatval($data['tax']);
+        if (!empty($data['staff_discount_amount'])) $note_parts['staff_discount'] = floatval($data['staff_discount_amount']);
+        if (!empty($data['points_discount'])) $note_parts['points_discount'] = floatval($data['points_discount']);
+        if (!empty($data['discount_amount'])) $note_parts['code_discount'] = floatval($data['discount_amount']);
+        if ($use_delivery) $note_parts['delivery_fee'] = 15.0;
         $extra_note = $data['note'] ?? '';
         if (!empty($note_parts)) {
             $extra_note = json_encode($note_parts) . ($extra_note ? " | $extra_note" : '');
@@ -63,6 +69,10 @@ class OrderController extends Controller
         $this->StorePaymentByStrategy($payment_method, $order_id, $user_id, $total, 'Success');
         $this->NotifyObservers('order.created', ['user_id' => $user_id, 'order_id' => $order_id]);
         $this->NotifyObservers('payment.created', ['user_id' => $user_id, 'order_id' => $order_id]);
+        $staff = $this->q("SELECT id FROM users WHERE restaurant_id=? AND role IN ('owner','staff')", [$restaurant_id])->fetchAll();
+        foreach ($staff as $s) {
+            $this->NotifyObservers('order.received', ['user_id' => $s['id'], 'order_id' => $order_id]);
+        }
         $this->pdo->commit();
         $this->ok(['order_id' => $order_id], 'Order created');
     }

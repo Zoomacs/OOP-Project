@@ -1,11 +1,11 @@
 import { useEffect, useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import { Search, Filter } from "lucide-react";
+import { Search, Filter, Star } from "lucide-react";
 import { api } from "../../api";
 import FilterSidebar from "./FilterSidebar";
 import "./RestaurantCard.css";
 
-const CATEGORIES = ["All", "Oriental", "Fast Food", "Pizza", "Healthy", "Drinks", "Desserts"];
+const CATEGORIES = ["All", "Oriental", "Fast Food", "Pizza", "Healthy", "Drinks", "Desserts", "Offers"];
 
 function RestaurantList() {
   const [restaurants, setRestaurants] = useState([]);
@@ -110,14 +110,18 @@ function RestaurantCard({ restaurant }) {
         <h2>{restaurant.name}</h2>
         <p className="restaurant-category">{restaurant.description}</p>
         <div className="restaurant-info">
-          <span className="rating">⭐ {restaurant.rating}</span>
+          <span className="rating">
+            {[1, 2, 3, 4, 5].map((s) => (
+              <Star key={s} size={14} fill={s <= restaurant.rating ? "#f1c40f" : "none"} color={s <= restaurant.rating ? "#f1c40f" : "#dcdcdc"} />
+            ))}
+          </span>
           <span className="reviews">({restaurant.reviews})</span>
           <span className="separator">|</span>
           <span>🕒 {restaurant.time}</span>
         </div>
         <div className="restaurant-services">
-          <span>🛍 Pickup only</span>
-          {restaurant.staffDelivery && <span>🚶 Staff delivery</span>}
+          <span>{restaurant.staffDelivery ? "Pick up" : "Pickup only"}</span>
+          {restaurant.staffDelivery && <span>Staff delivery</span>}
         </div>
         <button className="view-menu-btn" onClick={() => navigate(`/restaurant/${restaurant.id}`, { state: { restaurantName: restaurant.name } })}>View Menu</button>
       </div>

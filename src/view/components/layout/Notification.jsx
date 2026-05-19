@@ -1,12 +1,31 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import AdminReturnButton from "../common/AdminReturnButton";
 import { api, getUser } from "../../api";
-import { Bell, CheckCircle2, X, Trash2 } from "lucide-react";
+import { Bell, CheckCircle2, X, Trash2, Check } from "lucide-react";
 import "./Notification.css";
 
-function NotificationCard({ image, title, description, time }) {
+function NotificationCard({ id, image, title, description, time, is_read, order_id, onMarkRead, navigate }) {
+  const handleClick = () => {
+    if (order_id) {
+      navigate(`/orderhistory?highlight=${order_id}`);
+    } else {
+      navigate("/orderhistory");
+    }
+  };
+
+  const handleMarkRead = (e) => {
+    e.stopPropagation();
+    if (onMarkRead) onMarkRead(id);
+  };
+
   return (
-    <div className="notification-card">
+    <div
+      className={`notification-card ${!is_read ? "unread" : ""}`}
+      onClick={handleClick}
+      role="button"
+      tabIndex={0}
+    >
       <div className="notification-avatar">
         {image ? <img src={image} alt={title} /> : <Bell size={22} />}
       </div>
@@ -16,6 +35,11 @@ function NotificationCard({ image, title, description, time }) {
           <span>{time}</span>
         </div>
         <p>{description}</p>
+        {!is_read && (
+          <button className="mark-read-btn" onClick={handleMarkRead} type="button">
+            <Check size={14} /> Mark as read
+          </button>
+        )}
       </div>
     </div>
   );
@@ -25,6 +49,7 @@ function Notification({ page, display, setNotification }) {
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
   const user = getUser();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (page) page("notification");
@@ -51,11 +76,35 @@ function Notification({ page, display, setNotification }) {
   async function handleClearAll() {
     await api(`notifications&user_id=${user?.id || 4}`, { method: "DELETE" });
     setNotifications([]);
+    window.dispatchEvent(new CustomEvent("notificationUpdated"));
+  }
+
+  async function handleClearRead() {
+    await api(`notifications&user_id=${user?.id || 4}&clear_read=1`, { method: "DELETE" });
+    setNotifications((prev) => prev.filter((n) => !n.is_read));
+    window.dispatchEvent(new CustomEvent("notificationUpdated"));
+  }
+
+  async function handleMarkRead(id) {
+    try {
+      await api("notifications", {
+        method: "PUT",
+        body: JSON.stringify({ id }),
+      });
+      setNotifications((prev) =>
+        prev.map((n) => (n.id === id ? { ...n, is_read: 1 } : n))
+      );
+      window.dispatchEvent(new CustomEvent("notificationUpdated"));
+    } catch {
+      // column not available until migration.sql is run
+    }
   }
 
   function closeNotification() {
     if (setNotification) setNotification("hidden notification");
   }
+
+  const unreadCount = notifications.filter((n) => !n.is_read).length;
 
   return (
     <>
@@ -64,7 +113,7 @@ function Notification({ page, display, setNotification }) {
           <div className="notification-head">
             <div>
               <h1>Notifications</h1>
-              <p>{notifications.length} new updates</p>
+              <p>{unreadCount} unread</p>
             </div>
             {setNotification && (
               <button className="notification-close" onClick={closeNotification} aria-label="Close notifications">
@@ -80,10 +129,15 @@ function Notification({ page, display, setNotification }) {
               notifications.map((item) => (
                 <NotificationCard
                   key={item.id}
+                  id={item.id}
                   image={item.image}
                   title={item.title}
                   description={item.description}
                   time={item.time}
+                  is_read={item.is_read}
+                  order_id={item.order_id}
+                  onMarkRead={handleMarkRead}
+                  navigate={navigate}
                 />
               ))
             ) : (
@@ -96,8 +150,11 @@ function Notification({ page, display, setNotification }) {
           </div>
 
           <div className="notification-bottom">
-            <button className="clearall-button" onClick={handleClearAll} disabled={notifications.length === 0}>
-              <Trash2 size={17} /> Clear All
+            <button className="clear-bottom-btn" onClick={handleClearRead} disabled={!notifications.some(n => n.is_read)}>
+              <Trash2 size={14} /> Clear read
+            </button>
+            <button className="clear-bottom-btn clear-bottom-btn-danger" onClick={handleClearAll} disabled={notifications.length === 0}>
+              <Trash2 size={14} /> Clear all
             </button>
           </div>
         </div>

@@ -20,7 +20,6 @@ api("admin-stats").then((d) =>
     <div className="dashboard-page">
       <section className="hero">
         <h1>Admin Control Center</h1>
-        <p className="subtitle">All CRUD actions are now inside the main admin pages: users, restaurants, orders, payments, and tickets.</p>
       </section>
 
       <div className="grid">

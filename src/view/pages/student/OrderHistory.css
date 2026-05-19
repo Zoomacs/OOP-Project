@@ -133,6 +133,17 @@
   overflow: hidden;
 }
 
+.modern-order-card.highlighted-order {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px var(--primary-light), 0 8px 30px rgba(0, 0, 0, 0.1);
+  animation: highlightPulse 2s ease-in-out 3;
+}
+
+@keyframes highlightPulse {
+  0%, 100% { box-shadow: 0 0 0 3px var(--primary-light), 0 8px 30px rgba(0, 0, 0, 0.1); }
+  50% { box-shadow: 0 0 0 6px var(--primary-light), 0 8px 30px rgba(0, 0, 0, 0.15); }
+}
+
 .modern-order-card:hover {
   transform: translateY(-5px);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
@@ -196,8 +207,34 @@
   font-size: 1.3rem;
   font-weight: 900;
   color: var(--primary-color);
-  margin-bottom: 14px;
+  margin-bottom: 10px;
   text-align: right;
+}
+
+.receipt-breakdown {
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  background: var(--background-color);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.receipt-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+.receipt-row span:last-child {
+  font-weight: 600;
+  color: var(--text-color);
+}
+
+.receipt-discount span:last-child {
+  color: #e74c3c;
 }
 
 .card-divider {
