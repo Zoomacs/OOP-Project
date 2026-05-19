@@ -58,7 +58,7 @@ export default function UsersManagement() {
 
   return (
     <div className="users-management-page">
-      <PageHeader title="Users CRUD" subtitle="Create, read, update, ban/unban, and delete admin, owner, staff, and student accounts.">
+      <PageHeader title="Users" subtitle="Create, read, update, ban/unban, and delete admin, owner, staff, and student accounts.">
         <input className="search" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search users..." />
       </PageHeader>
 

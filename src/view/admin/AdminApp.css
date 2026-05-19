@@ -5,12 +5,11 @@
   --fresh-green: #2f8f5b;
   --gold: #d99a16;
   --blue: #276ef1;
-  --soft-red: color-mix(in srgb, var(--primary-color) 10%, transparent);
   --soft-gold: color-mix(in srgb, var(--secondary-color) 60%, transparent);
   --soft-green: color-mix(in srgb, var(--fresh-green) 13%, transparent);
   --soft-blue: color-mix(in srgb, var(--blue) 12%, transparent);
   min-height: 100vh;
-  background: radial-gradient(circle at top left, color-mix(in srgb, var(--primary-color) 10%, transparent), transparent 30%), var(--background-color);
+  background: var(--background-color);
   color: var(--text-color);
 }
 

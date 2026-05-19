@@ -46,7 +46,7 @@ export default function PaymentMonitoring() {
 
   return (
     <div className="payment-monitoring-page">
-      <PageHeader title="Payments CRUD" subtitle="Create, read, update, and delete payment records.">
+      <PageHeader title="Payments" subtitle="Create, read, update, and delete payment records.">
         <input className="search" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search payments..." />
       </PageHeader>
 

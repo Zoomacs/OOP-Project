@@ -119,7 +119,7 @@ export default function Tickets() {
   return (
     <div className="tickets-page">
       <PageHeader
-        title="Tickets CRUD"
+        title="Tickets"
         subtitle="Create, read, reply, update status, and delete support tickets."
       >
         <input

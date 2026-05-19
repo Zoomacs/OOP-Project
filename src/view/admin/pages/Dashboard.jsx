@@ -23,7 +23,7 @@ api("admin-stats").then((d) =>
       </section>
 
       <div className="grid">
-        <StatCard title="Total Users" value={stats.users} badge="CRUD" badgeClass="green" />
+        <StatCard title="Total Users" value={stats.users} />
         <StatCard title="Restaurants" value={stats.restaurants} badge="Managed" badgeClass="blue" />
         <StatCard title="Orders" value={stats.orders} badge="Live" badgeClass="gold" />
         <StatCard title="Revenue" value={`${stats.revenue} EGP`} badge="DB" badgeClass="green" />

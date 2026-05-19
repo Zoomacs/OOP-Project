@@ -24,16 +24,7 @@
   overflow: hidden;
 }
 
-.card::before {
-  content: "";
-  position: absolute;
-  left: 20px;
-  right: 20px;
-  top: 0;
-  height: 4px;
-  border-radius: 0 0 10px 10px;
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-}
+
 
 .card h3 {
   margin: 4px 0 10px;
@@ -66,13 +57,13 @@
   line-height: 1.15;
   text-align: center;
   white-space: nowrap;
-  background: var(--soft-red);
-  color: var(--primary-color);
+  background: var(--nav-icon-hover);
+  color: var(--text-color);
 }
 
 .badge.red {
-  background: var(--soft-red);
-  color: var(--primary-color);
+  background: var(--nav-icon-hover);
+  color: var(--text-color);
 }
 
 .badge.gold {
@@ -142,7 +133,7 @@ tbody tr:hover {
   padding: 11px 16px;
   border-radius: 12px;
   color: var(--button-text);
-  background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+  background: var(--primary-color);
   font-weight: 900;
   cursor: pointer;
   transition: 0.2s;
@@ -172,8 +163,8 @@ tbody tr:hover {
 }
 
 .btn.red {
-  background: var(--primary-color);
-  color: var(--button-text);
+  background: var(--nav-icon-hover);
+  color: var(--text-color);
 }
 
 .btn.green {

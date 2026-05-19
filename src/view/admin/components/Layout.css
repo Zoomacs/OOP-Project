@@ -17,7 +17,7 @@
   align-items: center;
   gap: 8px;
   border: 1px solid color-mix(in srgb, var(--primary-color) 40%, transparent);
-  background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+  background: var(--primary-color);
   color: var(--button-text);
   padding: 11px 16px;
   border-radius: 999px;
@@ -56,13 +56,7 @@
   transform: translateX(0);
 }
 
-.sidebar::before {
-  content: "";
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 4px;
-  background: linear-gradient(var(--primary-color), var(--secondary-color));
-}
+
 
 .sidebar-header {
   display: flex;
@@ -139,7 +133,7 @@
 .admin-logout-btn {
   width: 100%;
   border: 0;
-  background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+  background: var(--primary-color);
   color: var(--button-text);
   padding: 12px 14px;
   border-radius: 14px;

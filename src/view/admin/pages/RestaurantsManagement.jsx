@@ -55,7 +55,7 @@ export default function RestaurantsManagement() {
 
   return (
     <div className="restaurants-management-page">
-      <PageHeader title="Restaurants CRUD" subtitle="Create, read, update, delete, open/close, and assign restaurants to owners.">
+      <PageHeader title="Restaurants" subtitle="Create, read, update, delete, open/close, and assign restaurants to owners.">
         <input className="search" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search restaurants..." />
       </PageHeader>
 

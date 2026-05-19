@@ -22,11 +22,11 @@ import "./Layout.css";
 
 const adminPages = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard },
-  { to: "/admin/users-management", label: "Users CRUD", icon: Users },
-  { to: "/admin/restaurants-management", label: "Restaurants CRUD", icon: Store },
-  { to: "/admin/orders-monitoring", label: "Orders CRUD", icon: ClipboardList },
-  { to: "/admin/payment-monitoring", label: "Payments CRUD", icon: CreditCard },
-  { to: "/admin/tickets", label: "Tickets CRUD", icon: Ticket },
+  { to: "/admin/users-management", label: "Users", icon: Users },
+  { to: "/admin/restaurants-management", label: "Restaurants", icon: Store },
+  { to: "/admin/orders-monitoring", label: "Orders", icon: ClipboardList },
+  { to: "/admin/payment-monitoring", label: "Payments", icon: CreditCard },
+  { to: "/admin/tickets", label: "Tickets", icon: Ticket },
   { to: "/admin/system-analytics", label: "System Analytics", icon: ChartNoAxesCombined },
   { to: "/admin/view-customers", label: "Customers", icon: UserRoundSearch },
   { to: "/admin/view-transactions", label: "Transactions", icon: ReceiptText },

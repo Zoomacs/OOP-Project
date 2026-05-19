@@ -50,7 +50,7 @@ export default function OrdersMonitoring() {
 
   return (
     <div className="orders-monitoring-page">
-      <PageHeader title="Orders CRUD" subtitle="Read all orders, change status, edit order values, and delete incorrect records.">
+      <PageHeader title="Orders" subtitle="Read all orders, change status, edit order values, and delete incorrect records.">
         <input className="search" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search orders..." />
       </PageHeader>
 
