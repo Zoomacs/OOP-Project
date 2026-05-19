@@ -1,7 +1,7 @@
 <?php
 class RestaurantController extends Controller
 {
-    public function IndexRestaurant()
+    public function ReadRestaurant()
     {
         $owner_id = intval($_GET['owner_user_id'] ?? 0);
         $restaurant_id = intval($_GET['restaurant_id'] ?? 0);
@@ -23,7 +23,7 @@ class RestaurantController extends Controller
         $this->ok(['restaurants' => $rows, 'restaurant' => $rows[0] ?? null]);
     }
 
-    public function StoreRestaurant($data)
+    public function CreateRestaurant($data)
     {
         $image = $this->saveBase64Image($data['image_data'] ?? ($data['image_url'] ?? ''), 'restaurants');
         $this->q("INSERT INTO restaurants (owner_user_id, name, owner_name, owner_email, phone, category, description, address, opening_hours, image_url, is_open, staff_delivery) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)", [
@@ -47,22 +47,21 @@ class RestaurantController extends Controller
         $this->ok(['image_url' => $image], 'Restaurant updated');
     }
 
-    public function DestroyRestaurant($data)
+    public function DeleteRestaurant($data)
     {
         $id = intval($_GET['id'] ?? $data['id'] ?? 0);
         $this->q("DELETE FROM restaurants WHERE id=?", [$id]);
         $this->ok([], 'Restaurant removed');
     }
 
-    // Backward-compatible route method names
-    public function index()
+    public function read()
     {
-        return $this->IndexRestaurant();
+        return $this->ReadRestaurant();
     }
 
-    public function store($data)
+    public function create($data)
     {
-        return $this->StoreRestaurant($data);
+        return $this->CreateRestaurant($data);
     }
 
     public function update($data)
@@ -70,9 +69,9 @@ class RestaurantController extends Controller
         return $this->UpdateRestaurant($data);
     }
 
-    public function destroy($data)
+    public function delete($data)
     {
-        return $this->DestroyRestaurant($data);
+        return $this->DeleteRestaurant($data);
     }
 
 

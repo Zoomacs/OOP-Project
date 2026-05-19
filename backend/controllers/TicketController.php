@@ -15,7 +15,7 @@ class TicketController extends Controller
         return $this->q("SELECT * FROM tickets WHERE id=? LIMIT 1", [$id])->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function IndexTicket()
+    public function ReadTicket()
     {
         $userId = intval($_GET['user_id'] ?? 0);
         $email = trim($_GET['email'] ?? '');
@@ -52,7 +52,7 @@ class TicketController extends Controller
         ]);
     }
 
-    public function StoreTicket($data)
+    public function CreateTicket($data)
     {
         $title = trim($data['title'] ?? '');
         $message = trim($data['message'] ?? $data['text'] ?? '');
@@ -115,7 +115,7 @@ class TicketController extends Controller
         ]);
     }
 
-    public function DestroyTicket($data)
+    public function DeleteTicket($data)
     {
         $id = $this->NormalizeTicketId($data);
         if ($id <= 0) $id = $this->NormalizeTicketId($_GET['id'] ?? 0);
@@ -130,14 +130,14 @@ class TicketController extends Controller
     }
 
     // Backward-compatible route method names
-    public function index()
+    public function read()
     {
-        return $this->IndexTicket();
+        return $this->ReadTicket();
     }
 
-    public function store($data)
+    public function create($data)
     {
-        return $this->StoreTicket($data);
+        return $this->CreateTicket($data);
     }
 
     public function update($data)
@@ -145,9 +145,9 @@ class TicketController extends Controller
         return $this->UpdateTicket($data);
     }
 
-    public function destroy($data)
+    public function delete($data)
     {
-        return $this->DestroyTicket($data);
+        return $this->DeleteTicket($data);
     }
 
 

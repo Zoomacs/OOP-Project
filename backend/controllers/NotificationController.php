@@ -41,7 +41,7 @@ class NotificationController extends Controller
     }
 
     // Backward-compatible route method names
-    public function index()
+    public function read()
     {
         return $this->IndexNotification();
     }
@@ -51,7 +51,7 @@ class NotificationController extends Controller
         return $this->MarkReadNotification($data);
     }
 
-    public function destroy($data)
+    public function delete($data)
     {
         return $this->DestroyNotification($data);
     }

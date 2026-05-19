@@ -21,10 +21,58 @@ class Router
 
         if ($this->route === 'users') {
             $c = new UserController();
-            if ($this->method === 'GET') return $c->index();
-            if ($this->method === 'POST') return $c->store($this->data);
+            if ($this->method === 'GET') return $c->read();
+            if ($this->method === 'POST') return $c->create($this->data);
             if ($this->method === 'PUT') return $c->update($this->data);
-            if ($this->method === 'DELETE') return $c->destroy($this->data);
+            if ($this->method === 'DELETE') return $c->delete($this->data);
+        }
+        if ($this->route === 'ban-user' && $this->method === 'POST') return (new UserController())->ban($this->data);
+
+        if ($this->route === 'restaurants') {
+            $c = new RestaurantController();
+            if ($this->method === 'GET') return $c->read();
+            if ($this->method === 'POST') return $c->create($this->data);
+            if ($this->method === 'PUT') return $c->update($this->data);
+            if ($this->method === 'DELETE') return $c->delete($this->data);
+        }
+
+        if ($this->route === 'menu') {
+            $c = new MenuController();
+            if ($this->method === 'GET') return $c->read();
+            if ($this->method === 'POST') return $c->create($this->data);
+            if ($this->method === 'PUT') return $c->update($this->data);
+            if ($this->method === 'DELETE') return $c->delete($this->data);
+        }
+
+        if ($this->route === 'orders') {
+            $c = new OrderController();
+            if ($this->method === 'GET') return $c->read();
+            if ($this->method === 'POST') return $c->create($this->data);
+            if ($this->method === 'PUT') return $c->update($this->data);
+            if ($this->method === 'DELETE') return $c->delete($this->data);
+        }
+
+        if ($this->route === 'payments' || $this->route === 'transactions') {
+            $c = new PaymentController();
+            if ($this->method === 'GET') return $c->read();
+            if ($this->method === 'POST') return $c->create($this->data);
+            if ($this->method === 'PUT') return $c->update($this->data);
+            if ($this->method === 'DELETE') return $c->delete($this->data);
+        }
+
+        if ($this->route === 'tickets') {
+            $c = new TicketController();
+            if ($this->method === 'GET') return $c->read();
+            if ($this->method === 'POST') return $c->create($this->data);
+            if ($this->method === 'PUT') return $c->update($this->data);
+            if ($this->method === 'DELETE') return $c->delete($this->data);
+        }
+
+        if ($this->route === 'notifications') {
+            $c = new NotificationController();
+            if ($this->method === 'GET') return $c->read();
+            if ($this->method === 'PUT') return $c->markRead($this->data);
+            if ($this->method === 'DELETE') return $c->delete($this->data);
         }
         if ($this->route === 'ban-user' && $this->method === 'POST') return (new UserController())->ban($this->data);
 

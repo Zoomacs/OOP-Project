@@ -19,6 +19,5 @@ class StatsController extends Controller
         $this->ok(['stats' => ['orders'=>$orders, 'revenue'=>$revenue, 'items'=>$items]]);
     }
 
-    // Backward-compatible route method names
 
 }

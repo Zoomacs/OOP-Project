@@ -1,7 +1,7 @@
 <?php
 class UserController extends Controller
 {
-    public function IndexUser()
+    public function ReadUser()
     {
         $rows = $this->q("SELECT u.id, u.name, u.email, u.university_id, u.role, u.restaurant_id, r.name AS restaurant_name,
             CONCAT(UCASE(LEFT(u.role,1)), SUBSTRING(u.role,2)) AS type, u.status, u.department,
@@ -11,7 +11,7 @@ class UserController extends Controller
         $this->ok(['users' => $rows]);
     }
 
-    public function StoreUser($data)
+    public function CreateUser($data)
     {
         $name = trim($data['name'] ?? '');
         $email = trim($data['email'] ?? '');
@@ -42,7 +42,7 @@ class UserController extends Controller
         $this->ok([], 'User updated');
     }
 
-    public function DestroyUser($data)
+    public function DeleteUser($data)
     {
         $id = intval($_GET['id'] ?? $data['id'] ?? 0);
         if ($id <= 0) $this->fail('User id is required');
@@ -61,14 +61,14 @@ class UserController extends Controller
     }
 
     // Backward-compatible route method names
-    public function index()
+    public function read()
     {
-        return $this->IndexUser();
+        return $this->ReadUser();
     }
 
-    public function store($data)
+    public function create($data)
     {
-        return $this->StoreUser($data);
+        return $this->CreateUser($data);
     }
 
     public function update($data)
@@ -76,9 +76,9 @@ class UserController extends Controller
         return $this->UpdateUser($data);
     }
 
-    public function destroy($data)
+    public function delete($data)
     {
-        return $this->DestroyUser($data);
+        return $this->DeleteUser($data);
     }
 
     public function ban($data)

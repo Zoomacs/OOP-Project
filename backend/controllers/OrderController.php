@@ -3,7 +3,7 @@ require_once __DIR__ . '/DesignPatterns.php';
 class OrderController extends Controller
 {
     use UsesDesignPatterns;
-    public function IndexOrder()
+    public function ReadOrder()
     {
         $user_id = intval($_GET['user_id'] ?? 0);
         $restaurant_id = intval($_GET['restaurant_id'] ?? 0);
@@ -17,7 +17,7 @@ class OrderController extends Controller
         $this->ok(['orders' => $this->q($sql, $params)->fetchAll()]);
     }
 
-    public function StoreOrder($data)
+    public function CreateOrder($data)
     {
         $this->pdo->beginTransaction();
         $user_id = intval($data['user_id'] ?? 1);
@@ -85,7 +85,7 @@ class OrderController extends Controller
         $this->ok([], 'Order updated');
     }
 
-    public function DestroyOrder($data)
+    public function DeleteOrder($data)
     {
         $id = intval($_GET['id'] ?? $data['id'] ?? 0);
         if ($id <= 0) $this->fail('Order id is required');
@@ -122,14 +122,14 @@ class OrderController extends Controller
     }
 
     // Backward-compatible route method names
-    public function index()
+    public function read()
     {
-        return $this->IndexOrder();
+        return $this->ReadOrder();
     }
 
-    public function store($data)
+    public function create($data)
     {
-        return $this->StoreOrder($data);
+        return $this->CreateOrder($data);
     }
 
     public function update($data)
@@ -137,9 +137,9 @@ class OrderController extends Controller
         return $this->UpdateOrder($data);
     }
 
-    public function destroy($data)
+    public function delete($data)
     {
-        return $this->DestroyOrder($data);
+        return $this->DeleteOrder($data);
     }
 
     public function restaurantOrders()

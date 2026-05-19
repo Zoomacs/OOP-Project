@@ -3,13 +3,13 @@ require_once __DIR__ . '/DesignPatterns.php';
 class PaymentController extends Controller
 {
     use UsesDesignPatterns;
-    public function IndexPayment()
+    public function ReadPayment()
     {
         $rows = $this->q("SELECT p.id AS raw_id, CONCAT('#TRX-', p.id) AS id, p.order_id, p.user_id, DATE_FORMAT(p.created_at,'%Y-%m-%d') AS date, COALESCE(u.name,'Guest') AS user, r.name AS restaurant, p.method, p.amount AS amount_value, CONCAT(p.amount,' EGP') AS amount, p.status FROM payments p LEFT JOIN users u ON u.id=p.user_id LEFT JOIN orders o ON o.id=p.order_id LEFT JOIN restaurants r ON r.id=o.restaurant_id ORDER BY p.id DESC")->fetchAll();
         $this->ok(['transactions' => $rows, 'payments' => $rows]);
     }
 
-    public function StorePayment($data)
+    public function CreatePayment($data)
     {
         $order_id = intval($data['order_id'] ?? 0);
         $user_id = intval($data['user_id'] ?? 0) ?: null;
@@ -29,7 +29,7 @@ class PaymentController extends Controller
         $this->ok([], 'Payment updated');
     }
 
-    public function DestroyPayment($data)
+    public function DeletePayment($data)
     {
         $id = intval($_GET['id'] ?? $data['id'] ?? 0);
         if ($id <= 0) $this->fail('Payment id is required');
@@ -38,14 +38,14 @@ class PaymentController extends Controller
     }
 
     // Backward-compatible route method names
-    public function index()
+    public function read()
     {
-        return $this->IndexPayment();
+        return $this->ReadPayment();
     }
 
-    public function store($data)
+    public function create($data)
     {
-        return $this->StorePayment($data);
+        return $this->CreatePayment($data);
     }
 
     public function update($data)
@@ -53,9 +53,9 @@ class PaymentController extends Controller
         return $this->UpdatePayment($data);
     }
 
-    public function destroy($data)
+    public function delete($data)
     {
-        return $this->DestroyPayment($data);
+        return $this->DeletePayment($data);
     }
 
 

@@ -3,7 +3,7 @@ require_once __DIR__ . '/DesignPatterns.php';
 class MenuController extends Controller
 {
     use UsesDesignPatterns;
-    public function IndexMenu()
+    public function ReadMenu()
     {
         $restaurant_id = intval($_GET['restaurant_id'] ?? $_GET['id'] ?? 1);
         $available_only = intval($_GET['available_only'] ?? 0);
@@ -25,7 +25,7 @@ class MenuController extends Controller
         $this->ok(['menu' => $rows, 'items' => $rows]);
     }
 
-    public function StoreMenu($data)
+    public function CreateMenu($data)
     {
         $restaurant_id = intval($data['restaurant_id'] ?? 0);
         if ($restaurant_id <= 0) $this->fail('Restaurant id is required');
@@ -49,7 +49,7 @@ class MenuController extends Controller
         $this->ok(['image_url' => $image], 'Menu item updated');
     }
 
-    public function DestroyMenu($data)
+    public function DeleteMenu($data)
     {
         $id = intval($_GET['id'] ?? $data['id'] ?? 0);
         $this->q("DELETE FROM menu_items WHERE id=?", [$id]);
@@ -58,14 +58,14 @@ class MenuController extends Controller
     }
 
     // Backward-compatible route method names
-    public function index()
+    public function read()
     {
-        return $this->IndexMenu();
+        return $this->ReadMenu();
     }
 
-    public function store($data)
+    public function create($data)
     {
-        return $this->StoreMenu($data);
+        return $this->CreateMenu($data);
     }
 
     public function update($data)
@@ -73,9 +73,9 @@ class MenuController extends Controller
         return $this->UpdateMenu($data);
     }
 
-    public function destroy($data)
+    public function delete($data)
     {
-        return $this->DestroyMenu($data);
+        return $this->DeleteMenu($data);
     }
 
 
